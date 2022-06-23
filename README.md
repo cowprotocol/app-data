@@ -1,0 +1,2 @@
+# appDataSchema
+AppData Schema definitions
