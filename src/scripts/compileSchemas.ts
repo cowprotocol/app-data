@@ -43,7 +43,7 @@ async function compileSchemas(): Promise<void> {
 
     // Add export on types/index.ts for this version
     const exportName = version.replace(/\./g, '_')
-    const versionImportPath = `${TYPES_BASE_PATH}/${version}`
+    const versionImportPath = `./${version}`
     // await typesIndexFile.write(`export * as ${exportName} from '${versionImportPath}'\n`)
     await typesIndexFile.write(`export * as ${exportName} from '${versionImportPath}'\n`)
 

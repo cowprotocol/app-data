@@ -1,1 +1,1 @@
-export * from 'generatedTypes'
+export * from './generatedTypes'
