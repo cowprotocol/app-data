@@ -26,7 +26,10 @@ export type ReferrerAddress = string;
  * Semantic versioning of document
  */
 export type SemanticVersioning2 = string;
-export type SlippageToleranceThatWasAppliedToTheOrderToGetTheLimitPriceExpressedInBasisPointsBIPS = string;
+/**
+ * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS)
+ */
+export type SlippageBips = string;
 
 /**
  * Metadata JSON document for adding information to orders.
@@ -53,6 +56,6 @@ export interface Referrer {
 }
 export interface Quote {
   version: SemanticVersioning2;
-  slippageBips: SlippageToleranceThatWasAppliedToTheOrderToGetTheLimitPriceExpressedInBasisPointsBIPS;
+  slippageBips: SlippageBips;
   [k: string]: unknown;
 }
