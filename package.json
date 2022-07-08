@@ -1,0 +1,39 @@
+{
+  "name": "@cowprotocol/app-data",
+  "version": "0.0.1",
+  "description": "CowProtocol AppData Schema definitions",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": {
+    "require": "./dist/index.csj",
+    "default": "./dist/index.modern.csj"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "clearBuild": "rm -rf dist/* && rm -rf generatedTypes/*",
+    "compileSchemas": "ts-node --esm src/scripts/compileSchemas.ts --experimental-specifier-resolution=node",
+    "build": "yarn clearBuild && yarn compileSchemas && microbundle",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cowprotocol/appDataSchema.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cowprotocol/appDataSchema/issues"
+  },
+  "homepage": "https://github.com/cowprotocol/appDataSchema#readme",
+  "devDependencies": {
+    "json-schema-to-typescript": "^10.1.5",
+    "microbundle": "^0.15.0",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}
