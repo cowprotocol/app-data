@@ -1,0 +1,32 @@
+{
+  "$id": "https://cowswap.exchange/schema/appData/quote/v0.1.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "required": [
+    "sellAmount",
+    "buyAmount",
+    "version"
+  ],
+  "title": "Quote",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$id": "#/properties/id",
+      "title": "Quote id",
+      "examples": [
+        "XA23443543534FF"
+      ],
+      "type": "string"
+    },
+    "sellAmount": {
+      "$ref": "../v0.2.0.json#/definitions/bigNumber",
+      "title": "Quote sell amount"
+    },
+    "buyAmount": {
+      "$ref": "../v0.2.0.json#/definitions/bigNumber",
+      "title": "Quote buy amount"
+    },
+    "version": {
+      "$ref": "../v0.2.0.json#/definitions/version"
+    }
+  }
+}

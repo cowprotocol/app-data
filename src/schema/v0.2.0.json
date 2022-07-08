@@ -1,0 +1,78 @@
+{
+  "$id": "https://cowswap.exchange/schema/appData/v0.2.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "Metadata JSON document for adding information to orders.",
+  "required": [
+    "version",
+    "metadata"
+  ],
+  "title": "AppData Root Schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "$id": "#/properties/version",
+      "description": "Semantic versioning of document",
+      "examples": [
+        "1.0.0",
+        "1.2.3"
+      ],
+      "title": "Semantic Versioning",
+      "type": "string"
+    },
+    "appCode": {
+      "$id": "#/properties/appCode",
+      "description": "The code identifying the CLI, UI, service generating the order.",
+      "examples": [
+        "CowSwap"
+      ],
+      "title": "App Code",
+      "type": "string"
+    },
+    "metadata": {
+      "$id": "#/properties/metadata",
+      "default": {},
+      "description": "Each metadata will specify one aspect of the order.",
+      "required": [],
+      "title": "Metadata descriptors",
+      "type": "object",
+      "properties": {
+        "referrer": {
+          "$ref": "referrer/v0.1.0.json#"
+        },
+        "quote": {
+          "$ref": "quote/v0.1.0.json#"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "version": {
+      "$id": "#/definitions/version",
+      "description": "Semantic versioning of document",
+      "examples": [
+        "1.0.0",
+        "1.2.3"
+      ],
+      "title": "Semantic Versioning",
+      "type": "string"
+    },
+    "ethereumAddress": {
+      "$id": "#/definitions/ethereumAddress",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "title": "Ethereum compatible address",
+      "examples": [
+        "0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9"
+      ],
+      "type": "string"
+    },
+    "bigNumber": {
+      "$id": "#/definitions/bigNumber",
+      "pattern": "\\d+",
+      "title": "BigNumber",
+      "examples": [
+        "90741097240912730913, 0, 75891372"
+      ],
+      "type": "string"
+    }
+  }
+}

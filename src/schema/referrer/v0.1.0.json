@@ -1,0 +1,19 @@
+{
+  "$id": "https://cowswap.exchange/schema/appData/referrer/v0.1.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "required": [
+    "version",
+    "address"
+  ],
+  "title": "Referrer",
+  "type": "object",
+  "properties": {
+    "version": {
+      "$ref": "../v0.1.0.json#/definitions/version"
+    },
+    "address": {
+      "$ref": "../v0.1.0.json#/definitions/ethereumAddress",
+      "title": "Referrer address"
+    }
+  }
+}
