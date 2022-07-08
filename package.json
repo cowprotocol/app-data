@@ -23,13 +23,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cowprotocol/appDataSchema.git"
+    "url": "git+https://github.com/cowprotocol/app-data.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cowprotocol/appDataSchema/issues"
+    "url": "https://github.com/cowprotocol/app-data/issues"
   },
-  "homepage": "https://github.com/cowprotocol/appDataSchema#readme",
+  "homepage": "https://github.com/cowprotocol/app-data#readme",
   "devDependencies": {
     "json-schema-to-typescript": "^10.1.5",
     "microbundle": "^0.15.0",
