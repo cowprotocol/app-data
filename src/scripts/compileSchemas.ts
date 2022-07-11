@@ -2,14 +2,14 @@ import {compileFromFile} from 'json-schema-to-typescript'
 import * as fs from 'fs'
 import * as path from 'path'
 
-const SCHEMAS_PATH = path.join('src', 'schema')
-const BASE_OUT_PATH = 'dist'
+const SCHEMAS_PATH = 'schema'
+// const BASE_OUT_PATH = 'dist'
 const TYPES_BASE_PATH = 'generatedTypes'
 const TYPES_OUT_PATH = path.join('src', TYPES_BASE_PATH)
 
 async function compileSchemas(): Promise<void> {
   // Copies `schema` to `dist`
-  await fs.promises.cp(SCHEMAS_PATH, BASE_OUT_PATH, {recursive: true})
+  // await fs.promises.cp(SCHEMAS_PATH, BASE_OUT_PATH, {recursive: true})
 
   // Creates types out dir
   await fs.promises.mkdir(TYPES_OUT_PATH, {recursive: true})

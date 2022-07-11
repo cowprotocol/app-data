@@ -13,7 +13,8 @@
   "unpkg": "./dist/index.umd.js",
   "types": "dist/index.d.ts",
   "files": [
-    "/dist"
+    "/dist",
+    "/schema"
   ],
   "scripts": {
     "clearBuild": "rm -rf dist/* && rm -rf generatedTypes/*",
