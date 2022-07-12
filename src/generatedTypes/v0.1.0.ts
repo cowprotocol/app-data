@@ -13,10 +13,6 @@ export type SemanticVersioning = string;
  * The code identifying the CLI, UI, service generating the order.
  */
 export type AppCode = string;
-/**
- * Semantic versioning of document
- */
-export type SemanticVersioning1 = string;
 export type ReferrerAddress = string;
 
 /**
@@ -36,7 +32,7 @@ export interface MetadataDescriptors {
   [k: string]: unknown;
 }
 export interface Referrer {
-  version: SemanticVersioning1;
+  version: SemanticVersioning;
   address: ReferrerAddress;
   [k: string]: unknown;
 }

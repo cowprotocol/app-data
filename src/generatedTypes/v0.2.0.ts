@@ -13,18 +13,10 @@ export type SemanticVersioning = string;
  * The code identifying the CLI, UI, service generating the order.
  */
 export type AppCode = string;
-/**
- * Semantic versioning of document
- */
-export type SemanticVersioning1 = string;
 export type ReferrerAddress = string;
 export type QuoteId = string;
 export type QuoteSellAmount = string;
 export type QuoteBuyAmount = string;
-/**
- * Semantic versioning of document
- */
-export type SemanticVersioning2 = string;
 
 /**
  * Metadata JSON document for adding information to orders.
@@ -44,7 +36,7 @@ export interface MetadataDescriptors {
   [k: string]: unknown;
 }
 export interface Referrer {
-  version: SemanticVersioning1;
+  version: SemanticVersioning;
   address: ReferrerAddress;
   [k: string]: unknown;
 }
@@ -52,6 +44,6 @@ export interface Quote {
   id?: QuoteId;
   sellAmount: QuoteSellAmount;
   buyAmount: QuoteBuyAmount;
-  version: SemanticVersioning2;
+  version: SemanticVersioning;
   [k: string]: unknown;
 }
