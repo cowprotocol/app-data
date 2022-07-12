@@ -9,7 +9,7 @@
   "type": "object",
   "properties": {
     "version": {
-      "$ref": "../v0.4.0.json#/definitions/version"
+      "$ref": "../definitions.json#/definitions/version"
     },
     "slippageBips": {
       "$id": "#/properties/slippageBips",

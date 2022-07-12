@@ -18,15 +18,15 @@
       "type": "string"
     },
     "sellAmount": {
-      "$ref": "../v0.2.0.json#/definitions/bigNumber",
+      "$ref": "../definitions.json#/definitions/bigNumber",
       "title": "Quote sell amount"
     },
     "buyAmount": {
-      "$ref": "../v0.2.0.json#/definitions/bigNumber",
+      "$ref": "../definitions.json#/definitions/bigNumber",
       "title": "Quote buy amount"
     },
     "version": {
-      "$ref": "../v0.2.0.json#/definitions/version"
+      "$ref": "../definitions.json#/definitions/version"
     }
   }
 }

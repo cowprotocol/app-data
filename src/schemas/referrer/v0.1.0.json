@@ -9,10 +9,10 @@
   "type": "object",
   "properties": {
     "version": {
-      "$ref": "../v0.1.0.json#/definitions/version"
+      "$ref": "../definitions.json#/definitions/version"
     },
     "address": {
-      "$ref": "../v0.1.0.json#/definitions/ethereumAddress",
+      "$ref": "../definitions.json#/definitions/ethereumAddress",
       "title": "Referrer address"
     }
   }

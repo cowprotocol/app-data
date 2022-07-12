@@ -10,14 +10,7 @@
   "type": "object",
   "properties": {
     "version": {
-      "$id": "#/properties/version",
-      "description": "Semantic versioning of document",
-      "examples": [
-        "1.0.0",
-        "1.2.3"
-      ],
-      "title": "Semantic Versioning",
-      "type": "string"
+      "$ref": "definitions.json#/definitions/version"
     },
     "appCode": {
       "$id": "#/properties/appCode",
@@ -40,27 +33,6 @@
           "$ref": "referrer/v0.1.0.json#"
         }
       }
-    }
-  },
-  "definitions": {
-    "version": {
-      "$id": "#/definitions/version",
-      "description": "Semantic versioning of document",
-      "examples": [
-        "1.0.0",
-        "1.2.3"
-      ],
-      "title": "Semantic Versioning",
-      "type": "string"
-    },
-    "ethereumAddress": {
-      "$id": "#/definitions/ethereumAddress",
-      "pattern": "^0x[a-fA-F0-9]{40}$",
-      "title": "Ethereum compatible address",
-      "examples": [
-        "0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9"
-      ],
-      "type": "string"
     }
   }
 }
