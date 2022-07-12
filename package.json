@@ -14,10 +14,10 @@
   "types": "dist/index.d.ts",
   "files": [
     "/dist",
-    "/schema"
+    "/schemas"
   ],
   "scripts": {
-    "clearBuild": "rm -rf dist/* && rm -rf generatedTypes/*",
+    "clearBuild": "rm -rf dist/* && rm -rf generatedTypes/* && rm -rf schemas/",
     "compileSchemas": "ts-node --esm src/scripts/compileSchemas.ts --experimental-specifier-resolution=node",
     "build": "yarn clearBuild && yarn compileSchemas && microbundle",
     "prepare": "npm run build"
