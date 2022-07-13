@@ -1,0 +1,35 @@
+{
+  "$id": "#definitions.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "Definitions sub-schema",
+  "definitions": {
+    "version": {
+      "$id": "#/definitions/version",
+      "description": "Semantic versioning of document",
+      "examples": [
+        "1.0.0",
+        "1.2.3"
+      ],
+      "title": "Semantic Versioning",
+      "type": "string"
+    },
+    "ethereumAddress": {
+      "$id": "#/definitions/ethereumAddress",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "title": "Ethereum compatible address",
+      "examples": [
+        "0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9"
+      ],
+      "type": "string"
+    },
+    "bigNumber": {
+      "$id": "#/definitions/bigNumber",
+      "pattern": "^\\d+$",
+      "title": "BigNumber",
+      "examples": [
+        "90741097240912730913, 0, 75891372"
+      ],
+      "type": "string"
+    }
+  }
+}
