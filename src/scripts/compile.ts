@@ -27,7 +27,7 @@ async function compile(): Promise<void> {
     if (!schemaFileName.isFile() || !/^v\d+\.\d+\.\d+\.json$/.test(schemaFileName.name)) continue
 
     // Extracts version from file name
-    const [version,] = schemaFileName.name.split("\.json")
+    const [version] = schemaFileName.name.split("\.json")
 
     // Get schema path relative to repo root
     const schemaPath = path.join(SCHEMAS_SRC_PATH, schemaFileName.name)
