@@ -36,7 +36,6 @@ function createAppDataV0_4_0(
 
 ## TODO:
 
-- [ ] Setup npm publishing
 - [ ] Add tests for:
   - [ ] Consuming only the schema
   - [ ] Importing the type definitions
