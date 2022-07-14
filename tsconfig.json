@@ -10,6 +10,6 @@
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "baseUrl": "src",
-  },
+    "baseUrl": "src"
+  }
 }
