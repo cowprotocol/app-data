@@ -8,7 +8,7 @@
 /**
  * Semantic versioning of document
  */
-export type SemanticVersioning = string;
+export type Version = string;
 /**
  * The code identifying the CLI, UI, service generating the order.
  */
@@ -26,7 +26,7 @@ export type QuoteBuyAmount = string;
  * Metadata JSON document for adding information to orders.
  */
 export interface AppDataRootSchema {
-  version: SemanticVersioning;
+  version: Version;
   appCode?: AppCode;
   environment?: Environment;
   metadata: Metadata;
@@ -41,7 +41,7 @@ export interface Metadata {
   [k: string]: unknown;
 }
 export interface Referrer {
-  version: SemanticVersioning;
+  version: Version;
   address: ReferrerAddress;
   [k: string]: unknown;
 }
@@ -49,6 +49,6 @@ export interface Quote {
   id?: QuoteId;
   sellAmount: QuoteSellAmount;
   buyAmount: QuoteBuyAmount;
-  version: SemanticVersioning;
+  version: Version;
   [k: string]: unknown;
 }
