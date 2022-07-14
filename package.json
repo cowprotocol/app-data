@@ -18,8 +18,8 @@
   ],
   "scripts": {
     "clean": "rm -rf dist/* && rm -rf src/generatedTypes/* && rm -rf schemas/",
-    "compileSchemas": "ts-node --esm src/scripts/compileSchemas.ts --experimental-specifier-resolution=node",
-    "build": "yarn clean && yarn compileSchemas && microbundle",
+    "compile": "ts-node --esm src/scripts/compile.ts --experimental-specifier-resolution=node",
+    "build": "yarn clean && yarn compile && microbundle",
     "prepare": "npm run build"
   },
   "repository": {

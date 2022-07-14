@@ -7,7 +7,7 @@ const SCHEMAS_SRC_PATH = path.join('src', 'schemas')
 const SCHEMAS_DEST_PATH = 'schemas'
 const TYPES_DEST_PATH = path.join('src', 'generatedTypes')
 
-async function compileSchemas(): Promise<void> {
+async function compile(): Promise<void> {
   // Creates destinations dirs
   console.info(`Creating '${TYPES_DEST_PATH}' and '${SCHEMAS_DEST_PATH}' dirs`)
   await fs.promises.mkdir(TYPES_DEST_PATH, {recursive: true})
@@ -53,4 +53,4 @@ async function compileSchemas(): Promise<void> {
   await typesIndexFile.close()
 }
 
-compileSchemas()
+compile()
