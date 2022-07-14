@@ -24,7 +24,7 @@ import { v0_4_0 } from '@cowprotocol/app-data'
 
 function createAppDataV0_4_0(
   appCode: v0_4_0.AppCode, 
-  metadata: v0_4_0.MetadataDescriptors
+  metadata: v0_4_0.Metadata
 ): v0_4_0.AppDataRootSchema {
   return {
     version: '0.4.0',

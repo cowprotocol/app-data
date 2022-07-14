@@ -38,7 +38,7 @@
       "default": {},
       "description": "Each metadata will specify one aspect of the order.",
       "required": [],
-      "title": "Metadata descriptors",
+      "title": "Metadata",
       "type": "object",
       "properties": {
         "referrer": {

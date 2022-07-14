@@ -30,13 +30,13 @@ export interface AppDataRootSchema {
   version: SemanticVersioning;
   appCode?: AppCode;
   environment?: Environment;
-  metadata: MetadataDescriptors;
+  metadata: Metadata;
   [k: string]: unknown;
 }
 /**
  * Each metadata will specify one aspect of the order.
  */
-export interface MetadataDescriptors {
+export interface Metadata {
   referrer?: Referrer;
   quote?: Quote;
   [k: string]: unknown;

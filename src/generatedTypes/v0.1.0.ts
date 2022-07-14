@@ -21,13 +21,13 @@ export type ReferrerAddress = string;
 export interface AppDataRootSchema {
   version: SemanticVersioning;
   appCode?: AppCode;
-  metadata: MetadataDescriptors;
+  metadata: Metadata;
   [k: string]: unknown;
 }
 /**
  * Each metadata will specify one aspect of the order.
  */
-export interface MetadataDescriptors {
+export interface Metadata {
   referrer?: Referrer;
   [k: string]: unknown;
 }
