@@ -1213,6 +1213,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/semver-sort@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@types/semver-sort/-/semver-sort-0.0.1.tgz#1a4ffd49cfe7c2705f01baae5ce2005dc960d702"
+  integrity sha512-abYNwum55FpJWDxcWjT1eNI3J5/KXS7cWY7KUgbr/l/vn/5vaB1ejUpipLPZba8BvdbJBAJCWIXfJYZvc4SwTA==
+
 acorn-walk@^8.1.1:
   version "8.2.0"
   resolved "https://registry.npmjs.org/acorn-walk/-/acorn-walk-8.2.0.tgz"
@@ -3255,10 +3260,28 @@ safe-identifier@^0.4.2:
   resolved "https://registry.npmjs.org/safe-identifier/-/safe-identifier-0.4.2.tgz"
   integrity sha512-6pNbSMW6OhAi9j+N8V+U715yBQsaWJ7eyEUaOrawX+isg5ZxhUlV1NipNtgaKHmFGiABwt+ZF04Ii+3Xjkg+8w==
 
+semver-regex@^3.1.2:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/semver-regex/-/semver-regex-3.1.4.tgz#13053c0d4aa11d070a2f2872b6b1e3ae1e1971b4"
+  integrity sha512-6IiqeZNgq01qGf0TId0t3NvKzSvUsjcpdEO3AQNeIjR6A2+ckTnQlDpl4qu1bjRv0RzN3FP9hzFmws3lKqRWkA==
+
+semver-sort@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/semver-sort/-/semver-sort-1.0.0.tgz#fd07da3904703ee0f1424152674644895f636086"
+  integrity sha512-JicVlQKz/C//4BiPmbHEDou6HihXxo5xqB/8Hm9FaLJ6HHkRRvYgCECq4u/z0XF8kyJQ/KAZt++A/kYz/oOSSg==
+  dependencies:
+    semver "^5.0.3"
+    semver-regex "^3.1.2"
+
 semver@7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/semver/-/semver-7.0.0.tgz"
   integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
+
+semver@^5.0.3:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
+  integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
 
 semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.3.0:
   version "6.3.0"
