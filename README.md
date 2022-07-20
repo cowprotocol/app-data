@@ -24,7 +24,7 @@ const schema = require('@cowprotocol/app-data/schemas/v0.4.0.json')
 There are also type definitions
 
 ```js
-import {v0_4_0} from '@cowprotocol/app-data'
+import { v0_4_0 } from '@cowprotocol/app-data'
 
 // Note: this example is 
 function createAppDataV0_4_0(
@@ -60,13 +60,12 @@ import {
   createAppDataDoc, createReferrerMetadata, createQuoteMetadata
 } from '@cowprotocol/app-data'
 
-const referrer = createReferrerMetadata({address: '0x...'})
-const quote = createQuoteMetadata({slippageBips: '100'})
-const appDataDoc = createAppDataDoc({appCode: 'myApp', metadata: {referrer, quote}})
+const referrer = createReferrerMetadata({ address: '0x...' })
+const quote = createQuoteMetadata({ slippageBips: '100' })
+const appDataDoc = createAppDataDoc({ appCode: 'myApp', metadata: { referrer, quote } })
 ```
 
 ## TODO:
 
 - [ ] Add tests for:
-    - [ ] Consuming only the schema
     - [ ] Importing the type definitions
