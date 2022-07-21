@@ -21,7 +21,7 @@
     "compile": "ts-node --esm src/scripts/compile.ts --experimental-specifier-resolution=node",
     "build": "yarn clean && yarn compile && microbundle",
     "test": "jest",
-    "prepare": "npm run build"
+    "prepare": "yarn build && yarn test"
   },
   "repository": {
     "type": "git",
