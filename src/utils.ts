@@ -42,9 +42,7 @@ export async function getAppDataSchema(version: string): Promise<AnyAppDataDocVe
     throw new Error(`AppData version ${version} is not a valid version`)
   }
   try {
-    const f = await import(`../schemas/v${version}.json`)
-
-    return f
+    return await import(`../schemas/v${version}.json`)
   } catch (e) {
     throw new Error(`AppData version ${version} doesn't exist`)
   }
