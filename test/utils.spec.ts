@@ -1,4 +1,4 @@
-import { getAppDataSchema } from '../src'
+import { getAppDataSchema, validateAppDataDoc } from '../src'
 
 describe(`getAppDataSchema`, () => {
   test('Non-existent version throws', async () => {
@@ -33,3 +33,38 @@ function _buildAssertVersionFn(version: string) {
     expect(schema.$id).toMatch(version)
   }
 }
+
+describe('validateAppDataDoc', () => {
+  // This test is meant to test only the validation fn
+  // Schema tests are done on ../schema.spec.ts
+
+  test('Valid doc', async () => {
+    // given
+    const doc = { version: '0.4.0', metadata: {} }
+    // when
+    const result = await validateAppDataDoc(doc)
+    // then
+    expect(result.success).toBeTruthy()
+    expect(result.errors).toBeUndefined()
+  })
+
+  test('Invalid doc', async () => {
+    // given
+    const doc = { version: '0.4.0', metadata: { referrer: { version: '312313', address: '0xssss' } } }
+    // when
+    const result = await validateAppDataDoc(doc)
+    // then
+    expect(result.success).toBeFalsy()
+    expect(result.errors).toEqual('data/metadata/referrer/address must match pattern "^0x[a-fA-F0-9]{40}$"')
+  })
+
+  test('Non existent version', async () => {
+    // given
+    const doc = { version: '0.0.0', metadata: {} }
+    // when
+    const result = await validateAppDataDoc(doc)
+    // then
+    expect(result.success).toBeFalsy()
+    expect(result.errors).toEqual(`AppData version 0.0.0 doesn't exist`)
+  })
+})
