@@ -1,3 +1,5 @@
+import Ajv, { ValidateFunction } from 'ajv'
+
 import {
   AnyAppDataDocVersion,
   latest,
@@ -46,4 +48,46 @@ export async function getAppDataSchema(version: string): Promise<AnyAppDataDocVe
   } catch (e) {
     throw new Error(`AppData version ${version} doesn't exist`)
   }
+}
+
+export type ValidationResult = {
+  success: boolean
+  errors?: string
+}
+
+let ajv: Ajv
+
+export async function validateAppDataDoc(appDataDoc: AnyAppDataDocVersion): Promise<ValidationResult> {
+  const { version } = appDataDoc
+
+  if (!ajv) {
+    ajv = new Ajv()
+  }
+
+  let validator = ajv.getSchema(version)
+
+  if (!validator) {
+    let schema
+    try {
+      schema = await getAppDataSchema(version)
+    } catch (e) {
+      if (e instanceof Error) {
+        return {
+          success: false,
+          errors: e.message,
+        }
+      } else {
+        throw e
+      }
+    }
+
+    ajv.addSchema(schema, version)
+
+    validator = ajv.getSchema(version) as ValidateFunction
+  }
+
+  const success = !!validator(appDataDoc)
+  const errors = validator.errors ? ajv.errorsText(validator.errors) : undefined
+
+  return { success, errors }
 }

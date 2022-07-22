@@ -53,6 +53,8 @@ import {
 
 ### Utils
 
+*Create appData doc*
+
 There are util functions to handle the creation of valid schema docs for the latest version
 
 ```js
@@ -65,7 +67,36 @@ const quote = createQuoteMetadata({ slippageBips: '100' })
 const appDataDoc = createAppDataDoc({ appCode: 'myApp', metadata: { referrer, quote } })
 ```
 
-## TODO:
+*Get appData schema*
 
-- [ ] Add tests for:
-    - [ ] Importing the type definitions
+To get a schema definition by version
+
+```js
+import { getAppDataSchema } from '@cowprotocol/app-data'
+
+const schema = getAppDataSchema('0.1.0')
+```
+
+It'll throw if the version does not exist
+
+*Validate appDataDoc*
+
+To validate a document, pass it to `validateAppDataDoc`.
+It'll return an object with a boolean indicating `success` and `errors`, if any.
+The version to validate against will be taken from the doc itself.
+
+```js
+import { validateAppDataDoc } from '@cowprotocol/app-data'
+
+let doc = { version: '0.4.0', metadata: {} }
+
+let result = await validateAppDataDoc(doc)
+console.log(result) // { success: true }
+
+doc = { version: '0.0.0', metadata: {} }
+
+result = await validateAppDataDoc(doc)
+// Contrary to `getAppDataSchema`, invalid or non-existing schemas won't throw
+console.log(result) // { success: false, errors: 'AppData version 0.0.0 doesn\'t exist'}
+```
+
