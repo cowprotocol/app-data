@@ -58,7 +58,7 @@ export type ValidationResult = {
 let ajv: Ajv
 
 export async function validateAppDataDoc(appDataDoc: AnyAppDataDocVersion): Promise<ValidationResult> {
-  const version = appDataDoc.version
+  const { version } = appDataDoc
 
   if (!ajv) {
     ajv = new Ajv()
