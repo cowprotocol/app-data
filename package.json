@@ -5,8 +5,8 @@
   "type": "module",
   "source": "src/index.ts",
   "exports": {
-    "require": "./dist/index.csj",
-    "default": "./dist/index.modern.csj"
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.cjs"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
