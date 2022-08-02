@@ -23,7 +23,7 @@
     },
     "environment": {
       "$id": "#/properties/environment",
-      "description": "Environment from which the order came from",
+      "description": "Environment from which the order came from.",
       "title": "Environment",
       "type": "string",
       "examples": [

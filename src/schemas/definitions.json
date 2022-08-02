@@ -5,7 +5,7 @@
   "definitions": {
     "version": {
       "$id": "#/definitions/version",
-      "description": "Semantic versioning of document",
+      "description": "Semantic versioning of document.",
       "examples": [
         "1.0.0",
         "1.2.3"
