@@ -16,7 +16,7 @@
       "$id": "#/properties/appCode",
       "description": "The code identifying the CLI, UI, service generating the order.",
       "examples": [
-        "CowSwap"
+        "CoW Swap"
       ],
       "title": "App Code",
       "type": "string"
