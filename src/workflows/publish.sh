@@ -18,9 +18,6 @@ package_exists () {
 
 fail_if_unset NODE_AUTH_TOKEN
 
-git_username="GitHub Actions"
-git_useremail="GitHub-Actions@cow.fi"
-
 package_name="$(jq --raw-output .name ./package.json)"
 version="$(jq --raw-output .version ./package.json)"
 

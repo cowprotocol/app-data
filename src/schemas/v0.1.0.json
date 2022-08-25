@@ -10,13 +10,15 @@
   "type": "object",
   "properties": {
     "version": {
-      "$ref": "definitions.json#/definitions/version"
+      "$ref": "definitions.json#/definitions/version",
+      "readOnly": true,
+      "default": "0.1.0"
     },
     "appCode": {
       "$id": "#/properties/appCode",
       "description": "The code identifying the CLI, UI, service generating the order.",
       "examples": [
-        "CowSwap"
+        "CoW Swap"
       ],
       "title": "App Code",
       "type": "string"

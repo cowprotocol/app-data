@@ -26,7 +26,9 @@
       "title": "Quote buy amount"
     },
     "version": {
-      "$ref": "../definitions.json#/definitions/version"
+      "$ref": "../definitions.json#/definitions/version",
+      "readOnly": true,
+      "default": "0.1.0"
     }
   }
 }
