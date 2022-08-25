@@ -10,7 +10,9 @@
   "type": "object",
   "properties": {
     "version": {
-      "$ref": "definitions.json#/definitions/version"
+      "$ref": "definitions.json#/definitions/version",
+      "readOnly": true,
+      "default": "0.3.0"
     },
     "appCode": {
       "$id": "#/properties/appCode",
