@@ -19,7 +19,7 @@
   "scripts": {
     "clean": "rm -rf dist/* && rm -rf src/generatedTypes/* && rm -rf schemas/",
     "compile": "ts-node --esm src/scripts/compile.ts --experimental-specifier-resolution=node",
-    "build": "yarn clean && yarn compile && microbundle",
+    "build": "yarn clean && yarn compile && microbundle -f modern,esm,cjs",
     "test": "jest",
     "prepare": "yarn build && yarn test"
   },
