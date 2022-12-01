@@ -2,7 +2,7 @@ import Ajv  from 'ajv'
 
 import schemaV0_4_0 from '../schemas/v0.4.0.json'
 
-import { MISSING_VERSION_ERROR, QUOTE, REFERRER } from './mock'
+import { CLASS, MISSING_VERSION_ERROR, QUOTE, REFERRER } from './mock'
 import { assertDoc, expectToRaise } from './utils'
 
 
@@ -55,4 +55,3 @@ test(
     ]
   )
 )
-

@@ -20,3 +20,8 @@ export const QUOTE = {
   v1: { sellAmount: '123123', buyAmount: '1314123', version: '0.1.0' },
   v2: { slippageBips: '1', version: '0.2.0' }
 }
+
+// Quote
+export const CLASS = {
+  v1: { type: 'market', version: '0.1.0' }
+}

@@ -30,6 +30,21 @@
         "90741097240912730913, 0, 75891372"
       ],
       "type": "string"
-    }
+    },
+    "class": {
+      "$id": "#/definitions/class",
+      "description": "Order class",
+      "examples": [
+        "market",
+        "limit"
+      ],
+      "title": "Class",
+      "type": "string",
+      "enum": [
+        "market",
+        "limit",
+        "liquidity"
+      ]
+    },
   }
 }
