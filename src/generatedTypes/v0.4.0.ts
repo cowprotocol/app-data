@@ -6,7 +6,7 @@
  */
 
 /**
- * Semantic versioning of document
+ * Semantic versioning of document.
  */
 export type Version = string;
 /**
@@ -14,10 +14,18 @@ export type Version = string;
  */
 export type AppCode = string;
 /**
- * Environment from which the order came from
+ * Environment from which the order came from.
  */
 export type Environment = string;
+/**
+ * Semantic versioning of document.
+ */
+export type Version1 = string;
 export type ReferrerAddress = string;
+/**
+ * Semantic versioning of document.
+ */
+export type Version2 = string;
 /**
  * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS)
  */
@@ -42,12 +50,12 @@ export interface Metadata {
   [k: string]: unknown;
 }
 export interface Referrer {
-  version: Version;
+  version: Version1;
   address: ReferrerAddress;
   [k: string]: unknown;
 }
 export interface Quote {
-  version: Version;
+  version: Version2;
   slippageBips: SlippageBips;
   [k: string]: unknown;
 }
