@@ -2,10 +2,10 @@ import Ajv  from 'ajv'
 
 import schemaV0_1_0 from '../schemas/v0.1.0.json'
 
-import { ADDRESS, MISSING_VERSION_ERROR } from './mock'
+import { MISSING_VERSION_ERROR, REFERRER } from './mock'
 import { assertDoc, expectToRaise } from './utils'
 
-const BASE_DOCUMENT = {
+export const BASE_DOCUMENT = {
   version: '0.1.0',
   metadata: {},
 }
@@ -23,10 +23,7 @@ test(
     ...BASE_DOCUMENT,
     appCode: 'MyApp',
     metadata: {
-      referrer: {
-        address: ADDRESS,
-        version: '0.1.0'
-      },
+      referrer: REFERRER.v1,
     },
   })
 )

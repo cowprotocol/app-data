@@ -2,10 +2,9 @@ import Ajv  from 'ajv'
 
 import schemaV0_4_0 from '../schemas/v0.4.0.json'
 
-import { ADDRESS, MISSING_VERSION_ERROR } from './mock'
+import { MISSING_VERSION_ERROR, QUOTE, REFERRER } from './mock'
 import { assertDoc, expectToRaise } from './utils'
 
-const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
 
 const ajv = new Ajv()
 const validator = ajv.compile(schemaV0_4_0)
@@ -26,8 +25,8 @@ test(
     appCode: 'MyApp',
     environment: 'prod',
     metadata: {
-      referrer: REFERRER_V0_1_0,
-      quote: { slippageBips: '1', version: '0.2.0' },
+      referrer: REFERRER.v1,
+      quote: QUOTE.v2,
     },
   })
 )
@@ -41,8 +40,8 @@ test(
       appCode: 'MyApp',
       environment: 'prod',
       metadata: {
-        referrer: REFERRER_V0_1_0,
-        quote: { sellAmount: '123123', buyAmount: '1314123', version: '0.1.0' },
+        referrer: REFERRER.v1,
+        quote: QUOTE.v1,
       },
     },
     [

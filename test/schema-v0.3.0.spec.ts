@@ -2,14 +2,13 @@ import Ajv  from 'ajv'
 
 import schemaV0_3_0 from '../schemas/v0.3.0.json'
 
-import { ADDRESS, MISSING_VERSION_ERROR } from './mock'
+import { MISSING_VERSION_ERROR, QUOTE, REFERRER } from './mock'
 import { assertDoc, expectToRaise } from './utils'
 
 const BASE_DOCUMENT = {
   version: '0.3.0',
   metadata: {},
 }
-
 
 const ajv = new Ajv()
 const validator = ajv.compile(schemaV0_3_0)
@@ -26,15 +25,8 @@ test(
     appCode: 'MyApp',
     environment: 'prod',
     metadata: {
-      referrer: {
-        address: ADDRESS,
-        version: '0.1.0'
-      },
-      quote: { 
-        sellAmount: '123123',
-        buyAmount: '1314123',
-        version: '0.1.0'
-      },
+      referrer: REFERRER.v1,
+      quote: QUOTE.v1,
     },
   })
 )
