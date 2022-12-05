@@ -11,6 +11,7 @@ export * as latest from './v0.5.0'
 export const LATEST_APP_DATA_VERSION = '0.5.0'
 export const LATEST_QUOTE_METADATA_VERSION = '0.2.0'
 export const LATEST_REFERRER_METADATA_VERSION = '0.1.0'
+export const LATEST_ORDER_CLASS_METADATA_VERSION = '0.1.0'
 
 export type LatestAppDataDocVersion = v0_5_0.AppDataRootSchema
 export type AnyAppDataDocVersion = 

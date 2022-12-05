@@ -1,5 +1,5 @@
-import {compileFromFile} from 'json-schema-to-typescript'
-import $RefParser from "json-schema-ref-parser"
+import { compileFromFile } from 'json-schema-to-typescript'
+import $RefParser from 'json-schema-ref-parser'
 import semverSort from 'semver-sort'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -11,7 +11,7 @@ const TYPES_DEST_PATH = path.join('src', 'generatedTypes')
 async function compile(): Promise<void> {
   // Creates destinations dirs
   console.info(`Creating '${TYPES_DEST_PATH}' and '${SCHEMAS_DEST_PATH}' dirs`)
-  await fs.promises.mkdir(TYPES_DEST_PATH, {recursive: true})
+  await fs.promises.mkdir(TYPES_DEST_PATH, { recursive: true })
   await fs.promises.mkdir(SCHEMAS_DEST_PATH)
 
   // Generates out file for types/index.ts
@@ -21,7 +21,7 @@ async function compile(): Promise<void> {
   await typesIndexFile.write(`// generated file, do not edit manually\n\n`)
 
   // Lists all schemas
-  const schemas = await fs.promises.readdir(SCHEMAS_SRC_PATH, {withFileTypes: true})
+  const schemas = await fs.promises.readdir(SCHEMAS_SRC_PATH, { withFileTypes: true })
   const versions: string[] = []
 
   for (const schemaFileName of schemas) {
@@ -29,7 +29,7 @@ async function compile(): Promise<void> {
     if (!schemaFileName.isFile() || !/^v\d+\.\d+\.\d+\.json$/.test(schemaFileName.name)) continue
 
     // Extracts version from file name
-    const [version] = schemaFileName.name.split("\.json")
+    const [version] = schemaFileName.name.split('.json')
     versions.push(version)
 
     // Get schema path relative to repo root
@@ -42,7 +42,7 @@ async function compile(): Promise<void> {
 
     // Compiles schema onto ts type declarations
     console.info(`Compiling ts typings for ${schemaPath}`)
-    const tsFile = await compileFromFile(schemaPath, {cwd: SCHEMAS_SRC_PATH})
+    const tsFile = await compileFromFile(schemaPath, { cwd: SCHEMAS_SRC_PATH })
     await fs.promises.writeFile(path.join(TYPES_DEST_PATH, `${version}.ts`), tsFile)
 
     // Add export on types/index.ts for this version
@@ -50,27 +50,28 @@ async function compile(): Promise<void> {
     const exportName = version.replace(/\./g, '_')
     const versionImportPath = `./${version}`
     await typesIndexFile.write(`import * as ${exportName} from '${versionImportPath}'\n`)
-
   }
 
   // Select latest version and also expose all versions
   if (versions.length) {
     const latest = semverSort.desc(versions)[0]
     const latestExport = versionNameToExport(latest)
-    const allVersions = versions.map(version => `\n  | ${versionNameToExport(version)}.AppDataRootSchema`).join('')
+    const allVersions = versions.map((version) => `\n  | ${versionNameToExport(version)}.AppDataRootSchema`).join('')
     const latestQuoteVersion = await getLatestMetadataDocVersion('quote')
     const latestReferrerVersion = await getLatestMetadataDocVersion('referrer')
+    const latestOrderClassVersion = await getLatestMetadataDocVersion('orderClass')
     const additionalTypesExport = `
 export * as latest from './${latest}'
 
 export const LATEST_APP_DATA_VERSION = '${extractSemver(latest)}'
 export const LATEST_QUOTE_METADATA_VERSION = '${extractSemver(latestQuoteVersion)}'
 export const LATEST_REFERRER_METADATA_VERSION = '${extractSemver(latestReferrerVersion)}'
+export const LATEST_ORDER_CLASS_METADATA_VERSION = '${extractSemver(latestOrderClassVersion)}'
 
 export type LatestAppDataDocVersion = ${latestExport}.AppDataRootSchema
 export type AnyAppDataDocVersion = ${allVersions}
 
-export {${versions.map(version => `\n  ${versionNameToExport(version)}`)}  
+export {${versions.map((version) => `\n  ${versionNameToExport(version)}`)}  
 } 
 `
     await typesIndexFile.write(additionalTypesExport)
@@ -81,7 +82,6 @@ export {${versions.map(version => `\n  ${versionNameToExport(version)}`)}
 
 compile()
 
-
 function versionNameToExport(name: string): string {
   return name.replace(/\./g, '_')
 }
@@ -90,7 +90,7 @@ function extractSemver(name: string): string {
   return /(\d+\.\d+\.\d+)/.exec(name)?.[0] || ''
 }
 
-async function getLatestMetadataDocVersion(metadataDocName: 'quote' | 'referrer'): Promise<string> {
+async function getLatestMetadataDocVersion(metadataDocName: 'quote' | 'referrer' | 'orderClass'): Promise<string> {
   const metadataPath = path.join(SCHEMAS_SRC_PATH, metadataDocName)
   const versions = await fs.promises.readdir(metadataPath)
   return semverSort.desc(versions)[0]

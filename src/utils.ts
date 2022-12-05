@@ -4,6 +4,7 @@ import {
   AnyAppDataDocVersion,
   latest,
   LATEST_APP_DATA_VERSION,
+  LATEST_ORDER_CLASS_METADATA_VERSION,
   LATEST_QUOTE_METADATA_VERSION,
   LATEST_REFERRER_METADATA_VERSION,
 } from './generatedTypes'
@@ -23,6 +24,13 @@ export function createReferrerMetadata(params: { address: latest.ReferrerAddress
   return {
     ...params,
     version: LATEST_REFERRER_METADATA_VERSION,
+  }
+}
+
+export function createOrderClassMetadata(params: { orderClass: latest.OrderClass1 }): latest.OrderClass {
+  return {
+    ...params,
+    version: LATEST_ORDER_CLASS_METADATA_VERSION,
   }
 }
 
