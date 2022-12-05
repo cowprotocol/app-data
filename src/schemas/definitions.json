@@ -30,6 +30,22 @@
         "90741097240912730913, 0, 75891372"
       ],
       "type": "string"
+    },
+    "orderClass": {
+      "$id": "#/definitions/orderClass",
+      "description": "Indicator of the order class.",
+      "examples": [
+        "market",
+        "limit",
+        "liquidity"
+      ],
+      "title": "Order class",
+      "type": "string",
+      "enum": [
+        "market",
+        "limit",
+        "liquidity"
+      ]
     }
   }
 }

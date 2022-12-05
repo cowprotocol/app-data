@@ -30,6 +30,14 @@ export type Version2 = string;
  * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS)
  */
 export type SlippageBips = string;
+/**
+ * Semantic versioning of document.
+ */
+export type Version3 = string;
+/**
+ * Indicator of the order class.
+ */
+export type OrderClass1 = "market" | "limit" | "liquidity";
 
 /**
  * Metadata JSON document for adding information to orders.
@@ -47,6 +55,7 @@ export interface AppDataRootSchema {
 export interface Metadata {
   referrer?: Referrer;
   quote?: Quote;
+  orderClass?: OrderClass;
   [k: string]: unknown;
 }
 export interface Referrer {
@@ -57,5 +66,10 @@ export interface Referrer {
 export interface Quote {
   version: Version2;
   slippageBips: SlippageBips;
+  [k: string]: unknown;
+}
+export interface OrderClass {
+  version: Version3;
+  orderClass: OrderClass1;
   [k: string]: unknown;
 }
