@@ -204,7 +204,7 @@ describe('Schema v0.5.0', () => {
   const validator = ajv.compile(schemaV0_5_0)
 
   const BASE_DOCUMENT = {
-    version: '0.4.0',
+    version: '0.5.0',
     metadata: {},
   }
 

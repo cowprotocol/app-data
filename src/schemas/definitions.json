@@ -6,6 +6,7 @@
     "version": {
       "$id": "#/definitions/version",
       "description": "Semantic versioning of document.",
+      "readOnly": true,
       "examples": [
         "1.0.0",
         "1.2.3"
@@ -30,22 +31,6 @@
         "90741097240912730913, 0, 75891372"
       ],
       "type": "string"
-    },
-    "orderClass": {
-      "$id": "#/definitions/orderClass",
-      "description": "Indicator of the order class.",
-      "examples": [
-        "market",
-        "limit",
-        "liquidity"
-      ],
-      "title": "Order class",
-      "type": "string",
-      "enum": [
-        "market",
-        "limit",
-        "liquidity"
-      ]
     }
   }
 }
