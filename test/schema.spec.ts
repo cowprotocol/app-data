@@ -4,9 +4,11 @@ import schemaV0_1_0 from '../schemas/v0.1.0.json'
 import schemaV0_2_0 from '../schemas/v0.2.0.json'
 import schemaV0_3_0 from '../schemas/v0.3.0.json'
 import schemaV0_4_0 from '../schemas/v0.4.0.json'
+import schemaV0_5_0 from '../schemas/v0.5.0.json'
 
 const ADDRESS = '0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9'
 const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
+const ORDER_CLASS_V0_1_0 = { orderClass: 'limit', version: '0.1.0' }
 const QUOTE_V0_1_0 = { sellAmount: '123123', buyAmount: '1314123', version: '0.1.0' }
 const QUOTE_V0_2_0 = { slippageBips: '1', version: '0.2.0' }
 
@@ -191,6 +193,60 @@ describe('Schema v0.4.0', () => {
           message: "must have required property 'slippageBips'",
           params: { missingProperty: 'slippageBips' },
           schemaPath: '#/properties/metadata/properties/quote/required',
+        },
+      ]
+    )
+  )
+})
+
+describe('Schema v0.5.0', () => {
+  const ajv = new Ajv()
+  const validator = ajv.compile(schemaV0_5_0)
+
+  const BASE_DOCUMENT = {
+    version: '0.5.0',
+    metadata: {},
+  }
+
+  test('Minimal valid schema', _buildAssertValidFn(validator, BASE_DOCUMENT))
+
+  test('Missing required fields', _buildAssertInvalidFn(validator, {}, MISSING_VERSION_ERROR))
+
+  test(
+    'With order class v0.1.0',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      appCode: 'MyApp',
+      environment: 'prod',
+      metadata: {
+        referrer: REFERRER_V0_1_0,
+        quote: QUOTE_V0_2_0,
+        orderClass: ORDER_CLASS_V0_1_0,
+      },
+    })
+  )
+
+  test(
+    'With invalid order class v0.1.0',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        appCode: 'MyApp',
+        environment: 'prod',
+        metadata: {
+          referrer: REFERRER_V0_1_0,
+          quote: QUOTE_V0_2_0,
+          orderClass: { orderClass: 'mooo', version: '0.1.0' }, // Invalid value
+        },
+      },
+      [
+        {
+          instancePath: '/metadata/orderClass/orderClass',
+          keyword: 'enum',
+          message: 'must be equal to one of the allowed values',
+          params: { allowedValues: ['market', 'limit', 'liquidity'] },
+          schemaPath: '#/properties/metadata/properties/orderClass/properties/orderClass/enum',
         },
       ]
     )

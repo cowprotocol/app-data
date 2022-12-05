@@ -6,6 +6,7 @@
     "version": {
       "$id": "#/definitions/version",
       "description": "Semantic versioning of document.",
+      "readOnly": true,
       "examples": [
         "1.0.0",
         "1.2.3"
