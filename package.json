@@ -55,6 +55,11 @@
     "cross-fetch": "^3.1.5",
     "ipfs-only-hash": "^4.0.0"
   },
+  "peerDependencies": {
+    "multiformats": "^9.x",
+    "cross-fetch": "^3.x",
+    "ipfs-only-hash": "^4.x"
+  },
   "jest": {
     "automock": false,
     "resetMocks": false,
