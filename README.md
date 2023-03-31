@@ -6,7 +6,43 @@ These schemas are used in the data encoded on `appData` field for CowProtocol or
 
 For more details, check [the docs](https://docs.cow.fi/cow-sdk/order-meta-data-appdata).
 
+## Installation
+
+```bash
+yarn add @cowprotocol/cow-sdk
+```
+
+
 ## Usage
+
+```typescript
+import { MetadataApi } from '@cowprotocol/app-data'
+
+export const metadataApi = new MetadataApi()
+
+const IPFS_OPTIONS = {
+  pinataApiKey: `PINATA_API_KEY`,
+  pinataApiSecret: `PINATA_SECRET_API_KEY`,
+}
+
+const appCode = 'YOUR_APP_CODE'
+const environment = 'prod'
+const referrerParams = { address: `REFERRER_ADDRESS` }
+
+const quoteParams = { slippageBips: '0.5' } // Slippage percent, it's 0 to 100
+const orderClassParams = { orderClass: 'market' } // "market" | "limit" | "liquidity"
+
+const appDataDoc = await metadataApi.generateAppDataDoc({
+  appDataParams: { appCode, environment },
+  metadataParams: { referrerParams, quoteParams, orderClassParams },
+})
+
+const appDataHash = await metadataApi.calculateAppDataHash(appDataDoc)
+const actualHash = await metadataApi.uploadMetadataDocToIpfs(appDataDoc, IPFS_OPTIONS)
+
+console.log(appDataHash === actualHash) // Should be true
+```
+
 
 ### Schemas
 
@@ -26,7 +62,7 @@ There are also type definitions
 ```js
 import { v0_4_0 } from '@cowprotocol/app-data'
 
-// Note: this example is 
+// Note: this example is
 function createAppDataV0_4_0(
   appCode: v0_4_0.AppCode,
   metadata: v0_4_0.Metadata
