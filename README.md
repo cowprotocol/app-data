@@ -9,7 +9,7 @@ For more details, check [the docs](https://docs.cow.fi/cow-sdk/order-meta-data-a
 ## Installation
 
 ```bash
-yarn add @cowprotocol/cow-sdk
+yarn add @cowprotocol/app-data
 ```
 
 
