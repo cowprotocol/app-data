@@ -1,0 +1,44 @@
+{
+  "$id": "#utm/v0.1.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "required": [],
+  "title": "UTM Codes",
+  "type": "object",
+  "properties": {
+    "utm_source": {
+      "$id": "#/properties/utmSource",
+      "title": "Source",
+      "type": "string",
+      "examples": ["twitter"],
+      "description": "Tracks in which medium the traffic originated from (twitter, facebook, etc.)"
+    },
+    "utm_medium": {
+      "$id": "#/properties/utmMedium",
+      "title": "Medium",
+      "type": "string",
+      "examples": ["email"],
+      "description": "Tracks in which medium the traffic originated from (mail, CPC, social, etc.)"
+    },
+    "utm_campaign": {
+      "$id": "#/properties/utmCampagin",
+      "title": "Campaign",
+      "type": "string",
+      "examples": ["everyone-loves-cows-2023"],
+      "description": "Track the performance of a specific campaign"
+    },
+    "utm_content": {
+      "$id": "#/properties/utmContent",
+      "title": "Content",
+      "type": "string",
+      "examples": ["big-fat-button"],
+      "description": "Track which link was clicked"
+    },
+    "utm_term": {
+      "$id": "#/properties/utmTem",
+      "title": "Keyword Term",
+      "type": "string",
+      "examples": ["coincidence+of+wants"],
+      "description": "Track which keyword term a website visitor came from"
+    }
+  }
+}

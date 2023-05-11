@@ -5,6 +5,7 @@ import schemaV0_2_0 from '../schemas/v0.2.0.json'
 import schemaV0_3_0 from '../schemas/v0.3.0.json'
 import schemaV0_4_0 from '../schemas/v0.4.0.json'
 import schemaV0_5_0 from '../schemas/v0.5.0.json'
+import schemaV0_6_0 from '../schemas/v0.6.0.json'
 
 const ADDRESS = '0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9'
 const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
@@ -199,7 +200,7 @@ describe('Schema v0.4.0', () => {
   )
 })
 
-describe('Schema v0.5.0', () => {
+describe.only('Schema v0.5.0', () => {
   const ajv = new Ajv()
   const validator = ajv.compile(schemaV0_5_0)
 
@@ -250,6 +251,80 @@ describe('Schema v0.5.0', () => {
         },
       ]
     )
+  )
+})
+
+describe('Schema v0.6.0', () => {
+  const ajv = new Ajv()
+  const validator = ajv.compile(schemaV0_6_0)
+
+  const BASE_DOCUMENT = {
+    version: '0.6.0',
+    metadata: {},
+  }
+
+  test(
+    'UTM Source',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        utm_source: 'twitter',
+      },
+    })
+  )
+
+  test(
+    'UTM Medium',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        utm_medium: 'email',
+      },
+    })
+  )
+
+  test(
+    'UTM Campaign',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        utm_campaign: 'everyone-loves-cows-2023',
+      },
+    })
+  )
+
+  test(
+    'UTM Content',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        utm_content: 'big-fat-button',
+      },
+    })
+  )
+
+  test(
+    'UTM Term',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        utm_term: 'coincidence+of+wants',
+      },
+    })
+  )
+
+  test(
+    'UTM all at once',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        utm_source: 'twitter',
+        utm_medium: 'email',
+        utm_campaign: 'everyone-loves-cows-2023',
+        utm_content: 'big-fat-button',
+        utm_term: 'coincidence+of+wants',
+      },
+    })
   )
 })
 
