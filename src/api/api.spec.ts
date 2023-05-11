@@ -8,13 +8,13 @@ const HTTP_STATUS_OK = 200
 const HTTP_STATUS_INTERNAL_ERROR = 500
 
 const DEFAULT_APP_DATA_DOC = {
-  version: '0.5.0',
+  version: '0.6.0',
   appCode: 'CowSwap',
   metadata: {},
 }
 
-const IPFS_HASH = 'QmYNdAx6V62cUiHGBujwzeaB5FumAKCmPVeaV8DUvrU97F'
-const APP_DATA_HEX = '0x95164af4bca0ce893339efb678065e705e16e2dc4e6d9c22fcb9d6e54efab8b2'
+const IPFS_HASH = 'QmbMfmbkADb8DLTyS6Ec1e14Y1wAwDp9a6F9ssaapMtVLa'
+const APP_DATA_HEX = '0xc16ab5abf4282feb5fe7da0ddbbf28862829d46f442f62a9379d954586a396b7'
 
 const PINATA_API_KEY = 'apikey'
 const PINATA_API_SECRET = 'apiSecret'
@@ -219,20 +219,20 @@ describe('Metadata api', () => {
       expect(v040Validation.success).toBeTruthy()
     })
 
-    test('Version doesn\'t match schema', async () => {
+    test("Version doesn't match schema", async () => {
       // when
       const v030Validation = await metadataApi.validateAppDataDoc({ ...v040Doc, version: '0.3.0' })
       // then
       expect(v030Validation.success).toBeFalsy()
-      expect(v030Validation.errors).toEqual('data/metadata/quote must have required property \'sellAmount\'')
+      expect(v030Validation.errors).toEqual("data/metadata/quote must have required property 'sellAmount'")
     })
 
-    test('Version doesn\'t exist', async () => {
+    test("Version doesn't exist", async () => {
       // when
       const validation = await metadataApi.validateAppDataDoc({ ...v010Doc, version: '0.0.0' })
       // then
       expect(validation.success).toBeFalsy()
-      expect(validation.errors).toEqual('AppData version 0.0.0 doesn\'t exist')
+      expect(validation.errors).toEqual("AppData version 0.0.0 doesn't exist")
     })
   })
 
