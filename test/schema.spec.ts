@@ -200,7 +200,7 @@ describe('Schema v0.4.0', () => {
   )
 })
 
-describe.only('Schema v0.5.0', () => {
+describe('Schema v0.5.0', () => {
   const ajv = new Ajv()
   const validator = ajv.compile(schemaV0_5_0)
 
