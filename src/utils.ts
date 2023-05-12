@@ -35,7 +35,13 @@ export function createOrderClassMetadata(params: { orderClass: latest.OrderClass
   }
 }
 
-export function createUtmMetadata(params: { utm: latest.UTMCodes }): latest.UTMCodes {
+export function createUtmMetadata(params: {
+  utm_source?: latest.UTMSource
+  utm_medium?: latest.UTMMedium
+  utm_campaign?: latest.UTMCampaign
+  utm_content?: latest.UTMContent
+  utm_term?: latest.UTMKeywordTerm
+}): latest.UTMCodes {
   return {
     ...params,
     version: LATEST_UTM_METADATA_VERSION,

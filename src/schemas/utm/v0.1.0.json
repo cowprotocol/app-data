@@ -7,35 +7,35 @@
   "properties": {
     "utm_source": {
       "$id": "#/properties/utmSource",
-      "title": "Source",
+      "title": "UTM Source",
       "type": "string",
       "examples": ["twitter"],
       "description": "Tracks in which medium the traffic originated from (twitter, facebook, etc.)"
     },
     "utm_medium": {
       "$id": "#/properties/utmMedium",
-      "title": "Medium",
+      "title": "UTM Medium",
       "type": "string",
       "examples": ["email"],
       "description": "Tracks in which medium the traffic originated from (mail, CPC, social, etc.)"
     },
     "utm_campaign": {
       "$id": "#/properties/utmCampagin",
-      "title": "Campaign",
+      "title": "UTM Campaign",
       "type": "string",
       "examples": ["everyone-loves-cows-2023"],
       "description": "Track the performance of a specific campaign"
     },
     "utm_content": {
       "$id": "#/properties/utmContent",
-      "title": "Content",
+      "title": "UTM Content",
       "type": "string",
       "examples": ["big-fat-button"],
       "description": "Track which link was clicked"
     },
     "utm_term": {
       "$id": "#/properties/utmTem",
-      "title": "Keyword Term",
+      "title": "UTM Keyword Term",
       "type": "string",
       "examples": ["coincidence+of+wants"],
       "description": "Track which keyword term a website visitor came from"

@@ -25,23 +25,23 @@ export type ReferrerAddress = string;
 /**
  * Tracks in which medium the traffic originated from (twitter, facebook, etc.)
  */
-export type Source = string;
+export type UTMSource = string;
 /**
  * Tracks in which medium the traffic originated from (mail, CPC, social, etc.)
  */
-export type Medium = string;
+export type UTMMedium = string;
 /**
  * Track the performance of a specific campaign
  */
-export type Campaign = string;
+export type UTMCampaign = string;
 /**
  * Track which link was clicked
  */
-export type Content = string;
+export type UTMContent = string;
 /**
  * Track which keyword term a website visitor came from
  */
-export type KeywordTerm = string;
+export type UTMKeywordTerm = string;
 /**
  * Semantic versioning of document.
  */
@@ -85,11 +85,11 @@ export interface Referrer {
   [k: string]: unknown;
 }
 export interface UTMCodes {
-  utm_source?: Source;
-  utm_medium?: Medium;
-  utm_campaign?: Campaign;
-  utm_content?: Content;
-  utm_term?: KeywordTerm;
+  utm_source?: UTMSource;
+  utm_medium?: UTMMedium;
+  utm_campaign?: UTMCampaign;
+  utm_content?: UTMContent;
+  utm_term?: UTMKeywordTerm;
   [k: string]: unknown;
 }
 export interface Quote {
