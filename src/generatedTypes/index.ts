@@ -13,6 +13,7 @@ export const LATEST_APP_DATA_VERSION = '0.6.0'
 export const LATEST_QUOTE_METADATA_VERSION = '0.2.0'
 export const LATEST_REFERRER_METADATA_VERSION = '0.1.0'
 export const LATEST_ORDER_CLASS_METADATA_VERSION = '0.1.0'
+export const LATEST_UTM_METADATA_VERSION = '0.1.0'
 
 export type LatestAppDataDocVersion = v0_6_0.AppDataRootSchema
 export type AnyAppDataDocVersion = 
