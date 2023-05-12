@@ -1,4 +1,10 @@
-import type { createAppDataDoc, createOrderClassMetadata, createQuoteMetadata, createReferrerMetadata } from '../utils'
+import type {
+  createAppDataDoc,
+  createOrderClassMetadata,
+  createQuoteMetadata,
+  createReferrerMetadata,
+  createUtmMetadata,
+} from '../utils'
 
 export type GenerateAppDataDocParams = {
   appDataParams?: Omit<Parameters<typeof createAppDataDoc>[0], 'metadata'>
@@ -6,6 +12,7 @@ export type GenerateAppDataDocParams = {
     referrerParams?: Parameters<typeof createReferrerMetadata>[0]
     quoteParams?: Parameters<typeof createQuoteMetadata>[0]
     orderClassParams?: Parameters<typeof createOrderClassMetadata>[0]
+    utmParams: Parameters<typeof createUtmMetadata>[0]
   }
 }
 
