@@ -1,6 +1,6 @@
 {
   "name": "@cowprotocol/app-data",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "CowProtocol AppData schema definitions",
   "type": "module",
   "source": "src/index.ts",

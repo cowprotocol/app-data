@@ -12,7 +12,7 @@ export type GenerateAppDataDocParams = {
     referrerParams?: Parameters<typeof createReferrerMetadata>[0]
     quoteParams?: Parameters<typeof createQuoteMetadata>[0]
     orderClassParams?: Parameters<typeof createOrderClassMetadata>[0]
-    utmParams: Parameters<typeof createUtmMetadata>[0]
+    utmParams?: Parameters<typeof createUtmMetadata>[0]
   }
 }
 
