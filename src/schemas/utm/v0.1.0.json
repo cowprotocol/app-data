@@ -5,35 +5,35 @@
   "title": "UTM Codes",
   "type": "object",
   "properties": {
-    "utm_source": {
+    "utmSource": {
       "$id": "#/properties/utmSource",
       "title": "UTM Source",
       "type": "string",
       "examples": ["twitter"],
       "description": "Tracks in which medium the traffic originated from (twitter, facebook, etc.)"
     },
-    "utm_medium": {
+    "utmMedium": {
       "$id": "#/properties/utmMedium",
       "title": "UTM Medium",
       "type": "string",
       "examples": ["email"],
       "description": "Tracks in which medium the traffic originated from (mail, CPC, social, etc.)"
     },
-    "utm_campaign": {
+    "utmCampaign": {
       "$id": "#/properties/utmCampagin",
       "title": "UTM Campaign",
       "type": "string",
       "examples": ["everyone-loves-cows-2023"],
       "description": "Track the performance of a specific campaign"
     },
-    "utm_content": {
+    "utmContent": {
       "$id": "#/properties/utmContent",
       "title": "UTM Content",
       "type": "string",
       "examples": ["big-fat-button"],
       "description": "Track which link was clicked"
     },
-    "utm_term": {
+    "utmTerm": {
       "$id": "#/properties/utmTem",
       "title": "UTM Keyword Term",
       "type": "string",

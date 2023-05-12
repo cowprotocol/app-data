@@ -85,11 +85,11 @@ export interface Referrer {
   [k: string]: unknown;
 }
 export interface UTMCodes {
-  utm_source?: UTMSource;
-  utm_medium?: UTMMedium;
-  utm_campaign?: UTMCampaign;
-  utm_content?: UTMContent;
-  utm_term?: UTMKeywordTerm;
+  utmSource?: UTMSource;
+  utmMedium?: UTMMedium;
+  utmCampaign?: UTMCampaign;
+  utmContent?: UTMContent;
+  utmTerm?: UTMKeywordTerm;
   [k: string]: unknown;
 }
 export interface Quote {

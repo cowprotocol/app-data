@@ -36,11 +36,11 @@ export function createOrderClassMetadata(params: { orderClass: latest.OrderClass
 }
 
 export function createUtmMetadata(params: {
-  utm_source?: latest.UTMSource
-  utm_medium?: latest.UTMMedium
-  utm_campaign?: latest.UTMCampaign
-  utm_content?: latest.UTMContent
-  utm_term?: latest.UTMKeywordTerm
+  utmSource?: latest.UTMSource
+  utmMedium?: latest.UTMMedium
+  utmCampaign?: latest.UTMCampaign
+  utmContent?: latest.UTMContent
+  utmTerm?: latest.UTMKeywordTerm
 }): latest.UTMCodes {
   return {
     ...params,

@@ -268,7 +268,7 @@ describe('Schema v0.6.0', () => {
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: {
-        utm_source: 'twitter',
+        utmSource: 'twitter',
       },
     })
   )
@@ -278,7 +278,7 @@ describe('Schema v0.6.0', () => {
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: {
-        utm_medium: 'email',
+        utmMedium: 'email',
       },
     })
   )
@@ -288,7 +288,7 @@ describe('Schema v0.6.0', () => {
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: {
-        utm_campaign: 'everyone-loves-cows-2023',
+        utmCampaign: 'everyone-loves-cows-2023',
       },
     })
   )
@@ -298,7 +298,7 @@ describe('Schema v0.6.0', () => {
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: {
-        utm_content: 'big-fat-button',
+        utmContent: 'big-fat-button',
       },
     })
   )
@@ -308,7 +308,7 @@ describe('Schema v0.6.0', () => {
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: {
-        utm_term: 'coincidence+of+wants',
+        utmTerm: 'coincidence+of+wants',
       },
     })
   )
@@ -318,11 +318,11 @@ describe('Schema v0.6.0', () => {
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: {
-        utm_source: 'twitter',
-        utm_medium: 'email',
-        utm_campaign: 'everyone-loves-cows-2023',
-        utm_content: 'big-fat-button',
-        utm_term: 'coincidence+of+wants',
+        utmSource: 'twitter',
+        utmMedium: 'email',
+        utmCampaign: 'everyone-loves-cows-2023',
+        utmContent: 'big-fat-button',
+        utmTerm: 'coincidence+of+wants',
       },
     })
   )
