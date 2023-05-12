@@ -13,9 +13,10 @@ export const LATEST_APP_DATA_VERSION = '0.6.0'
 export const LATEST_QUOTE_METADATA_VERSION = '0.2.0'
 export const LATEST_REFERRER_METADATA_VERSION = '0.1.0'
 export const LATEST_ORDER_CLASS_METADATA_VERSION = '0.1.0'
+export const LATEST_UTM_METADATA_VERSION = '0.1.0'
 
 export type LatestAppDataDocVersion = v0_6_0.AppDataRootSchema
-export type AnyAppDataDocVersion = 
+export type AnyAppDataDocVersion =
   | v0_6_0.AppDataRootSchema
   | v0_5_0.AppDataRootSchema
   | v0_4_0.AppDataRootSchema
@@ -23,11 +24,4 @@ export type AnyAppDataDocVersion =
   | v0_2_0.AppDataRootSchema
   | v0_1_0.AppDataRootSchema
 
-export {
-  v0_6_0,
-  v0_5_0,
-  v0_4_0,
-  v0_3_0,
-  v0_2_0,
-  v0_1_0  
-} 
+export { v0_6_0, v0_5_0, v0_4_0, v0_3_0, v0_2_0, v0_1_0 }

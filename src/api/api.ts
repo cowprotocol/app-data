@@ -7,6 +7,7 @@ import {
   createOrderClassMetadata,
   createQuoteMetadata,
   createReferrerMetadata,
+  createUtmMetadata,
   getAppDataSchema,
   validateAppDataDoc,
   ValidationResult,
@@ -41,7 +42,7 @@ export class MetadataApi {
    */
   async generateAppDataDoc(params?: GenerateAppDataDocParams): Promise<LatestAppDataDocVersion> {
     const { appDataParams, metadataParams } = params || {}
-    const { referrerParams, quoteParams, orderClassParams } = metadataParams || {}
+    const { referrerParams, quoteParams, orderClassParams, utmParams } = metadataParams || {}
 
     const metadata: latest.Metadata = {}
     if (referrerParams) {
@@ -52,6 +53,9 @@ export class MetadataApi {
     }
     if (orderClassParams) {
       metadata.orderClass = createOrderClassMetadata(orderClassParams)
+    }
+    if (utmParams) {
+      metadata.utm = createUtmMetadata(utmParams)
     }
 
     const appCode = appDataParams?.appCode || DEFAULT_APP_CODE

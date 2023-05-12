@@ -7,6 +7,7 @@ import {
   LATEST_ORDER_CLASS_METADATA_VERSION,
   LATEST_QUOTE_METADATA_VERSION,
   LATEST_REFERRER_METADATA_VERSION,
+  LATEST_UTM_METADATA_VERSION,
 } from './generatedTypes'
 
 // TODO: Cannot understand why this doesn't work. TS complains saying the type parameters are unknown
@@ -31,6 +32,13 @@ export function createOrderClassMetadata(params: { orderClass: latest.OrderClass
   return {
     ...params,
     version: LATEST_ORDER_CLASS_METADATA_VERSION,
+  }
+}
+
+export function createUtmMetadata(params: { utm: latest.UTMCodes }): latest.UTMCodes {
+  return {
+    ...params,
+    version: LATEST_UTM_METADATA_VERSION,
   }
 }
 
