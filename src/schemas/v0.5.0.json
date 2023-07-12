@@ -2,10 +2,7 @@
   "$id": "https://cowswap.exchange/schemas/app-data/v0.5.0.json",
   "$schema": "http://json-schema.org/draft-07/schema",
   "description": "Metadata JSON document for adding information to orders.",
-  "required": [
-    "version",
-    "metadata"
-  ],
+  "required": ["version", "metadata"],
   "title": "AppData Root Schema",
   "type": "object",
   "properties": {
@@ -17,9 +14,7 @@
     "appCode": {
       "$id": "#/properties/appCode",
       "description": "The code identifying the CLI, UI, service generating the order.",
-      "examples": [
-        "CoW Swap"
-      ],
+      "examples": ["CoW Swap"],
       "title": "App Code",
       "type": "string"
     },
@@ -28,12 +23,7 @@
       "description": "Environment from which the order came from.",
       "title": "Environment",
       "type": "string",
-      "examples": [
-        "production",
-        "development",
-        "staging",
-        "ens"
-      ]
+      "examples": ["production", "development", "staging", "ens"]
     },
     "metadata": {
       "$id": "#/properties/metadata",
