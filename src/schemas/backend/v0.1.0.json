@@ -1,0 +1,42 @@
+{
+  "$id": "#backend/v0.1.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "default": {},
+  "required": [],
+  "title": "Off-Chain Order Parameters",
+  "description": "Additional off-chain order swap parameters.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "$ref": "../definitions.json#/definitions/version",
+      "readOnly": true,
+      "default": "0.1.0"
+    },
+    "hooks": {
+      "$id": "#/properties/hooks",
+      "title": "CoW Hooks",
+      "description": "Custom CoW Hooks to be executed with an order",
+      "type": "object",
+      "properties": {
+        "pre": {
+          "$id": "#/properties/hooks/pre",
+          "title": "Pre-Hooks",
+          "description": "CoW Hooks to call before an order executes",
+          "type": "array",
+          "items": {
+            "$ref": "../hook/v0.1.0.json#"
+          }
+        },
+        "post": {
+          "$id": "#/properties/hooks/post",
+          "title": "Post-Hooks",
+          "description": "CoW Hooks to call after an order executes",
+          "type": "array",
+          "items": {
+            "$ref": "../hook/v0.1.0.json#"
+          }
+        }
+      }
+    }
+  }
+}
