@@ -8,13 +8,13 @@ const HTTP_STATUS_OK = 200
 const HTTP_STATUS_INTERNAL_ERROR = 500
 
 const DEFAULT_APP_DATA_DOC = {
-  version: '0.7.0',
+  version: '0.8.0',
   appCode: 'CowSwap',
   metadata: {},
 }
 
-const IPFS_HASH = 'QmUbsYUqP4DXDvXDipKDG6hKhKnb6dADMeBiHHYJiizr25'
-const APP_DATA_HEX = '0x5d0c585e073ac95728f9cdb05f640be38416ba93c493e842e52e1cf4514488fa'
+const IPFS_HASH = 'QmU4j5Y6JM9DqQ6yxB6nMHq4GChWg1zPehs1U7nGPHABRu'
+const APP_DATA_HEX = '0x5511c4eac66ab272d9a6ab90e07977d00ff7375fc4dc1038a3c05b2c16ca0b74'
 
 const PINATA_API_KEY = 'apikey'
 const PINATA_API_SECRET = 'apiSecret'

@@ -135,4 +135,3 @@ result = await validateAppDataDoc(doc)
 // Contrary to `getAppDataSchema`, invalid or non-existing schemas won't throw
 console.log(result) // { success: false, errors: 'AppData version 0.0.0 doesn\'t exist'}
 ```
-
