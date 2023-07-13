@@ -1,5 +1,5 @@
 import { getSerializedCID, loadIpfsFromCid } from './utils/appData'
-import { calculateIpfsCidV0, Ipfs, pinJSONToIPFS } from './utils/ipfs'
+import { calculateIpfsCidV0Legacy, Ipfs, pinJSONToIPFS } from './utils/ipfs'
 import { GenerateAppDataDocParams, IpfsHashInfo } from './types'
 import { MetaDataError } from './consts'
 import {
@@ -145,7 +145,7 @@ export class MetadataApi {
     }
 
     try {
-      const cidV0 = await calculateIpfsCidV0(appData)
+      const cidV0 = await calculateIpfsCidV0Legacy(appData)
       const appDataHash = await this.cidToAppDataHex(cidV0)
 
       if (!appDataHash) {

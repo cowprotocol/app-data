@@ -51,7 +51,10 @@ export async function pinJSONToIPFS(
   return data
 }
 
-export async function calculateIpfsCidV0(doc: AnyAppDataDocVersion): Promise<string> {
+/**
+ * @deprecated Old way of deriving the IPFS CID from the appData up until 2023-05-25 (see https://github.com/cowprotocol/services/issues/1465)
+ */
+export async function calculateIpfsCidV0Legacy(doc: AnyAppDataDocVersion): Promise<string> {
   const docString = JSON.stringify(doc)
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
