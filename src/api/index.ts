@@ -9,7 +9,6 @@ import { appDataToCid, appDataToCidLegacy } from './appDataToCid'
 import { fetchDocFromCid } from './fetchDocFromCid'
 import { cidToAppDataHex } from './cidToAppDataHex'
 
-export * from '../types'
 export class MetadataApi {
   // Schema & Doc generation/validation
   getAppDataSchema = getAppDataSchema

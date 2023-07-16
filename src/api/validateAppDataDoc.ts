@@ -1,8 +1,8 @@
 import type { ValidateFunction, default as AjvType } from 'ajv'
 
 import { AnyAppDataDocVersion } from '../generatedTypes'
-import { importSchema } from './getAppDataSchema'
 import { ValidationResult } from 'types'
+import { importSchema } from '../importSchema'
 
 let ajv: AjvType
 
