@@ -4,7 +4,7 @@ import { generateAppDataDoc } from './generateAppDataDoc'
 import { uploadMetadataDocToIpfsLegacy } from './uploadMetadataDocToIpfsLegacy'
 import { getAppDataSchema } from './getAppDataSchema'
 import { fetchDocFromAppDataHex, fetchDocFromAppDataHexLegacy } from './fetchDocFromAppData'
-import { appDataHexToCid } from './appDataHexToCid'
+import { appDataHexToCid, appDataHexToCidLegacy } from './appDataHexToCid'
 import { appDataToCid, appDataToCidLegacy } from './appDataToCid'
 import { fetchDocFromCid } from './fetchDocFromCid'
 import { cidToAppDataHex } from './cidToAppDataHex'
@@ -29,5 +29,6 @@ export class MetadataApi {
   // Upload to IPFS (deprecated)
   uploadMetadataDocToIpfsLegacy = uploadMetadataDocToIpfsLegacy //  appData --> cid + publish IPFS
   appDataToCidLegacy = appDataToCidLegacy // (appData | fullAppData) --> cid
+  appDataHexToCidLegacy = appDataHexToCidLegacy // appDataHex --> cid
   fetchDocFromAppDataHexLegacy = fetchDocFromAppDataHexLegacy // appDataHex --> appData
 }
