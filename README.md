@@ -12,18 +12,12 @@ For more details, check [the docs](https://docs.cow.fi/cow-sdk/order-meta-data-a
 yarn add @cowprotocol/app-data
 ```
 
-
 ## Usage
 
 ```typescript
 import { MetadataApi } from '@cowprotocol/app-data'
 
 export const metadataApi = new MetadataApi()
-
-const IPFS_OPTIONS = {
-  pinataApiKey: `PINATA_API_KEY`,
-  pinataApiSecret: `PINATA_SECRET_API_KEY`,
-}
 
 const appCode = 'YOUR_APP_CODE'
 const environment = 'prod'
@@ -37,12 +31,27 @@ const appDataDoc = await metadataApi.generateAppDataDoc({
   metadataParams: { referrerParams, quoteParams, orderClassParams },
 })
 
-const appDataHash = await metadataApi.calculateAppDataHash(appDataDoc)
-const actualHash = await metadataApi.uploadMetadataDocToIpfs(appDataDoc, IPFS_OPTIONS)
+const { cid, appDataHex } = await metadataApi.appDataToCid(appDataDoc)
 
-console.log(appDataHash === actualHash) // Should be true
+// 💡🐮 You should use appDataHex as the appData value in the CoW Order. "cid" Identifies the metadata associated to the CoW order in IPFS
+
+// You can derive the CID from the appDataHex of any order
+const actualCid = await metadataApi.appDataHexToCid(appDataHex)
+console.log(cid === actualCid) // Should be true
+
+// You can derive the appDataHex from the CID of any order
+const actualAppDatahex = await metadataApi.appDataHexToCid(cid)
+console.log(appDataHex === actualAppDatahex) // Should be true
+
+// You can retrieve the JSON document from the CID
+// 🔔 NOTE: for this to work, someone needs to upload the document to IPFS (the CoW API does it, but anyone could upload it too)
+const actualAppDoc = await fetchDocFromCid(cid)
+expect(actualAppDoc).toBeEqual(appDataDoc)
+
+// You can also retrieve the JSON from the appDataHex
+const actualAppDoc2 = await fetchDocFromAppDataHex(appDataHex)
+expect(actualAppDoc2).toBeEqual(appDataDoc)
 ```
-
 
 ### Schemas
 
@@ -63,14 +72,11 @@ There are also type definitions
 import { v0_4_0 } from '@cowprotocol/app-data'
 
 // Note: this example is
-function createAppDataV0_4_0(
-  appCode: v0_4_0.AppCode,
-  metadata: v0_4_0.Metadata
-): v0_4_0.AppDataRootSchema {
+function createAppDataV0_4_0(appCode: v0_4_0.AppCode, metadata: v0_4_0.Metadata): v0_4_0.AppDataRootSchema {
   return {
     version: '0.4.0',
     appCode,
-    metadata
+    metadata,
   }
 }
 ```
@@ -83,27 +89,25 @@ The latest version names are exposed as constants
 import {
   LATEST_APP_DATA_VERSION,
   LATEST_QUOTE_METADATA_VERSION,
-  LATEST_REFERRER_METADATA_VERSION
+  LATEST_REFERRER_METADATA_VERSION,
 } from '@cowprotocol/app-data'
 ```
 
 ### Utils
 
-*Create appData doc*
+_Create appData doc_
 
 There are util functions to handle the creation of valid schema docs for the latest version
 
 ```js
-import {
-  createAppDataDoc, createReferrerMetadata, createQuoteMetadata
-} from '@cowprotocol/app-data'
+import { createAppDataDoc, createReferrerMetadata, createQuoteMetadata } from '@cowprotocol/app-data'
 
 const referrer = createReferrerMetadata({ address: '0x...' })
 const quote = createQuoteMetadata({ slippageBips: '100' })
 const appDataDoc = createAppDataDoc({ appCode: 'myApp', metadata: { referrer, quote } })
 ```
 
-*Get appData schema*
+_Get appData schema_
 
 To get a schema definition by version
 
@@ -115,7 +119,7 @@ const schema = getAppDataSchema('0.1.0')
 
 It'll throw if the version does not exist
 
-*Validate appDataDoc*
+_Validate appDataDoc_
 
 To validate a document, pass it to `validateAppDataDoc`.
 It'll return an object with a boolean indicating `success` and `errors`, if any.
@@ -135,4 +139,3 @@ result = await validateAppDataDoc(doc)
 // Contrary to `getAppDataSchema`, invalid or non-existing schemas won't throw
 console.log(result) // { success: false, errors: 'AppData version 0.0.0 doesn\'t exist'}
 ```
-

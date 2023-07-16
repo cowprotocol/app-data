@@ -1,0 +1,71 @@
+import { latest } from './generatedTypes'
+
+export interface AppDataDocParams {
+  appCode?: latest.AppCode
+  environment?: latest.Environment
+  metadata: latest.Metadata
+}
+
+export interface ReferrerParams {
+  address: latest.ReferrerAddress
+}
+
+export interface QuoteParams {
+  slippageBips: latest.SlippageBips
+}
+export interface OrderClassParams {
+  orderClass: latest.OrderClass1
+}
+
+export interface UtmParams {
+  utmSource?: latest.UTMSource
+  utmMedium?: latest.UTMMedium
+  utmCampaign?: latest.UTMCampaign
+  utmContent?: latest.UTMContent
+  utmTerm?: latest.UTMKeywordTerm
+}
+
+export interface MetadataParams {
+  referrerParams?: ReferrerParams
+  quoteParams?: QuoteParams
+  orderClassParams?: OrderClassParams
+  utmParams?: UtmParams
+}
+
+export type GenerateAppDataDocParams = {
+  appDataParams?: Omit<AppDataDocParams, 'metadata'>
+  metadataParams?: MetadataParams
+}
+
+export type IpfsHashInfo = {
+  /**
+   * IPFS's content identifier
+   * See https://docs.ipfs.io/concepts/content-addressing/#identifier-formats
+   */
+  cid: string
+
+  /**
+   * appData hex for CoW Orders. Its value is the multihash part of the IPFS CID, therefore it points to a IPFS document.
+   * Because its just the multihash, it doesn't have any infomation regarding the encoding and hashing algorithm. These parts are implicit.
+   *
+   * Currently, the implicit encoding is base16 and the implicit hashing algorithm is keccak256.
+   * See https://github.com/cowprotocol/app-data/blob/app-data-v1/src/api/appDataToCid.ts#L102
+   *
+   * Previous versions used a different encoding and hashing algorithm (base58btc, dag-pb, sha2-256)
+   *
+   */
+  appDataHex: string
+}
+
+export interface Ipfs {
+  uri?: string
+  writeUri?: string
+  readUri?: string
+  pinataApiKey?: string
+  pinataApiSecret?: string
+}
+
+export type ValidationResult = {
+  success: boolean
+  errors?: string
+}
