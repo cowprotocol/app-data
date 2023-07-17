@@ -33,8 +33,8 @@ async function _appDataHexToCid(appDataHex: string): Promise<string> {
   cidPrefix[2] = 0x1b // keccak hash algorithm
   cidPrefix[3] = 32 // keccak hash length (0x20 = 32)
 
-  const { getBytes } = await import('ethers')
-  const hashBytes = getBytes(appDataHex) // 32 bytes of the keccak256 hash
+  const { utils } = await import('ethers')
+  const hashBytes = utils.arrayify(appDataHex) // 32 bytes of the keccak256 hash
 
   // Concat prefix and multihash
   var cidBytes = new Uint8Array(cidPrefix.length + hashBytes.length)

@@ -98,9 +98,9 @@ export async function _appDataToCidAux(
  * @returns the IPFS CID v0 of the content
  */
 async function _appDataToCid(fullAppDataJson: string): Promise<string> {
-  const { keccak256, toUtf8Bytes } = await import('ethers')
+  const { utils } = await import('ethers')
 
-  const appDataHex = await keccak256(toUtf8Bytes(fullAppDataJson))
+  const appDataHex = await utils.keccak256(utils.toUtf8Bytes(fullAppDataJson))
   return appDataHexToCid(appDataHex)
 }
 
