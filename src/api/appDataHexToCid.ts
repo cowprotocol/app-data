@@ -47,23 +47,20 @@ async function _appDataHexToCid(appDataHex: string): Promise<string> {
 }
 
 async function _appDataHexToCidLegacy(appDataHex: string): Promise<string> {
-  const cidVersion = 0x1 // cidv1
-  const codec = 0x70 // dag-pb
-  const type = 0x12 // sha2-256 hash algorithm
-  const length = 32 // SHA-256 length (0x20 = 32)
-  const _hash = appDataHex.replace(/(^0x)/, '')
+  const cidPrefix = new Uint8Array(4)
+  cidPrefix[0] = 0x01 // CIDv1
+  cidPrefix[1] = 0x70 // dag-pb
+  cidPrefix[2] = 0x12 // sha2-256 hash algorithm
+  cidPrefix[3] = 32 //  SHA-256 length (0x20 = 32)
 
-  const hexHash = fromHexString(_hash)
+  const { arrayify } = await import('ethers/lib/utils')
+  const hashBytes = arrayify(appDataHex) // 32 bytes of the keccak256 hash
 
-  if (!hexHash) throw new Error('Invalid hex hash ' + _hash)
+  // Concat prefix and multihash
+  var cidBytes = new Uint8Array(cidPrefix.length + hashBytes.length)
+  cidBytes.set(cidPrefix)
+  cidBytes.set(hashBytes, cidPrefix.length)
 
-  const uint8array = Uint8Array.from([cidVersion, codec, type, length, ...hexHash])
   const { CID } = await import('multiformats/cid')
-  return CID.decode(uint8array).toV0().toString()
-}
-
-function fromHexString(hexString: string) {
-  const stringMatch = hexString.match(/.{1,2}/g)
-  if (!stringMatch) return
-  return new Uint8Array(stringMatch.map((byte) => parseInt(byte, 16)))
+  return CID.decode(cidBytes).toV0().toString()
 }
