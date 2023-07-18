@@ -27,19 +27,13 @@ export async function _assertCid(cid: string, appDataHex: string) {
  * @returns the IPFS CID v0 of the content
  */
 async function _appDataHexToCid(appDataHex: string): Promise<string> {
-  const cidPrefix = new Uint8Array(4)
-  cidPrefix[0] = 0x01 // CIDv1
-  cidPrefix[1] = 0x55 // Raw codec
-  cidPrefix[2] = 0x1b // keccak hash algorithm
-  cidPrefix[3] = 32 // keccak hash length (0x20 = 32)
-
-  const { arrayify } = await import('ethers/lib/utils')
-  const hashBytes = arrayify(appDataHex) // 32 bytes of the keccak256 hash
-
-  // Concat prefix and multihash
-  var cidBytes = new Uint8Array(cidPrefix.length + hashBytes.length)
-  cidBytes.set(cidPrefix)
-  cidBytes.set(hashBytes, cidPrefix.length)
+  const cidBytes = await _toCidBytes({
+    version: 0x01, // CIDv1
+    multicodec: 0x55, // Raw codec
+    hashingAlgorithm: 0x1b, // keccak hash algorithm
+    hashingLength: 32, // keccak hash length (0x20 = 32)
+    multihashHex: appDataHex, // 32 bytes of the keccak256 hash
+  })
 
   // Encode to base16
   const { base16 } = await import('multiformats/bases/base16')
@@ -47,20 +41,41 @@ async function _appDataHexToCid(appDataHex: string): Promise<string> {
 }
 
 async function _appDataHexToCidLegacy(appDataHex: string): Promise<string> {
-  const cidPrefix = new Uint8Array(4)
-  cidPrefix[0] = 0x01 // CIDv1
-  cidPrefix[1] = 0x70 // dag-pb
-  cidPrefix[2] = 0x12 // sha2-256 hash algorithm
-  cidPrefix[3] = 32 //  SHA-256 length (0x20 = 32)
+  const cidBytes = await _toCidBytes({
+    version: 0x01, // CIDv1
+    multicodec: 0x70, // dag-pb
+    hashingAlgorithm: 0x12, // sha2-256 hash algorithm
+    hashingLength: 32, //  SHA-256 length (0x20 = 32)
+    multihashHex: appDataHex, // 32 bytes of the sha2-256 hash
+  })
 
+  const { CID } = await import('multiformats/cid')
+  return CID.decode(cidBytes).toV0().toString()
+}
+
+interface ToCidParmams {
+  version: number
+  multicodec: number
+  hashingAlgorithm: number
+  hashingLength: number
+  multihashHex: string
+}
+
+async function _toCidBytes({
+  version,
+  multicodec,
+  hashingAlgorithm,
+  hashingLength,
+  multihashHex,
+}: ToCidParmams): Promise<Uint8Array> {
   const { arrayify } = await import('ethers/lib/utils')
-  const hashBytes = arrayify(appDataHex) // 32 bytes of the keccak256 hash
+  const hashBytes = arrayify(multihashHex)
 
   // Concat prefix and multihash
+  const cidPrefix = Uint8Array.from([version, multicodec, hashingAlgorithm, hashingLength])
   var cidBytes = new Uint8Array(cidPrefix.length + hashBytes.length)
   cidBytes.set(cidPrefix)
   cidBytes.set(hashBytes, cidPrefix.length)
 
-  const { CID } = await import('multiformats/cid')
-  return CID.decode(cidBytes).toV0().toString()
+  return cidBytes
 }
