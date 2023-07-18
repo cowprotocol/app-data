@@ -1,15 +1,12 @@
-import { GenerateAppDataDocParams, MetadataParams } from 'types'
-import {
-  latest,
-  LatestAppDataDocVersion,
-  LATEST_APP_DATA_VERSION,
-  LATEST_ORDER_CLASS_METADATA_VERSION,
-  LATEST_QUOTE_METADATA_VERSION,
-  LATEST_REFERRER_METADATA_VERSION,
-  LATEST_UTM_METADATA_VERSION,
-} from '../generatedTypes'
+import { AppDataParams } from '../types'
+import { LatestAppDataDocVersion, LATEST_APP_DATA_VERSION } from '../generatedTypes'
 
-const DEFAULT_APP_CODE = 'CowSwap'
+const DEFAULT_APP_CODE = 'CoW Swap'
+const DEFAULT_APP_DATA_DOC = {
+  appCode: DEFAULT_APP_CODE,
+  metadata: {},
+  version: LATEST_APP_DATA_VERSION,
+}
 
 /**
  * Creates an appData document using the latest specification of the format
@@ -34,48 +31,10 @@ const DEFAULT_APP_CODE = 'CowSwap'
  *   "version": "0.5.0"
  * }
  */
-export async function generateAppDataDoc(params?: GenerateAppDataDocParams): Promise<LatestAppDataDocVersion> {
-  const { appDataParams, metadataParams } = params || {}
-
+export async function generateAppDataDoc(params?: AppDataParams): Promise<LatestAppDataDocVersion> {
   return {
-    ...appDataParams,
-    appCode: appDataParams?.appCode || DEFAULT_APP_CODE,
-    metadata: _toMetadata(metadataParams),
+    ...DEFAULT_APP_DATA_DOC,
+    ...params,
     version: LATEST_APP_DATA_VERSION,
   }
-}
-
-function _toMetadata(metadataParams: MetadataParams | undefined): latest.Metadata {
-  const { referrerParams, quoteParams, orderClassParams, utmParams } = metadataParams || {}
-
-  const metadata: latest.Metadata = {}
-  if (referrerParams) {
-    metadata.referrer = {
-      ...referrerParams,
-      version: LATEST_REFERRER_METADATA_VERSION,
-    }
-  }
-
-  if (quoteParams) {
-    metadata.quote = {
-      ...quoteParams,
-      version: LATEST_QUOTE_METADATA_VERSION,
-    }
-  }
-
-  if (orderClassParams) {
-    metadata.orderClass = {
-      ...orderClassParams,
-      version: LATEST_ORDER_CLASS_METADATA_VERSION,
-    }
-  }
-
-  if (utmParams) {
-    metadata.utm = {
-      ...utmParams,
-      version: LATEST_UTM_METADATA_VERSION,
-    }
-  }
-
-  return metadata
 }

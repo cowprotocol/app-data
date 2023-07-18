@@ -1,41 +1,6 @@
 import { latest } from './generatedTypes'
 
-export interface AppDataDocParams {
-  appCode?: latest.AppCode
-  environment?: latest.Environment
-  metadata: latest.Metadata
-}
-
-export interface ReferrerParams {
-  address: latest.ReferrerAddress
-}
-
-export interface QuoteParams {
-  slippageBips: latest.SlippageBips
-}
-export interface OrderClassParams {
-  orderClass: latest.OrderClass1
-}
-
-export interface UtmParams {
-  utmSource?: latest.UTMSource
-  utmMedium?: latest.UTMMedium
-  utmCampaign?: latest.UTMCampaign
-  utmContent?: latest.UTMContent
-  utmTerm?: latest.UTMKeywordTerm
-}
-
-export interface MetadataParams {
-  referrerParams?: ReferrerParams
-  quoteParams?: QuoteParams
-  orderClassParams?: OrderClassParams
-  utmParams?: UtmParams
-}
-
-export type GenerateAppDataDocParams = {
-  appDataParams?: Omit<AppDataDocParams, 'metadata'>
-  metadataParams?: MetadataParams
-}
+export type AppDataParams = Partial<Omit<latest.AppDataRootSchema, 'version'>>
 
 export type IpfsHashInfo = {
   /**

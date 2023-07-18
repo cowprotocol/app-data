@@ -21,14 +21,19 @@ export const metadataApi = new MetadataApi()
 
 const appCode = 'YOUR_APP_CODE'
 const environment = 'prod'
-const referrerParams = { address: `REFERRER_ADDRESS` }
+const referrer = { address: `REFERRER_ADDRESS` }
 
-const quoteParams = { slippageBips: '0.5' } // Slippage percent, it's 0 to 100
-const orderClassParams = { orderClass: 'market' } // "market" | "limit" | "liquidity"
+const quote = { slippageBips: '0.5' } // Slippage percent, it's 0 to 100
+const orderClass = { orderClass: 'market' } // "market" | "limit" | "liquidity"
 
 const appDataDoc = await metadataApi.generateAppDataDoc({
-  appDataParams: { appCode, environment },
-  metadataParams: { referrerParams, quoteParams, orderClassParams },
+  appCode,
+  environment
+  metadata: {
+    referrer,
+    quote,
+    orderClass
+  },
 })
 
 const { cid, appDataHex } = await metadataApi.appDataToCid(appDataDoc)
@@ -94,18 +99,6 @@ import {
 ```
 
 ### Utils
-
-_Create appData doc_
-
-There are util functions to handle the creation of valid schema docs for the latest version
-
-```js
-import { createAppDataDoc, createReferrerMetadata, createQuoteMetadata } from '@cowprotocol/app-data'
-
-const referrer = createReferrerMetadata({ address: '0x...' })
-const quote = createQuoteMetadata({ slippageBips: '100' })
-const appDataDoc = createAppDataDoc({ appCode: 'myApp', metadata: { referrer, quote } })
-```
 
 _Get appData schema_
 

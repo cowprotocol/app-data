@@ -24,8 +24,8 @@ describe('uploadMetadataDocToIpfsLegacy', () => {
   test('Fails without passing credentials', async () => {
     // given
     const appDataDoc = await generateAppDataDoc({
-      metadataParams: {
-        referrerParams: APP_DATA_DOC_CUSTOM.metadata.referrer,
+      metadata: {
+        referrer: APP_DATA_DOC_CUSTOM.metadata.referrer,
       },
     })
     // when
@@ -54,7 +54,7 @@ describe('uploadMetadataDocToIpfsLegacy', () => {
     // given
     fetchMock.mockResponseOnce(JSON.stringify({ IpfsHash: IPFS_HASH }), { status: HTTP_STATUS_OK })
     const appDataDoc = await generateAppDataDoc({
-      metadataParams: { referrerParams: APP_DATA_DOC_CUSTOM.metadata.referrer },
+      metadata: { referrer: APP_DATA_DOC_CUSTOM.metadata.referrer },
     })
 
     // when
