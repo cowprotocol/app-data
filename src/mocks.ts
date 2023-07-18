@@ -3,13 +3,13 @@ export const HTTP_STATUS_INTERNAL_ERROR = 500
 
 export const APP_DATA_DOC = {
   version: '0.7.0',
-  appCode: 'CowSwap',
+  appCode: 'CoW Swap',
   metadata: {},
 }
 
-export const APP_DATA_STRING = '{"appCode":"CowSwap","metadata":{},"version":"0.7.0"}'
-export const CID = 'f01551b209fceb93639711ec5c54912346bb530984d71d3641fa2ebaa0d2eb75790a58cf1' // https://cid.ipfs.tech/#f01551b209fceb93639711ec5c54912346bb530984d71d3641fa2ebaa0d2eb75790a58cf1
-export const APP_DATA_HEX = '0x9fceb93639711ec5c54912346bb530984d71d3641fa2ebaa0d2eb75790a58cf1'
+export const APP_DATA_STRING = '{"appCode":"CoW Swap","metadata":{},"version":"0.7.0"}'
+export const CID = 'f01551b20337aa6e6c2a7a0d1eb79a35ebd88b08fc963d5f7a3fc953b7ffb2b7f5898a1df' // https://cid.ipfs.tech/#f01551b20337aa6e6c2a7a0d1eb79a35ebd88b08fc963d5f7a3fc953b7ffb2b7f5898a1df
+export const APP_DATA_HEX = '0x337aa6e6c2a7a0d1eb79a35ebd88b08fc963d5f7a3fc953b7ffb2b7f5898a1df'
 
 export const APP_DATA_DOC_CUSTOM = {
   ...APP_DATA_DOC,
@@ -35,8 +35,8 @@ export const APP_DATA_HEX_2 = '0x8af4e8c9973577b08ac21d17d331aade86c11ebcc512474
 
 // Legacy IPFS Hash format and AppData
 export const APP_DATA_STRING_LEGACY = '{"version":"0.7.0","appCode":"CowSwap","metadata":{}}' // Slightly different than FULL_APP_DATA because legacy used undeterministic JSON.stringify while now we use stringifyDeterministic method
-export const CID_LEGACY = 'QmUbsYUqP4DXDvXDipKDG6hKhKnb6dADMeBiHHYJiizr25' // https://cid.ipfs.tech/#QmUbsYUqP4DXDvXDipKDG6hKhKnb6dADMeBiHHYJiizr25
-export const APP_DATA_HEX_LEGACY = '0x5d0c585e073ac95728f9cdb05f640be38416ba93c493e842e52e1cf4514488fa'
+export const CID_LEGACY = 'QmSwrFbdFcryazEr361YmSwtGcN4uo4U5DKpzA4KbGxw4Q' // https://cid.ipfs.tech/#QmUbsYUqP4DXDvXDipKDG6hKhKnb6dADMeBiHHYJiizr25
+export const APP_DATA_HEX_LEGACY = '0x447320af985c5e834321dc495545f764ad20d8397eeed2f4a2dcbee44a56b725'
 
 export const PINATA_API_KEY = 'apikey'
 export const PINATA_API_SECRET = 'apiSecret'
