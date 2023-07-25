@@ -5,19 +5,15 @@ import { ValidationResult } from 'types'
 import { importSchema } from '../importSchema'
 import { AnyValidateFunction } from 'ajv/dist/core'
 
-let _ajvPromise: Promise<AjvType> | undefined
+let _validatorPromise: Promise<AjvValidator> | undefined
 
 interface AjvValidator {
   validator: AnyValidateFunction<unknown>
   ajv: AjvType
 }
 
-async function getValidator(version: string): Promise<AjvValidator> {
-  if (!_ajvPromise) {
-    _ajvPromise = import('ajv').then(({ default: Ajv }) => new Ajv())
-  }
-
-  const ajv = await _ajvPromise
+async function _createValidator(version: string): Promise<AjvValidator> {
+  const ajv = await import('ajv').then(({ default: Ajv }) => new Ajv())
 
   let validator = ajv.getSchema(version)
 
@@ -28,6 +24,14 @@ async function getValidator(version: string): Promise<AjvValidator> {
   }
 
   return { ajv, validator }
+}
+
+async function getValidator(version: string): Promise<AjvValidator> {
+  if (!_validatorPromise) {
+    _validatorPromise = _createValidator(version)
+  }
+
+  return _validatorPromise
 }
 
 export async function validateAppDataDoc(appDataDoc: AnyAppDataDocVersion): Promise<ValidationResult> {
