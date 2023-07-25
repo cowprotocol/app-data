@@ -3,45 +3,50 @@ import type { ValidateFunction, default as AjvType } from 'ajv'
 import { AnyAppDataDocVersion } from '../generatedTypes'
 import { ValidationResult } from 'types'
 import { importSchema } from '../importSchema'
+import { AnyValidateFunction } from 'ajv/dist/core'
 
 let _ajvPromise: Promise<AjvType> | undefined
 
-async function getAjv(): Promise<AjvType> {
+interface AjvValidator {
+  validator: AnyValidateFunction<unknown>
+  ajv: AjvType
+}
+
+async function getValidator(version: string): Promise<AjvValidator> {
   if (!_ajvPromise) {
     _ajvPromise = import('ajv').then(({ default: Ajv }) => new Ajv())
   }
 
-  return _ajvPromise
+  const ajv = await _ajvPromise
+
+  let validator = ajv.getSchema(version)
+
+  if (!validator) {
+    const schema = await importSchema(version)
+    ajv.addSchema(schema, version)
+    validator = ajv.getSchema(version) as ValidateFunction
+  }
+
+  return { ajv, validator }
 }
 
 export async function validateAppDataDoc(appDataDoc: AnyAppDataDocVersion): Promise<ValidationResult> {
   const { version } = appDataDoc
 
-  const ajv = await getAjv()
+  try {
+    const { ajv, validator } = await getValidator(version)
+    const success = !!validator(appDataDoc)
+    const errors = validator.errors ? ajv.errorsText(validator.errors) : undefined
 
-  let validator = ajv.getSchema(version)
-
-  if (!validator) {
-    let schema
-    try {
-      schema = await importSchema(version)
-    } catch (e) {
-      if (e instanceof Error) {
-        return {
-          success: false,
-          errors: e.message,
-        }
-      } else {
-        throw e
+    return { success, errors }
+  } catch (e) {
+    if (e instanceof Error) {
+      return {
+        success: false,
+        errors: e.message,
       }
+    } else {
+      throw e
     }
-
-    ajv.addSchema(schema, version)
-    validator = ajv.getSchema(version) as ValidateFunction
   }
-
-  const success = !!validator(appDataDoc)
-  const errors = validator.errors ? ajv.errorsText(validator.errors) : undefined
-
-  return { success, errors }
 }
