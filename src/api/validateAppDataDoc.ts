@@ -5,16 +5,18 @@ import { ValidationResult } from 'types'
 import { importSchema } from '../importSchema'
 import { AnyValidateFunction } from 'ajv/dist/core'
 
-let _validatorPromise: Promise<AjvValidator> | undefined
+let _ajvPromise: Promise<AjvType> | undefined
+let _validatorPromises: Record<string, Promise<AnyValidateFunction<unknown>> | undefined> = {}
 
-interface AjvValidator {
-  validator: AnyValidateFunction<unknown>
-  ajv: AjvType
+async function getAjv(): Promise<AjvType> {
+  if (!_ajvPromise) {
+    _ajvPromise = import('ajv').then(({ default: Ajv }) => new Ajv())
+  }
+
+  return _ajvPromise
 }
 
-async function _createValidator(version: string): Promise<AjvValidator> {
-  const ajv = await import('ajv').then(({ default: Ajv }) => new Ajv())
-
+async function _createValidator(ajv: AjvType, version: string): Promise<AnyValidateFunction<unknown>> {
   let validator = ajv.getSchema(version)
 
   if (!validator) {
@@ -23,22 +25,27 @@ async function _createValidator(version: string): Promise<AjvValidator> {
     validator = ajv.getSchema(version) as ValidateFunction
   }
 
-  return { ajv, validator }
+  return validator
 }
 
-async function getValidator(version: string): Promise<AjvValidator> {
-  if (!_validatorPromise) {
-    _validatorPromise = _createValidator(version)
+async function getValidator(ajv: AjvType, version: string): Promise<AnyValidateFunction<unknown>> {
+  let validatorPromise = _validatorPromises[version]
+
+  // Instantiate the validator for the current version if it doesn't exist yet
+  if (!validatorPromise) {
+    validatorPromise = _createValidator(ajv, version)
+    _validatorPromises[version] = validatorPromise
   }
 
-  return _validatorPromise
+  return validatorPromise
 }
 
 export async function validateAppDataDoc(appDataDoc: AnyAppDataDocVersion): Promise<ValidationResult> {
   const { version } = appDataDoc
 
   try {
-    const { ajv, validator } = await getValidator(version)
+    const ajv = await getAjv()
+    const validator = await getValidator(ajv, version)
     const success = !!validator(appDataDoc)
     const errors = validator.errors ? ajv.errorsText(validator.errors) : undefined
 
