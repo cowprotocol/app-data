@@ -3,8 +3,10 @@ import type { ValidateFunction, default as AjvType } from 'ajv'
 import { AnyAppDataDocVersion } from '../generatedTypes'
 import { ValidationResult } from 'types'
 import { importSchema } from '../importSchema'
+import { AnyValidateFunction } from 'ajv/dist/core'
 
 let _ajvPromise: Promise<AjvType> | undefined
+let _validatorPromises: Record<string, Promise<AnyValidateFunction<unknown>> | undefined> = {}
 
 async function getAjv(): Promise<AjvType> {
   if (!_ajvPromise) {
@@ -14,34 +16,48 @@ async function getAjv(): Promise<AjvType> {
   return _ajvPromise
 }
 
-export async function validateAppDataDoc(appDataDoc: AnyAppDataDocVersion): Promise<ValidationResult> {
-  const { version } = appDataDoc
-
-  const ajv = await getAjv()
-
+async function _createValidator(ajv: AjvType, version: string): Promise<AnyValidateFunction<unknown>> {
   let validator = ajv.getSchema(version)
 
   if (!validator) {
-    let schema
-    try {
-      schema = await importSchema(version)
-    } catch (e) {
-      if (e instanceof Error) {
-        return {
-          success: false,
-          errors: e.message,
-        }
-      } else {
-        throw e
-      }
-    }
-
+    const schema = await importSchema(version)
     ajv.addSchema(schema, version)
     validator = ajv.getSchema(version) as ValidateFunction
   }
 
-  const success = !!validator(appDataDoc)
-  const errors = validator.errors ? ajv.errorsText(validator.errors) : undefined
+  return validator
+}
 
-  return { success, errors }
+async function getValidator(ajv: AjvType, version: string): Promise<AnyValidateFunction<unknown>> {
+  let validatorPromise = _validatorPromises[version]
+
+  // Instantiate the validator for the current version if it doesn't exist yet
+  if (!validatorPromise) {
+    validatorPromise = _createValidator(ajv, version)
+    _validatorPromises[version] = validatorPromise
+  }
+
+  return validatorPromise
+}
+
+export async function validateAppDataDoc(appDataDoc: AnyAppDataDocVersion): Promise<ValidationResult> {
+  const { version } = appDataDoc
+
+  try {
+    const ajv = await getAjv()
+    const validator = await getValidator(ajv, version)
+    const success = !!validator(appDataDoc)
+    const errors = validator.errors ? ajv.errorsText(validator.errors) : undefined
+
+    return { success, errors }
+  } catch (e) {
+    if (e instanceof Error) {
+      return {
+        success: false,
+        errors: e.message,
+      }
+    } else {
+      throw e
+    }
+  }
 }
