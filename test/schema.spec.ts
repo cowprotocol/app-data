@@ -6,7 +6,7 @@ import schemaV0_3_0 from '../schemas/v0.3.0.json'
 import schemaV0_4_0 from '../schemas/v0.4.0.json'
 import schemaV0_5_0 from '../schemas/v0.5.0.json'
 import schemaV0_6_0 from '../schemas/v0.6.0.json'
-import schemaV0_8_0 from '../schemas/v0.8.0.json'
+import schemaV0_9_0 from '../schemas/v0.9.0.json'
 
 const ADDRESS = '0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9'
 const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
@@ -329,22 +329,22 @@ describe('Schema v0.6.0', () => {
   )
 })
 
-describe('Schema v0.8.0', () => {
+describe('Schema v0.9.0', () => {
   const ajv = new Ajv()
-  const validator = ajv.compile(schemaV0_8_0)
+  const validator = ajv.compile(schemaV0_9_0)
 
   const BASE_DOCUMENT = {
-    version: '0.5.0',
+    version: '0.9.0',
     metadata: {},
   }
 
   test('Minimal valid schema', _buildAssertValidFn(validator, BASE_DOCUMENT))
 
   test(
-    'With minimal backend v0.1.0',
+    'With minimal hooks v0.1.0',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
-      backend: {},
+      metadata: { hooks: {} },
     })
   )
 
@@ -352,7 +352,7 @@ describe('Schema v0.8.0', () => {
     'With pre-hooks',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
-      backend: {
+      metadata: {
         hooks: {
           pre: [
             {
@@ -375,7 +375,7 @@ describe('Schema v0.8.0', () => {
     'With post-hooks',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
-      backend: {
+      metadata: {
         hooks: {
           post: [
             {
@@ -398,7 +398,7 @@ describe('Schema v0.8.0', () => {
     'With pre- and post-hooks',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
-      backend: {
+      metadata: {
         hooks: {
           pre: [
             {
@@ -425,7 +425,7 @@ describe('Schema v0.8.0', () => {
       validator,
       {
         ...BASE_DOCUMENT,
-        backend: {
+        metadata: {
           hooks: {
             pre: [
               {
@@ -438,11 +438,11 @@ describe('Schema v0.8.0', () => {
       },
       [
         {
-          instancePath: '/backend/hooks/pre/0',
+          instancePath: '/metadata/hooks/pre/0',
           keyword: 'required',
           message: "must have required property 'callData'",
           params: { missingProperty: 'callData' },
-          schemaPath: '#/properties/backend/properties/hooks/properties/pre/items/required',
+          schemaPath: '#/properties/metadata/properties/hooks/properties/pre/items/required',
         },
       ]
     )
