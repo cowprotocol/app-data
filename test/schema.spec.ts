@@ -10,9 +10,18 @@ import schemaV0_9_0 from '../schemas/v0.9.0.json'
 
 const ADDRESS = '0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9'
 const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
+const REFERRER_V0_2_0 = { address: ADDRESS }
 const ORDER_CLASS_V0_1_0 = { orderClass: 'limit', version: '0.1.0' }
+const ORDER_CLASS_V0_3_0 = { orderClass: 'twap' }
 const QUOTE_V0_1_0 = { sellAmount: '123123', buyAmount: '1314123', version: '0.1.0' }
 const QUOTE_V0_2_0 = { slippageBips: '1', version: '0.2.0' }
+const QUOTE_V0_3_0 = { slippageBips: '1' }
+const UTM_V0_2_0 = {
+  utmSource: 'google',
+  utmMedium: 'cpc',
+  utmCampaign: 'campaign',
+  utmContent: 'content',
+}
 
 const MISSING_VERSION_ERROR = [
   {
@@ -399,6 +408,35 @@ describe('Schema v0.9.0', () => {
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: {
+        hooks: {
+          pre: [
+            {
+              target: '0x0102030405060708091011121314151617181920',
+              callData: '0x01020304',
+              gasLimit: '10000',
+            },
+          ],
+          post: [
+            {
+              target: '0x0102030405060708091011121314151617181920',
+              callData: '0x',
+              gasLimit: '10000',
+            },
+          ],
+        },
+      },
+    })
+  )
+
+  test(
+    'With hooks and full metadata',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        quote: QUOTE_V0_3_0,
+        referrer: REFERRER_V0_2_0,
+        orderClass: ORDER_CLASS_V0_3_0,
+        utm: UTM_V0_2_0,
         hooks: {
           pre: [
             {
