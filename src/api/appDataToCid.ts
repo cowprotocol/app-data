@@ -1,10 +1,10 @@
-import { IpfsHashInfo } from '../types'
 import { MetaDataError } from '../consts'
 import { AnyAppDataDocVersion } from '../generatedTypes'
-import { validateAppDataDoc } from './validateAppDataDoc'
+import { IpfsHashInfo } from '../types'
 import { extractDigest } from '../utils/ipfs'
-import { appDataHexToCid } from './appDataHexToCid'
 import { stringifyDeterministic } from '../utils/stringify'
+import { appDataHexToCid } from './appDataHexToCid'
+import { validateAppDataDoc } from './validateAppDataDoc'
 
 /**
  * Calculates appDataHex without publishing file to IPFS

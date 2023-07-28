@@ -1,7 +1,9 @@
 {
   "$id": "#quote/v0.2.0.json",
   "$schema": "http://json-schema.org/draft-07/schema",
-  "required": ["slippageBips"],
+  "required": [
+    "slippageBips"
+  ],
   "title": "Quote",
   "type": "object",
   "additionalProperties": false,
@@ -10,7 +12,12 @@
       "$id": "#/properties/slippageBips",
       "title": "Slippage Bips",
       "description": "Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS)",
-      "examples": ["5", "10", "20", "100"],
+      "examples": [
+        "5",
+        "10",
+        "20",
+        "100"
+      ],
       "pattern": "^\\d+(\\.\\d+)?$",
       "type": "string"
     }

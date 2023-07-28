@@ -1,9 +1,9 @@
-import { MetaDataError, DEFAULT_IPFS_WRITE_URI } from '../consts'
+import { AnyAppDataDocVersion } from 'generatedTypes'
 
 import { Ipfs } from 'types'
-import { AnyAppDataDocVersion } from 'generatedTypes'
-import { stringifyDeterministic } from '../utils/stringify'
+import { DEFAULT_IPFS_WRITE_URI, MetaDataError } from '../consts'
 import { extractDigest } from '../utils/ipfs'
+import { stringifyDeterministic } from '../utils/stringify'
 
 export interface IpfsUploadResult {
   appData: string

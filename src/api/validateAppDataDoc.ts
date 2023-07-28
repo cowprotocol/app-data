@@ -1,9 +1,9 @@
-import type { ValidateFunction, default as AjvType } from 'ajv'
+import type { default as AjvType, ValidateFunction } from 'ajv'
+import { AnyValidateFunction } from 'ajv/dist/core'
+import { ValidationResult } from 'types'
 
 import { AnyAppDataDocVersion } from '../generatedTypes'
-import { ValidationResult } from 'types'
 import { importSchema } from '../importSchema'
-import { AnyValidateFunction } from 'ajv/dist/core'
 
 let _ajvPromise: Promise<AjvType> | undefined
 let _validatorPromises: Record<string, Promise<AnyValidateFunction<unknown>> | undefined> = {}

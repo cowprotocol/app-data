@@ -1,6 +1,5 @@
-import { APP_DATA_HEX, APP_DATA_HEX_2, CID, CID_2 } from '../mocks'
-
 import fetchMock from 'jest-fetch-mock'
+import { APP_DATA_HEX, APP_DATA_HEX_2, CID, CID_2 } from '../mocks'
 import { cidToAppDataHex } from './cidToAppDataHex'
 
 beforeEach(() => {
