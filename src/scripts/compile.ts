@@ -61,6 +61,8 @@ async function compile(): Promise<void> {
     const latestReferrerVersion = await getLatestMetadataDocVersion('referrer')
     const latestOrderClassVersion = await getLatestMetadataDocVersion('orderClass')
     const latestUtmVersion = await getLatestMetadataDocVersion('utm')
+    const latestHooksVersion = await getLatestMetadataDocVersion('hooks')
+
     const additionalTypesExport = `
 export * as latest from './${latest}'
 
@@ -69,6 +71,7 @@ export const LATEST_QUOTE_METADATA_VERSION = '${extractSemver(latestQuoteVersion
 export const LATEST_REFERRER_METADATA_VERSION = '${extractSemver(latestReferrerVersion)}'
 export const LATEST_ORDER_CLASS_METADATA_VERSION = '${extractSemver(latestOrderClassVersion)}'
 export const LATEST_UTM_METADATA_VERSION = '${extractSemver(latestUtmVersion)}'
+export const LATEST_HOOKS_METADATA_VERSION = '${extractSemver(latestHooksVersion)}'
 
 export type LatestAppDataDocVersion = ${latestExport}.AppDataRootSchema
 export type AnyAppDataDocVersion = ${allVersions}
@@ -93,7 +96,7 @@ function extractSemver(name: string): string {
 }
 
 async function getLatestMetadataDocVersion(
-  metadataDocName: 'quote' | 'referrer' | 'orderClass' | 'utm'
+  metadataDocName: 'quote' | 'referrer' | 'orderClass' | 'utm' | 'hooks'
 ): Promise<string> {
   const metadataPath = path.join(SCHEMAS_SRC_PATH, metadataDocName)
   const versions = await fs.promises.readdir(metadataPath)
