@@ -19,7 +19,7 @@ export const LATEST_ORDER_CLASS_METADATA_VERSION = '0.3.0'
 export const LATEST_UTM_METADATA_VERSION = '0.2.0'
 
 export type LatestAppDataDocVersion = v0_9_0.AppDataRootSchema
-export type AnyAppDataDocVersion =
+export type AnyAppDataDocVersion = 
   | v0_9_0.AppDataRootSchema
   | v0_8_0.AppDataRootSchema
   | v0_7_0.AppDataRootSchema
@@ -30,4 +30,14 @@ export type AnyAppDataDocVersion =
   | v0_2_0.AppDataRootSchema
   | v0_1_0.AppDataRootSchema
 
-export { v0_9_0, v0_8_0, v0_7_0, v0_6_0, v0_5_0, v0_4_0, v0_3_0, v0_2_0, v0_1_0 }
+export {
+  v0_9_0,
+  v0_8_0,
+  v0_7_0,
+  v0_6_0,
+  v0_5_0,
+  v0_4_0,
+  v0_3_0,
+  v0_2_0,
+  v0_1_0
+}
