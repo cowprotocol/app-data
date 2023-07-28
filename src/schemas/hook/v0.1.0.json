@@ -4,10 +4,11 @@
   "required": [
     "target",
     "callData",
-    "gasLimit",
+    "gasLimit"
   ],
   "title": "CoW Hook",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "target": {
       "$ref": "../definitions.json#/definitions/ethereumAddress",

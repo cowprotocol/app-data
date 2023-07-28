@@ -113,11 +113,9 @@ export interface OrderInteractionHooks {
   version?: Version1;
   pre?: PreHooks;
   post?: PostHooks;
-  [k: string]: unknown;
 }
 export interface CoWHook {
   target: HookTarget;
   callData: HookCallData;
   gasLimit: HookGasLimit;
-  [k: string]: unknown;
 }

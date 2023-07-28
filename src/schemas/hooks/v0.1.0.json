@@ -6,6 +6,7 @@
   "title": "Order interaction hooks",
   "description": "Optional Pre and Post order interaction hooks attached to a single order",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "version": {
       "$ref": "../definitions.json#/definitions/version",
