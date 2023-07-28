@@ -1,7 +1,10 @@
 {
   "$id": "#orderClass/v0.1.0.json",
   "$schema": "http://json-schema.org/draft-07/schema",
-  "required": ["version", "orderClass"],
+  "required": [
+    "version",
+    "orderClass"
+  ],
   "title": "Order class",
   "type": "object",
   "properties": {
@@ -13,10 +16,20 @@
     "orderClass": {
       "$id": "#/definitions/orderClass",
       "description": "Indicator of the order class.",
-      "examples": ["market", "limit", "liquidity", "twap"],
+      "examples": [
+        "market",
+        "limit",
+        "liquidity",
+        "twap"
+      ],
       "title": "Order class",
       "type": "string",
-      "enum": ["market", "limit", "liquidity", "twap"]
+      "enum": [
+        "market",
+        "limit",
+        "liquidity",
+        "twap"
+      ]
     }
   }
 }

@@ -1,8 +1,8 @@
-import { compileFromFile } from 'json-schema-to-typescript'
-import $RefParser from 'json-schema-ref-parser'
-import semverSort from 'semver-sort'
 import * as fs from 'fs'
+import $RefParser from 'json-schema-ref-parser'
+import { compileFromFile } from 'json-schema-to-typescript'
 import * as path from 'path'
+import semverSort from 'semver-sort'
 
 const SCHEMAS_SRC_PATH = path.join('src', 'schemas')
 const SCHEMAS_DEST_PATH = 'schemas'
@@ -73,8 +73,8 @@ export const LATEST_UTM_METADATA_VERSION = '${extractSemver(latestUtmVersion)}'
 export type LatestAppDataDocVersion = ${latestExport}.AppDataRootSchema
 export type AnyAppDataDocVersion = ${allVersions}
 
-export {${versions.map((version) => `\n  ${versionNameToExport(version)}`)}  
-} 
+export {${versions.map((version) => `\n  ${versionNameToExport(version)}`)}
+}
 `
     await typesIndexFile.write(additionalTypesExport)
   }
@@ -82,7 +82,7 @@ export {${versions.map((version) => `\n  ${versionNameToExport(version)}`)}
   await typesIndexFile.close()
 }
 
-compile()
+compile().then(() => console.log('Done'))
 
 function versionNameToExport(name: string): string {
   return name.replace(/\./g, '_')
