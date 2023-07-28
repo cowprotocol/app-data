@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock'
-import { generateAppDataDoc } from './generateAppDataDoc'
 import { APP_DATA_DOC_CUSTOM } from '../mocks'
+import { generateAppDataDoc } from './generateAppDataDoc'
 
 beforeEach(() => {
   fetchMock.resetMocks()

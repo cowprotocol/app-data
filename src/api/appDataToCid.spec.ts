@@ -1,17 +1,16 @@
-import { appDataToCid, appDataToCidLegacy } from './appDataToCid'
+import fetchMock from 'jest-fetch-mock'
 import {
-  APP_DATA_HEX,
-  APP_DATA_HEX_LEGACY,
   APP_DATA_DOC,
-  CID,
-  CID_LEGACY,
+  APP_DATA_HEX,
+  APP_DATA_HEX_2,
+  APP_DATA_HEX_LEGACY,
   APP_DATA_STRING,
   APP_DATA_STRING_2,
+  CID,
   CID_2,
-  APP_DATA_HEX_2,
+  CID_LEGACY,
 } from '../mocks'
-
-import fetchMock from 'jest-fetch-mock'
+import { appDataToCid, appDataToCidLegacy } from './appDataToCid'
 
 beforeEach(() => {
   fetchMock.resetMocks()

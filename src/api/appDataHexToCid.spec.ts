@@ -1,5 +1,5 @@
-import { appDataHexToCid, appDataHexToCidLegacy } from './appDataHexToCid'
 import { APP_DATA_HEX, APP_DATA_HEX_LEGACY, CID, CID_LEGACY } from '../mocks'
+import { appDataHexToCid, appDataHexToCidLegacy } from './appDataHexToCid'
 
 describe('appDataHexToCid', () => {
   test('Happy path', async () => {

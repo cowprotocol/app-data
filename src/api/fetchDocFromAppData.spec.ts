@@ -1,10 +1,10 @@
 import { DEFAULT_IPFS_READ_URI } from '../consts'
 import {
-  APP_DATA_HEX_LEGACY,
   APP_DATA_DOC_CUSTOM,
+  APP_DATA_HEX_LEGACY,
+  CID_LEGACY,
   HTTP_STATUS_INTERNAL_ERROR,
   HTTP_STATUS_OK,
-  CID_LEGACY,
 } from '../mocks'
 
 import { fetchDocFromAppDataHex, fetchDocFromAppDataHexLegacy } from './fetchDocFromAppData'

@@ -1,6 +1,6 @@
-import { importSchema } from '../importSchema'
-import { MetaDataError } from '../consts'
 import { AnyAppDataDocVersion } from 'generatedTypes'
+import { MetaDataError } from '../consts'
+import { importSchema } from '../importSchema'
 
 /**
  * Wrapper around @cowprotocol/app-data getAppDataSchema

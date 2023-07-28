@@ -1,13 +1,13 @@
-import { validateAppDataDoc } from './validateAppDataDoc'
-
-import { generateAppDataDoc } from './generateAppDataDoc'
-import { uploadMetadataDocToIpfsLegacy } from './uploadMetadataDocToIpfsLegacy'
-import { getAppDataSchema } from './getAppDataSchema'
-import { fetchDocFromAppDataHex, fetchDocFromAppDataHexLegacy } from './fetchDocFromAppData'
 import { appDataHexToCid, appDataHexToCidLegacy } from './appDataHexToCid'
 import { appDataToCid, appDataToCidLegacy } from './appDataToCid'
-import { fetchDocFromCid } from './fetchDocFromCid'
 import { cidToAppDataHex } from './cidToAppDataHex'
+import { fetchDocFromAppDataHex, fetchDocFromAppDataHexLegacy } from './fetchDocFromAppData'
+import { fetchDocFromCid } from './fetchDocFromCid'
+
+import { generateAppDataDoc } from './generateAppDataDoc'
+import { getAppDataSchema } from './getAppDataSchema'
+import { uploadMetadataDocToIpfsLegacy } from './uploadMetadataDocToIpfsLegacy'
+import { validateAppDataDoc } from './validateAppDataDoc'
 
 export class MetadataApi {
   // Schema & Doc generation/validation

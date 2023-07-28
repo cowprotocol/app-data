@@ -1,5 +1,5 @@
+import { LATEST_APP_DATA_VERSION, LatestAppDataDocVersion } from '../generatedTypes'
 import { AppDataParams } from '../types'
-import { LatestAppDataDocVersion, LATEST_APP_DATA_VERSION } from '../generatedTypes'
 
 const DEFAULT_APP_CODE = 'CoW Swap'
 const DEFAULT_APP_DATA_DOC = {
