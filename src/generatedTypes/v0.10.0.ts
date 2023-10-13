@@ -18,7 +18,7 @@ export type AppCode = string;
  */
 export type Environment = string;
 /**
- * The address of the trader who signs the CoW Swap order.
+ * The address of the trader who signs the CoW Swap order. This field should normally be omitted; it is recommended to use it if the signer is a smart-contract wallet using EIP-1271 signatures.
  */
 export type Signer = string;
 export type ReferrerAddress = string;
