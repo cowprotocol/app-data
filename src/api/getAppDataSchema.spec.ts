@@ -7,6 +7,7 @@ describe('getAppDataSchema', () => {
     // when
     const schema = await getAppDataSchema(version)
     // then
+    // @ts-ignore
     expect(schema.$id).toMatch(version)
   })
 
@@ -48,6 +49,7 @@ function _buildAssertVersionFn(version: string) {
     // when
     const schema = await getAppDataSchema(version)
     // then
+    // @ts-ignore
     expect(schema.$id).toMatch(version)
   }
 }
