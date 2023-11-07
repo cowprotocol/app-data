@@ -2,6 +2,7 @@
 
 import * as v0_1_0 from './v0.1.0'
 import * as v0_10_0 from './v0.10.0'
+import * as v0_11_0 from './v0.11.0'
 import * as v0_2_0 from './v0.2.0'
 import * as v0_3_0 from './v0.3.0'
 import * as v0_4_0 from './v0.4.0'
@@ -11,9 +12,9 @@ import * as v0_7_0 from './v0.7.0'
 import * as v0_8_0 from './v0.8.0'
 import * as v0_9_0 from './v0.9.0'
 
-export * as latest from './v0.10.0'
+export * as latest from './v0.11.0'
 
-export const LATEST_APP_DATA_VERSION = '0.10.0'
+export const LATEST_APP_DATA_VERSION = '0.11.0'
 export const LATEST_QUOTE_METADATA_VERSION = '0.3.0'
 export const LATEST_REFERRER_METADATA_VERSION = '0.2.0'
 export const LATEST_ORDER_CLASS_METADATA_VERSION = '0.3.0'
@@ -21,8 +22,9 @@ export const LATEST_UTM_METADATA_VERSION = '0.2.0'
 export const LATEST_HOOKS_METADATA_VERSION = '0.1.0'
 export const LATEST_SIGNER_METADATA_VERSION = '0.1.0'
 
-export type LatestAppDataDocVersion = v0_10_0.AppDataRootSchema
+export type LatestAppDataDocVersion = v0_11_0.AppDataRootSchema
 export type AnyAppDataDocVersion = 
+  | v0_11_0.AppDataRootSchema
   | v0_10_0.AppDataRootSchema
   | v0_9_0.AppDataRootSchema
   | v0_8_0.AppDataRootSchema
@@ -35,6 +37,7 @@ export type AnyAppDataDocVersion =
   | v0_1_0.AppDataRootSchema
 
 export {
+  v0_11_0,
   v0_10_0,
   v0_9_0,
   v0_8_0,
