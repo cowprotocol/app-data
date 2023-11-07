@@ -572,35 +572,59 @@ describe('Schema v0.11.0', () => {
     })
   )
 
-  // test(
-  //   'Widget with no appCode v0.11.0',
-  //   _buildAssertValidFn(validator, {
-  //     ...BASE_DOCUMENT,
-  //     metadata: { widget: { environment: 'production' } },
-  //   })
-  // )
+  test(
+    'With widget and no environment v0.11.0',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { widget: { appCode: 'Pig Swap' } },
+    })
+  )
 
-  // test(
-  //   'Signer with invalid address',
-  //   _buildAssertInvalidFn(
-  //     validator,
-  //     {
-  //       ...BASE_DOCUMENT,
-  //       metadata: {
-  //         signer: '0xinvalid',
-  //       },
-  //     },
-  //     [
-  //       {
-  //         instancePath: '/metadata/signer',
-  //         keyword: 'pattern',
-  //         message: 'must match pattern "^0x[a-fA-F0-9]{40}$"',
-  //         params: { pattern: '^0x[a-fA-F0-9]{40}$' },
-  //         schemaPath: '#/properties/metadata/properties/signer/pattern',
-  //       },
-  //     ]
-  //   )
-  // )
+  test(
+    'Widget with no appCode v0.11.0',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: {
+          widget: {
+            environment: 'production',
+          },
+        },
+      },
+      [
+        {
+          instancePath: '/metadata/widget',
+          keyword: 'required',
+          message: "must have required property 'appCode'",
+          params: { missingProperty: 'appCode' },
+          schemaPath: '#/properties/metadata/properties/widget/required',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Signer with invalid address',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: {
+          signer: '0xinvalid',
+        },
+      },
+      [
+        {
+          instancePath: '/metadata/signer',
+          keyword: 'pattern',
+          message: 'must match pattern "^0x[a-fA-F0-9]{40}$"',
+          params: { pattern: '^0x[a-fA-F0-9]{40}$' },
+          schemaPath: '#/properties/metadata/properties/signer/pattern',
+        },
+      ]
+    )
+  )
 })
 
 function _buildAssertValidFn(validator: ValidateFunction, doc: any) {

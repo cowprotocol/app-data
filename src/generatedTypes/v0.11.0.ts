@@ -134,7 +134,7 @@ export interface CoWHook {
   gasLimit: HookGasLimit;
 }
 export interface Widget {
-  appCode?: AppCode1;
+  appCode: AppCode1;
   environment?: Environment1;
   [k: string]: unknown;
 }
