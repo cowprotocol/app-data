@@ -139,7 +139,7 @@ Fork the repo so you can create a new PR. Then:
 
 1. Add a new version for the schema using the [semver](https://semver.org/) convention
 
-- Just duplicate the latest version i.e. `src/schemas/v0.11.0.json` to `src/schemas/v0.12.0.json`
+- Just duplicate the latest version i.e. `src/schemas/<old-version>.json` to `src/schemas/<new-version>.json`
 
 2. If you are adding a new meta-data
 
