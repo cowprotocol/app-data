@@ -132,3 +132,36 @@ result = await validateAppDataDoc(doc)
 // Contrary to `getAppDataSchema`, invalid or non-existing schemas won't throw
 console.log(result) // { success: false, errors: 'AppData version 0.0.0 doesn\'t exist'}
 ```
+
+# Contribute
+
+Fork the repo so you can create a new PR. Then:
+
+1. Add a new version for the schema using the [semver](https://semver.org/) convention
+
+- Just duplicate the latest version i.e. `src/schemas/v0.11.0.json` to `src/schemas/v0.12.0.json`
+
+2. If you are adding a new meta-data
+
+- We create one directory per schema, so we can keep track of all versions. Create the directory and initial schema definition: `<meta-data-name>/v0.1.0.json`
+- Add it to the main schema you just created in step 1: `"$ref": "<meta-data-name>/v0.1.0.json#"`.
+- Example: https://github.com/cowprotocol/app-data/pull/44/files#diff-7f7a61b478245dfda004f64bd68ac55ef68cbeb5d6d90d77e1cdbd2b7e1212b8R56
+
+3. If you are modifying an existing meta-data
+
+- Version it using the [semver](https://semver.org/) convention
+- You will need to create the new file for the meta-data schema: `<meta-data-name>/<new-version>.json`
+- Update it in the main schema you just created in step 1: Set it to `"<meta-data-name>": { "$ref": "<meta-data-name>/<new-version>.json#" }`
+- 🚨 IMPORTANT: Don't forget to add the exported constant with the latest version in:
+  - https://github.com/cowprotocol/app-data/blob/widget-metadata/src/scripts/compile.ts#L68
+
+4. Generate the typescript types
+
+- Run `yarn build`
+
+4. Make a test focusing on the new or modified meta-data:
+
+- https://github.com/cowprotocol/app-data/pull/44/files#diff-e755a2ecce42f09829d5c7dc1de8853d1d00ef56eaadc2709601c87b9be8ddfbR556
+- Don't forget to use the right version of the schema in your test: https://github.com/cowprotocol/app-data/pull/44/files#diff-e755a2ecce42f09829d5c7dc1de8853d1d00ef56eaadc2709601c87b9be8ddfbR11
+
+5. Create the PR and document it together with the motivation for the changes
