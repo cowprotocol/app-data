@@ -21,6 +21,7 @@ export const LATEST_ORDER_CLASS_METADATA_VERSION = '0.3.0'
 export const LATEST_UTM_METADATA_VERSION = '0.2.0'
 export const LATEST_HOOKS_METADATA_VERSION = '0.1.0'
 export const LATEST_SIGNER_METADATA_VERSION = '0.1.0'
+export const LATEST_WIDGET_METADATA_VERSION = '0.1.0'
 
 export type LatestAppDataDocVersion = v0_11_0.AppDataRootSchema
 export type AnyAppDataDocVersion = 
