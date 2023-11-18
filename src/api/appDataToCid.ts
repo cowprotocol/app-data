@@ -83,7 +83,7 @@ export async function _appDataToCidAux(
       throw new MetaDataError(`Could not extract appDataHex from calculated cid ${cid}`)
     }
 
-    return { cid, appDataHex }
+    return { cid, appDataHex, appDataContent: fullAppData }
   } catch (e) {
     const error = e as MetaDataError
     console.error('Failed to calculate appDataHex', error)

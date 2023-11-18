@@ -10,6 +10,11 @@ export type IpfsHashInfo = {
   cid: string
 
   /**
+   * full appData content
+   */
+  appDataContent: string
+
+  /**
    * appData hex for CoW Orders. Its value is the multihash part of the IPFS CID, therefore it points to a IPFS document.
    * Because its just the multihash, it doesn't have any infomation regarding the encoding and hashing algorithm. These parts are implicit.
    *
