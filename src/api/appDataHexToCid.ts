@@ -68,7 +68,8 @@ async function _toCidBytes({
   hashingLength,
   multihashHex,
 }: ToCidParmams): Promise<Uint8Array> {
-  const { arrayify } = await import('ethers/lib/utils')
+  const module = await import('ethers/lib/utils')
+  const { arrayify } = module.default || module
   const hashBytes = arrayify(multihashHex)
 
   // Concat prefix and multihash
