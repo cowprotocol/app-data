@@ -10,7 +10,7 @@ export type IpfsHashInfo = {
   cid: string
 
   /**
-   * full appData content
+   * Full appData content. It will be a the exact string that if hashed using keccak-256 you would get the returned appDataHex
    */
   appDataContent: string
 
