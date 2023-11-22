@@ -36,7 +36,7 @@ const appDataDoc = await metadataApi.generateAppDataDoc({
   },
 })
 
-const { cid, appDataHex } = await metadataApi.appDataToCid(appDataDoc)
+const { cid, appDataHex, appDataContent } = await metadataApi.appDataToCid(appDataDoc)
 
 // 💡🐮 You should use appDataHex as the appData value in the CoW Order. "cid" Identifies the metadata associated to the CoW order in IPFS
 
