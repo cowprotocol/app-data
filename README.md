@@ -28,7 +28,7 @@ const orderClass = { orderClass: 'market' } // "market" | "limit" | "liquidity"
 
 const appDataDoc = await metadataApi.generateAppDataDoc({
   appCode,
-  environment
+  environment,
   metadata: {
     referrer,
     quote,
@@ -45,17 +45,17 @@ const actualCid = await metadataApi.appDataHexToCid(appDataHex)
 console.log(cid === actualCid) // Should be true
 
 // You can derive the appDataHex from the CID of any order
-const actualAppDatahex = await metadataApi.appDataHexToCid(cid)
+const actualAppDatahex = await metadataApi.cidToAppDataHex(cid)
 console.log(appDataHex === actualAppDatahex) // Should be true
 
 // You can retrieve the JSON document from the CID
 // 🔔 NOTE: for this to work, someone needs to upload the document to IPFS (the CoW API does it, but anyone could upload it too)
-const actualAppDoc = await fetchDocFromCid(cid)
-expect(actualAppDoc).toBeEqual(appDataDoc)
+const actualAppDoc = await metadata.fetchDocFromCid(cid)
+console.log(actualAppDoc === appDataDoc) // Should be true if uploaded to IPFS
 
 // You can also retrieve the JSON from the appDataHex
-const actualAppDoc2 = await fetchDocFromAppDataHex(appDataHex)
-expect(actualAppDoc2).toBeEqual(appDataDoc)
+const actualAppDoc2 = await metadata.fetchDocFromAppDataHex(appDataHex)
+console.log(actualAppDoc2 === appDataDoc) // Should be true if uploaded to IPFS
 ```
 
 ### Schemas
