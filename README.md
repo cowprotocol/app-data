@@ -28,7 +28,7 @@ const orderClass = { orderClass: 'market' } // "market" | "limit" | "liquidity"
 
 const appDataDoc = await metadataApi.generateAppDataDoc({
   appCode,
-  environment
+  environment,
   metadata: {
     referrer,
     quote,
