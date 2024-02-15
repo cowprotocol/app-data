@@ -76,6 +76,7 @@ export const LATEST_UTM_METADATA_VERSION = '${extractSemver(latestUtmVersion)}'
 export const LATEST_HOOKS_METADATA_VERSION = '${extractSemver(latestHooksVersion)}'
 export const LATEST_SIGNER_METADATA_VERSION = '${extractSemver(latestSignerVersion)}'
 export const LATEST_WIDGET_METADATA_VERSION = '${extractSemver(latestWidgetVersion)}'
+export const LATEST_PARTNER_FEE_METADATA_VERSION = '${extractSemver(latestWidgetVersion)}'
 
 export type LatestAppDataDocVersion = ${latestExport}.AppDataRootSchema
 export type AnyAppDataDocVersion = ${allVersions}
@@ -100,7 +101,7 @@ function extractSemver(name: string): string {
 }
 
 async function getLatestMetadataDocVersion(
-  metadataDocName: 'quote' | 'referrer' | 'orderClass' | 'utm' | 'hooks' | 'signer' | 'widget'
+  metadataDocName: 'quote' | 'referrer' | 'orderClass' | 'utm' | 'hooks' | 'signer' | 'widget' | 'partnerFee'
 ): Promise<string> {
   const metadataPath = path.join(SCHEMAS_SRC_PATH, metadataDocName)
   const versions = await fs.promises.readdir(metadataPath)
