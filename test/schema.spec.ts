@@ -9,6 +9,7 @@ import schemaV0_6_0 from '../schemas/v0.6.0.json'
 import schemaV0_9_0 from '../schemas/v0.9.0.json'
 import schemaV0_10_0 from '../schemas/v0.10.0.json'
 import schemaV0_11_0 from '../schemas/v0.11.0.json'
+import schemaV0_12_0 from '../schemas/v0.12.0.json'
 
 const ADDRESS = '0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9'
 const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
@@ -625,6 +626,142 @@ describe('Schema v0.11.0', () => {
       ]
     )
   )
+})
+
+describe('Schema v0.12.0', () => {
+  const ajv = new Ajv()
+  const validator = ajv.compile(schemaV0_12_0)
+
+  const BASE_DOCUMENT = {
+    version: '0.12.0',
+    metadata: {},
+  }
+
+  test('Minimal valid schema', _buildAssertValidFn(validator, BASE_DOCUMENT))
+
+  test(
+    'Valid partner fee',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { partnerFee: { bips: 50, recipient: ADDRESS } },
+    })
+  )
+
+  test(
+    'Valid zero partner fee',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { partnerFee: { bips: 0, recipient: ADDRESS } },
+    })
+  )
+
+  test(
+    'Invalid partner fee: missing bips',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { partnerFee: { recipient: ADDRESS } },
+      },
+      [
+        {
+          instancePath: '/metadata/partnerFee',
+          keyword: 'required',
+          message: "must have required property 'bips'",
+          params: { missingProperty: 'bips' },
+          schemaPath: '#/properties/metadata/properties/partnerFee/required',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Invalid partner fee: missing recipient',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { partnerFee: { bips: 50 } },
+      },
+      [
+        {
+          instancePath: '/metadata/partnerFee',
+          keyword: 'required',
+          message: "must have required property 'recipient'",
+          params: { missingProperty: 'recipient' },
+          schemaPath: '#/properties/metadata/properties/partnerFee/required',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Invalid partner fee: BIPs is too low (negative)',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { partnerFee: { bips: -1, recipient: ADDRESS } },
+      },
+      [
+        {
+          instancePath: '/metadata/partnerFee/bips',
+          keyword: 'minimum',
+          message: 'must be >= 0',
+          params: {
+            comparison: '>=',
+            limit: 0,
+          },
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/minimum',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Invalid partner fee: BIPs is too high (over 100%)',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { partnerFee: { bips: 10001, recipient: ADDRESS } },
+      },
+      [
+        {
+          instancePath: '/metadata/partnerFee/bips',
+          keyword: 'maximum',
+          message: 'must be <= 10000',
+          params: {
+            comparison: '<=',
+            limit: 10000,
+          },
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/maximum',
+        },
+      ]
+    )
+  )
+
+  // test(
+  //   'Signer with invalid address',
+  //   _buildAssertInvalidFn(
+  //     validator,
+  //     {
+  //       ...BASE_DOCUMENT,
+  //       metadata: {
+  //         signer: '0xinvalid',
+  //       },
+  //     },
+  //     [
+  //       {
+  //         instancePath: '/metadata/signer',
+  //         keyword: 'pattern',
+  //         message: 'must match pattern "^0x[a-fA-F0-9]{40}$"',
+  //         params: { pattern: '^0x[a-fA-F0-9]{40}$' },
+  //         schemaPath: '#/properties/metadata/properties/signer/pattern',
+  //       },
+  //     ]
+  //   )
+  // )
 })
 
 function _buildAssertValidFn(validator: ValidateFunction, doc: any) {
