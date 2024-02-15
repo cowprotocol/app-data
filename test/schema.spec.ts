@@ -628,7 +628,7 @@ describe('Schema v0.11.0', () => {
   )
 })
 
-describe('Schema v0.12.0', () => {
+describe('Schema v0.12.0: Add partner fee', () => {
   const ajv = new Ajv()
   const validator = ajv.compile(schemaV0_12_0)
 
@@ -764,11 +764,132 @@ describe('Schema v0.12.0', () => {
   )
 })
 
+describe('Schema v0.12.0: Update quote definition', () => {
+  const ajv = new Ajv()
+  const validator = ajv.compile(schemaV0_12_0)
+
+  const BASE_DOCUMENT = {
+    version: '0.12.0',
+    metadata: {},
+  }
+
+  test(
+    'Valid quote',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { quote: { slippageBips: 50 } },
+    })
+  )
+
+  test(
+    'Valid quote, with zero slippage',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { quote: { slippageBips: 0 } },
+    })
+  )
+
+  test(
+    'Valid quote, with maximum slippage (10,000)',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { quote: { slippageBips: 10000 } },
+    })
+  )
+
+  test(
+    'Invalid partner fee: unknown field',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { quote: { recipient: ADDRESS } },
+      },
+      [
+        {
+          instancePath: '/metadata/quote',
+          keyword: 'required',
+          message: "must have required property 'slippageBips'",
+          params: { missingProperty: 'slippageBips' },
+          schemaPath: '#/properties/metadata/properties/quote/required',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Invalid partner fee: missing slippageBips',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { quote: {} },
+      },
+      [
+        {
+          instancePath: '/metadata/quote',
+          keyword: 'required',
+          message: "must have required property 'slippageBips'",
+          params: { missingProperty: 'slippageBips' },
+          schemaPath: '#/properties/metadata/properties/quote/required',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Invalid partner fee: missing slippageBips',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { quote: { slippageBips: -1 } },
+      },
+      [
+        {
+          instancePath: '/metadata/quote/slippageBips',
+          keyword: 'minimum',
+          message: 'must be >= 0',
+          params: {
+            comparison: '>=',
+            limit: 0,
+          },
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/minimum',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Invalid partner fee: missing slippageBips',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { quote: { slippageBips: 100001 } },
+      },
+      [
+        {
+          instancePath: '/metadata/quote/slippageBips',
+          keyword: 'maximum',
+          message: 'must be <= 10000',
+          params: {
+            comparison: '<=',
+            limit: 10000,
+          },
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/maximum',
+        },
+      ]
+    )
+  )
+})
+
 function _buildAssertValidFn(validator: ValidateFunction, doc: any) {
   return () => {
     // when
     const actual = validator(doc)
     // then
+    expect(validator.errors).toBeFalsy()
     expect(actual).toBeTruthy()
   }
 }
