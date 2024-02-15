@@ -10,6 +10,7 @@ import schemaV0_9_0 from '../schemas/v0.9.0.json'
 import schemaV0_10_0 from '../schemas/v0.10.0.json'
 import schemaV0_11_0 from '../schemas/v0.11.0.json'
 import schemaV0_12_0 from '../schemas/v0.12.0.json'
+import schemaV1_0_0 from '../schemas/v1.0.0.json'
 
 const ADDRESS = '0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9'
 const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
@@ -764,14 +765,16 @@ describe('Schema v0.12.0: Add partner fee', () => {
   )
 })
 
-describe('Schema v0.12.0: Update quote definition', () => {
+describe('Schema v1.0.0: Update quote definition', () => {
   const ajv = new Ajv()
-  const validator = ajv.compile(schemaV0_12_0)
+  const validator = ajv.compile(schemaV1_0_0)
 
   const BASE_DOCUMENT = {
-    version: '0.12.0',
+    version: '1.0.0',
     metadata: {},
   }
+
+  test('Minimal valid schema', _buildAssertValidFn(validator, BASE_DOCUMENT))
 
   test(
     'Valid quote',
