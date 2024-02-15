@@ -741,27 +741,27 @@ describe('Schema v0.12.0', () => {
     )
   )
 
-  // test(
-  //   'Signer with invalid address',
-  //   _buildAssertInvalidFn(
-  //     validator,
-  //     {
-  //       ...BASE_DOCUMENT,
-  //       metadata: {
-  //         signer: '0xinvalid',
-  //       },
-  //     },
-  //     [
-  //       {
-  //         instancePath: '/metadata/signer',
-  //         keyword: 'pattern',
-  //         message: 'must match pattern "^0x[a-fA-F0-9]{40}$"',
-  //         params: { pattern: '^0x[a-fA-F0-9]{40}$' },
-  //         schemaPath: '#/properties/metadata/properties/signer/pattern',
-  //       },
-  //     ]
-  //   )
-  // )
+  test(
+    "Invalid partner fee: BIPs don't allow decimals",
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { partnerFee: { bips: 10.5, recipient: ADDRESS } },
+      },
+      [
+        {
+          instancePath: '/metadata/partnerFee/bips',
+          keyword: 'type',
+          message: 'must be integer',
+          params: {
+            type: 'integer',
+          },
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/type',
+        },
+      ]
+    )
+  )
 })
 
 function _buildAssertValidFn(validator: ValidateFunction, doc: any) {
