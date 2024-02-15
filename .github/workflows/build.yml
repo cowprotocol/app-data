@@ -20,11 +20,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
+        with:
+          node-version: 14
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       - name: Build app
         run: yarn build
