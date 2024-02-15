@@ -43,9 +43,9 @@ export type UTMContent = string;
  */
 export type UTMKeywordTerm = string;
 /**
- * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS)
+ * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS). One basis point is equivalent to 0.01% (1/100th of a percent)
  */
-export type SlippageBips = string;
+export type SlippageBips = number;
 /**
  * Indicator of the order class.
  */

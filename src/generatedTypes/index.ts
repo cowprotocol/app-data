@@ -16,7 +16,7 @@ import * as v0_9_0 from './v0.9.0'
 export * as latest from './v0.12.0'
 
 export const LATEST_APP_DATA_VERSION = '0.12.0'
-export const LATEST_QUOTE_METADATA_VERSION = '0.3.0'
+export const LATEST_QUOTE_METADATA_VERSION = '1.0.0'
 export const LATEST_REFERRER_METADATA_VERSION = '0.2.0'
 export const LATEST_ORDER_CLASS_METADATA_VERSION = '0.3.0'
 export const LATEST_UTM_METADATA_VERSION = '0.2.0'

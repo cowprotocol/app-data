@@ -11,9 +11,9 @@
       "$ref": "../definitions.json#/definitions/bips"
     },
     "recipient": {
-      "$ref": "../definitions.json#/definitions/ethereumAddress",
       "title": "Partner account",
-      "description": "The Ethereum address of the partner to receive the fee."
+      "description": "The Ethereum address of the partner to receive the fee.",
+      "$ref": "../definitions.json#/definitions/ethereumAddress"
     }
   }
 }

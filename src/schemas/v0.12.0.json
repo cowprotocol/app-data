@@ -45,7 +45,7 @@
           "$ref": "utm/v0.2.0.json#"
         },
         "quote": {
-          "$ref": "quote/v0.3.0.json#"
+          "$ref": "quote/v1.0.0.json#"
         },
         "orderClass": {
           "$ref": "orderClass/v0.3.0.json#"
