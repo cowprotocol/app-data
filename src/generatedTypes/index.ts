@@ -3,7 +3,6 @@
 import * as v0_1_0 from './v0.1.0'
 import * as v0_10_0 from './v0.10.0'
 import * as v0_11_0 from './v0.11.0'
-import * as v0_12_0 from './v0.12.0'
 import * as v0_2_0 from './v0.2.0'
 import * as v0_3_0 from './v0.3.0'
 import * as v0_4_0 from './v0.4.0'
@@ -29,7 +28,6 @@ export const LATEST_PARTNER_FEE_METADATA_VERSION = '0.1.0'
 export type LatestAppDataDocVersion = v1_0_0.AppDataRootSchema
 export type AnyAppDataDocVersion = 
   | v1_0_0.AppDataRootSchema
-  | v0_12_0.AppDataRootSchema
   | v0_11_0.AppDataRootSchema
   | v0_10_0.AppDataRootSchema
   | v0_9_0.AppDataRootSchema
@@ -44,7 +42,6 @@ export type AnyAppDataDocVersion =
 
 export {
   v1_0_0,
-  v0_12_0,
   v0_11_0,
   v0_10_0,
   v0_9_0,
