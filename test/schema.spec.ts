@@ -643,7 +643,7 @@ describe('Schema v1.0.0: Add partner fee', () => {
     'Valid partner fee',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
-      metadata: { partnerFee: { bips: 50, recipient: ADDRESS } },
+      metadata: { partnerFee: { bps: 50, recipient: ADDRESS } },
     })
   )
 
@@ -651,12 +651,12 @@ describe('Schema v1.0.0: Add partner fee', () => {
     'Valid zero partner fee',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
-      metadata: { partnerFee: { bips: 0, recipient: ADDRESS } },
+      metadata: { partnerFee: { bps: 0, recipient: ADDRESS } },
     })
   )
 
   test(
-    'Invalid partner fee: missing bips',
+    'Invalid partner fee: missing bps',
     _buildAssertInvalidFn(
       validator,
       {
@@ -667,8 +667,8 @@ describe('Schema v1.0.0: Add partner fee', () => {
         {
           instancePath: '/metadata/partnerFee',
           keyword: 'required',
-          message: "must have required property 'bips'",
-          params: { missingProperty: 'bips' },
+          message: "must have required property 'bps'",
+          params: { missingProperty: 'bps' },
           schemaPath: '#/properties/metadata/properties/partnerFee/required',
         },
       ]
@@ -681,7 +681,7 @@ describe('Schema v1.0.0: Add partner fee', () => {
       validator,
       {
         ...BASE_DOCUMENT,
-        metadata: { partnerFee: { bips: 50 } },
+        metadata: { partnerFee: { bps: 50 } },
       },
       [
         {
@@ -701,18 +701,18 @@ describe('Schema v1.0.0: Add partner fee', () => {
       validator,
       {
         ...BASE_DOCUMENT,
-        metadata: { partnerFee: { bips: -1, recipient: ADDRESS } },
+        metadata: { partnerFee: { bps: -1, recipient: ADDRESS } },
       },
       [
         {
-          instancePath: '/metadata/partnerFee/bips',
+          instancePath: '/metadata/partnerFee/bps',
           keyword: 'minimum',
           message: 'must be >= 0',
           params: {
             comparison: '>=',
             limit: 0,
           },
-          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/minimum',
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bps/minimum',
         },
       ]
     )
@@ -724,18 +724,18 @@ describe('Schema v1.0.0: Add partner fee', () => {
       validator,
       {
         ...BASE_DOCUMENT,
-        metadata: { partnerFee: { bips: 10001, recipient: ADDRESS } },
+        metadata: { partnerFee: { bps: 10001, recipient: ADDRESS } },
       },
       [
         {
-          instancePath: '/metadata/partnerFee/bips',
+          instancePath: '/metadata/partnerFee/bps',
           keyword: 'maximum',
           message: 'must be <= 10000',
           params: {
             comparison: '<=',
             limit: 10000,
           },
-          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/maximum',
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bps/maximum',
         },
       ]
     )
@@ -747,17 +747,17 @@ describe('Schema v1.0.0: Add partner fee', () => {
       validator,
       {
         ...BASE_DOCUMENT,
-        metadata: { partnerFee: { bips: 10.5, recipient: ADDRESS } },
+        metadata: { partnerFee: { bps: 10.5, recipient: ADDRESS } },
       },
       [
         {
-          instancePath: '/metadata/partnerFee/bips',
+          instancePath: '/metadata/partnerFee/bps',
           keyword: 'type',
           message: 'must be integer',
           params: {
             type: 'integer',
           },
-          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/type',
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bps/type',
         },
       ]
     )
@@ -856,7 +856,7 @@ describe('Schema v1.0.0: Update quote definition', () => {
             comparison: '>=',
             limit: 0,
           },
-          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/minimum',
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bps/minimum',
         },
       ]
     )
@@ -879,7 +879,7 @@ describe('Schema v1.0.0: Update quote definition', () => {
             comparison: '<=',
             limit: 10000,
           },
-          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bips/maximum',
+          schemaPath: '#/properties/metadata/properties/partnerFee/properties/bps/maximum',
         },
       ]
     )

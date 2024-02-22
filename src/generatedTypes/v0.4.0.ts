@@ -27,7 +27,7 @@ export type ReferrerAddress = string;
  */
 export type Version2 = string;
 /**
- * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS)
+ * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BPS)
  */
 export type SlippageBips = string;
 

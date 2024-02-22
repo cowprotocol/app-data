@@ -43,7 +43,7 @@ export type UTMContent = string;
  */
 export type UTMKeywordTerm = string;
 /**
- * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS). One basis point is equivalent to 0.01% (1/100th of a percent)
+ * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BPS). One basis point is equivalent to 0.01% (1/100th of a percent)
  */
 export type SlippageBips = number;
 /**
@@ -148,7 +148,7 @@ export interface Widget {
   [k: string]: unknown;
 }
 export interface PartnerFee {
-  bips: BasisPointBPS;
+  bps: BasisPointBPS;
   recipient: PartnerAccount;
   [k: string]: unknown;
 }

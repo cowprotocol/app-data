@@ -8,8 +8,8 @@
   "properties": {
     "slippageBips": {
       "title": "Slippage Bips",
-      "description": "Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BIPS). One basis point is equivalent to 0.01% (1/100th of a percent)",
-      "$ref": "../definitions.json#/definitions/bips"
+      "description": "Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BPS). One basis point is equivalent to 0.01% (1/100th of a percent)",
+      "$ref": "../definitions.json#/definitions/bps"
     }
   }
 }

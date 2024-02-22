@@ -25,8 +25,8 @@
       "examples": ["90741097240912730913", "0", "75891372"],
       "type": "string"
     },
-    "bips": {
-      "$id": "#/definitions/bips",
+    "bps": {
+      "$id": "#/definitions/bps",
       "title": "Basis Point (BPS)",
       "description": "One basis point is equivalent to 0.01% (1/100th of a percent)",
       "examples": [0, 10, 50],
