@@ -43,9 +43,9 @@ export type UTMContent = string;
  */
 export type UTMKeywordTerm = string;
 /**
- * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BPS)
+ * Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BPS). One basis point is equivalent to 0.01% (1/100th of a percent)
  */
-export type SlippageBips = string;
+export type SlippageBips = number;
 /**
  * Indicator of the order class.
  */
@@ -82,6 +82,14 @@ export type AppCode1 = string;
  * Environment from which the order came from.
  */
 export type Environment1 = string;
+/**
+ * The fee in basis points (BPS) to be paid to the partner. One basis point is equivalent to 0.01% (1/100th of a percent)
+ */
+export type BasisPointBPS = number;
+/**
+ * The Ethereum address of the partner to receive the fee.
+ */
+export type PartnerAccount = string;
 
 /**
  * Metadata JSON document for adding information to orders.
@@ -103,6 +111,7 @@ export interface Metadata {
   orderClass?: OrderClass;
   hooks?: OrderInteractionHooks;
   widget?: Widget;
+  partnerFee?: PartnerFee;
 }
 export interface Referrer {
   address: ReferrerAddress;
@@ -136,5 +145,10 @@ export interface CoWHook {
 export interface Widget {
   appCode: AppCode1;
   environment?: Environment1;
+  [k: string]: unknown;
+}
+export interface PartnerFee {
+  bps: BasisPointBPS;
+  recipient: PartnerAccount;
   [k: string]: unknown;
 }

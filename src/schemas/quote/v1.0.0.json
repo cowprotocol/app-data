@@ -7,12 +7,9 @@
   "additionalProperties": false,
   "properties": {
     "slippageBips": {
-      "$id": "#/properties/slippageBips",
       "title": "Slippage Bips",
-      "description": "Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BPS)",
-      "examples": ["5", "10", "20", "100"],
-      "pattern": "^\\d+(\\.\\d+)?$",
-      "type": "string"
+      "description": "Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BPS). One basis point is equivalent to 0.01% (1/100th of a percent)",
+      "$ref": "../definitions.json#/definitions/bps"
     }
   }
 }

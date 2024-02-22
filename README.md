@@ -32,7 +32,7 @@ const appDataDoc = await metadataApi.generateAppDataDoc({
   metadata: {
     referrer,
     quote,
-    orderClass
+    orderClass,
   },
 })
 
@@ -152,16 +152,19 @@ Fork the repo so you can create a new PR. Then:
 - Version it using the [semver](https://semver.org/) convention
 - You will need to create the new file for the meta-data schema: `<meta-data-name>/<new-version>.json`
 - Update it in the main schema you just created in step 1: Set it to `"<meta-data-name>": { "$ref": "<meta-data-name>/<new-version>.json#" }`
-- 🚨 IMPORTANT: Don't forget to add the exported constant with the latest version in:
-  - https://github.com/cowprotocol/app-data/blob/widget-metadata/src/scripts/compile.ts#L68
+
+4. Modify the `compile.ts` script
+
+- Add the exported constant with the latest version in, and the new metadata:
+  - For example: https://github.com/cowprotocol/app-data/pull/44/commits/aeef8a58e7bbd2a53664ce396011cb157a18406d
 
 4. Generate the typescript types
 
 - Run `yarn build`
 
-4. Make a test focusing on the new or modified meta-data:
+5. Make a test focusing on the new or modified meta-data:
 
 - https://github.com/cowprotocol/app-data/pull/44/files#diff-e755a2ecce42f09829d5c7dc1de8853d1d00ef56eaadc2709601c87b9be8ddfbR556
 - Don't forget to use the right version of the schema in your test: https://github.com/cowprotocol/app-data/pull/44/files#diff-e755a2ecce42f09829d5c7dc1de8853d1d00ef56eaadc2709601c87b9be8ddfbR11
 
-5. Create the PR and document it together with the motivation for the changes
+6. Create the PR and document it together with the motivation for the changes
