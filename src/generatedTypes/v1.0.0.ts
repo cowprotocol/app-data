@@ -145,10 +145,8 @@ export interface CoWHook {
 export interface Widget {
   appCode: AppCode1;
   environment?: Environment1;
-  [k: string]: unknown;
 }
 export interface PartnerFee {
   bps: BasisPointBPS;
   recipient: PartnerAccount;
-  [k: string]: unknown;
 }
