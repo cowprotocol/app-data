@@ -4,6 +4,7 @@
   "required": ["appCode"],
   "title": "Widget",
   "type": "object",
+  "additionalItems": false,
   "properties": {
     "appCode": {
       "$id": "#/properties/appCodeWidget",

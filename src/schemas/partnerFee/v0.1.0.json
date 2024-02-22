@@ -4,6 +4,7 @@
   "required": ["bps", "recipient"],
   "title": "Partner fee",
   "type": "object",
+  "additionalItems": false,
   "properties": {
     "bps": {
       "title": "Basis Point (BPS)",
