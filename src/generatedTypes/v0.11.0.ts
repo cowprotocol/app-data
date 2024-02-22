@@ -136,5 +136,4 @@ export interface CoWHook {
 export interface Widget {
   appCode: AppCode1;
   environment?: Environment1;
-  [k: string]: unknown;
 }
