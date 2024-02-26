@@ -20,7 +20,7 @@ export const APP_DATA_DOC_CUSTOM = {
       version: '0.1.0',
     },
     quote: {
-      slippageBips: '1',
+      slippageBips: 1,
       version: '0.2.0',
     },
   },
