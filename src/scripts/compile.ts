@@ -65,6 +65,7 @@ async function compile(): Promise<void> {
     const latestSignerVersion = await getLatestMetadataDocVersion('signer')
     const latestWidgetVersion = await getLatestMetadataDocVersion('widget')
     const latestPartnerFeeVersion = await getLatestMetadataDocVersion('partnerFee')
+    const latestReplacedOrderVersion = await getLatestMetadataDocVersion('replacedOrder')
 
     const additionalTypesExport = `
 export * as latest from './${latest}'
@@ -78,6 +79,7 @@ export const LATEST_HOOKS_METADATA_VERSION = '${extractSemver(latestHooksVersion
 export const LATEST_SIGNER_METADATA_VERSION = '${extractSemver(latestSignerVersion)}'
 export const LATEST_WIDGET_METADATA_VERSION = '${extractSemver(latestWidgetVersion)}'
 export const LATEST_PARTNER_FEE_METADATA_VERSION = '${extractSemver(latestPartnerFeeVersion)}'
+export const LATEST_REPLACED_ORDER_METADATA_VERSION = '${extractSemver(latestReplacedOrderVersion)}'
 
 export type LatestAppDataDocVersion = ${latestExport}.AppDataRootSchema
 export type AnyAppDataDocVersion = ${allVersions}
@@ -102,7 +104,7 @@ function extractSemver(name: string): string {
 }
 
 async function getLatestMetadataDocVersion(
-  metadataDocName: 'quote' | 'referrer' | 'orderClass' | 'utm' | 'hooks' | 'signer' | 'widget' | 'partnerFee'
+  metadataDocName: 'quote' | 'referrer' | 'orderClass' | 'utm' | 'hooks' | 'signer' | 'widget' | 'partnerFee' | 'replacedOrder'
 ): Promise<string> {
   const metadataPath = path.join(SCHEMAS_SRC_PATH, metadataDocName)
   const versions = await fs.promises.readdir(metadataPath)
