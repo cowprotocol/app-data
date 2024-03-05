@@ -4,7 +4,7 @@ set -o nounset
 set -o pipefail
 set -o errexit
 
-fail_if_unset () {
+fail_if_unset() {
   local var_name="$1"
   if [[ -z "${!var_name:-""}" ]]; then
     printf '%s not set\n' "$var_name" >&2
@@ -12,8 +12,8 @@ fail_if_unset () {
   fi
 }
 
-package_exists () {
-  npm view --json "$1" &>/dev/null;
+package_exists() {
+  npm view --json "$1" &>/dev/null
 }
 
 fail_if_unset NODE_AUTH_TOKEN
@@ -22,7 +22,7 @@ package_name="$(jq --raw-output .name ./package.json)"
 version="$(jq --raw-output .version ./package.json)"
 
 if package_exists "$package_name" && grep --silent --line-regexp --fixed-strings -- "$version" \
-    <(npm view --json "$package_name" | jq '.versions[] | .' --raw-output); then
+  <(npm view --json "$package_name" | jq '.versions[] | .' --raw-output); then
   echo "Version $version already published"
   exit 1
 fi
@@ -39,6 +39,6 @@ if ! [ "$version_tag" = "$latest_tag" ]; then
   exit 1
 fi
 
-yarn publish --access public
+npm publish --access public
 
 echo "Package $package_name version $version successfully published."
