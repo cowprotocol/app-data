@@ -15,6 +15,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
+          always-auth: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
       - name: Cache Yarn dependencies
         uses: actions/cache@v2
