@@ -31,6 +31,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - run: bash src/workflows/publish.sh
+      - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
