@@ -1,16 +1,17 @@
 import Ajv, { ValidateFunction } from 'ajv'
 
 import schemaV0_1_0 from '../schemas/v0.1.0.json'
+import schemaV0_10_0 from '../schemas/v0.10.0.json'
+import schemaV0_11_0 from '../schemas/v0.11.0.json'
 import schemaV0_2_0 from '../schemas/v0.2.0.json'
 import schemaV0_3_0 from '../schemas/v0.3.0.json'
 import schemaV0_4_0 from '../schemas/v0.4.0.json'
 import schemaV0_5_0 from '../schemas/v0.5.0.json'
 import schemaV0_6_0 from '../schemas/v0.6.0.json'
 import schemaV0_9_0 from '../schemas/v0.9.0.json'
-import schemaV0_10_0 from '../schemas/v0.10.0.json'
-import schemaV0_11_0 from '../schemas/v0.11.0.json'
 import schemaV1_0_0 from '../schemas/v1.0.0.json'
 import schemaV1_1_0 from '../schemas/v1.1.0.json'
+import schemaV1_2_0 from '../schemas/v1.2.0.json'
 
 const ADDRESS = '0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9'
 const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
@@ -888,62 +889,134 @@ describe('Schema v1.0.0: Update quote definition', () => {
 })
 
 describe('Schema v1.1.0: Add replaced order', () => {
-    const ajv = new Ajv()
-    const validator = ajv.compile(schemaV1_1_0)
+  const ajv = new Ajv()
+  const validator = ajv.compile(schemaV1_1_0)
 
-    const BASE_DOCUMENT = {
-        version: '1.1.0',
-        metadata: {},
+  const BASE_DOCUMENT = {
+    version: '1.1.0',
+    metadata: {},
+  }
+
+  test(
+    'Valid order id',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        replacedOrder: {
+          uid: '0xff2e2e54d178997f173266817c1e9ed6fee1a1aae4b43971c53b543cffcc2969845c6f5599fbb25dbdd1b9b013daf85c03f3c63763e4bc4a',
+        },
+      },
+    })
+  )
+
+  test(
+    'Invalid order id length',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { replacedOrder: { uid: '0xgogogog' } },
+      },
+      [
+        {
+          instancePath: '/metadata/replacedOrder/uid',
+          keyword: 'pattern',
+          message: 'must match pattern "^0x[a-fA-F0-9]{112}$"',
+          params: { pattern: '^0x[a-fA-F0-9]{112}$' },
+          schemaPath: '#/properties/metadata/properties/replacedOrder/properties/uid/pattern',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Invalid order id length',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { replacedOrder: {} },
+      },
+      [
+        {
+          instancePath: '/metadata/replacedOrder',
+          keyword: 'required',
+          message: "must have required property 'uid'",
+          params: { missingProperty: 'uid' },
+          schemaPath: '#/properties/metadata/properties/replacedOrder/required',
+        },
+      ]
+    )
+  )
+})
+
+describe('Schema v1.2.0', () => {
+  const ajv = new Ajv()
+  const validator = ajv.compile(schemaV1_2_0)
+
+  const BASE_DOCUMENT = {
+    version: '1.2.0',
+    metadata: {},
+  }
+
+  test('Minimal valid schema', _buildAssertValidFn(validator, BASE_DOCUMENT))
+
+  test('With quote metadata v1.1.0', () => {
+    const validQuote = {
+      slippageBips: 5,
+      smartQuote: true,
     }
 
-    test(
-        'Valid order id',
-        _buildAssertValidFn(validator, {
-            ...BASE_DOCUMENT,
-            metadata: { replacedOrder: { uid: "0xff2e2e54d178997f173266817c1e9ed6fee1a1aae4b43971c53b543cffcc2969845c6f5599fbb25dbdd1b9b013daf85c03f3c63763e4bc4a" } },
-        })
-    )
+    const validDocument = {
+      ...BASE_DOCUMENT,
+      metadata: {
+        quote: validQuote,
+      },
+    }
 
+    expect(validator(validDocument)).toBe(true)
+  })
 
-    test(
-        'Invalid order id length',
-        _buildAssertInvalidFn(
-            validator,
-            {
-                ...BASE_DOCUMENT,
-                metadata: { replacedOrder: { uid: "0xgogogog" } },
-            },
-            [
-                {
-                    instancePath: '/metadata/replacedOrder/uid',
-                    keyword: "pattern",
-                    message: "must match pattern \"^0x[a-fA-F0-9]{112}$\"",
-                    params: { pattern: "^0x[a-fA-F0-9]{112}$" },
-                    schemaPath: '#/properties/metadata/properties/replacedOrder/properties/uid/pattern',
-                },
-            ]
-        )
-    )
+  test('With valid metadata (without smartQuote)', () => {
+    const quote = {
+      slippageBips: 5,
+    }
 
-    test(
-        'Invalid order id length',
-        _buildAssertInvalidFn(
-            validator,
-            {
-                ...BASE_DOCUMENT,
-                metadata: { replacedOrder: {  } },
-            },
-            [
-                {
-                    instancePath: '/metadata/replacedOrder',
-                    keyword: "required",
-                    message: "must have required property 'uid'",
-                    params: { missingProperty: "uid" },
-                    schemaPath: '#/properties/metadata/properties/replacedOrder/required',
-                },
-            ]
-        )
-    )
+    const validDocument = {
+      ...BASE_DOCUMENT,
+      metadata: {
+        quote,
+      },
+    }
+
+    expect(validator(validDocument)).toBe(true)
+  })
+
+  test('With invalid quote metadata (invalid slippageBips)', () => {
+    const invalidQuote = {
+      slippageBips: 'invalid',
+      smartQuote: true,
+    }
+
+    const invalidDocument = {
+      ...BASE_DOCUMENT,
+      metadata: {
+        quote: invalidQuote,
+      },
+    }
+
+    const errors = [
+      {
+        instancePath: '/metadata/quote/slippageBips',
+        keyword: 'pattern',
+        message: 'must match pattern "^\\d+$"',
+        params: { pattern: '^\\d+$' },
+        schemaPath: '#/properties/metadata/properties/quote/properties/slippageBips/pattern',
+      },
+    ]
+
+    expect(_buildAssertInvalidFn(validator, invalidDocument, errors)).toBeTruthy()
+  })
 })
 
 function _buildAssertValidFn(validator: ValidateFunction, doc: any) {
