@@ -5,6 +5,8 @@ import { fetchDocFromCid } from './fetchDocFromCid'
 
 /**
  *
+ * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ *
  * @param appDataHex Derives the CID from the appData hex, and fetches and parses the document from IPFS
  * @param ipfsUri URL of the IPFS gateway to use for the fetch
  *
@@ -20,7 +22,7 @@ export async function fetchDocFromAppDataHex(
 /**
  * Fetches the document from IPFS using the appData hex
  *
- * @deprecated
+ * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
  *
  * @param appDataHex
  * @param ipfsUri

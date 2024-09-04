@@ -1,5 +1,11 @@
 import { MetaDataError } from '../consts'
 
+/**
+ * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ *
+ * @param appDataHex
+ * @returns
+ */
 export async function appDataHexToCid(appDataHex: string): Promise<string> {
   const cid = await _appDataHexToCid(appDataHex)
   _assertCid(cid, appDataHex)
@@ -7,6 +13,12 @@ export async function appDataHexToCid(appDataHex: string): Promise<string> {
   return cid
 }
 
+/**
+ * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ *
+ * @param appDataHex
+ * @returns
+ */
 export async function appDataHexToCidLegacy(appDataHex: string): Promise<string> {
   const cid = await _appDataHexToCidLegacy(appDataHex)
   _assertCid(cid, appDataHex)

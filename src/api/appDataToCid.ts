@@ -9,6 +9,8 @@ import { validateAppDataDoc } from './validateAppDataDoc'
 /**
  * Calculates appDataHex without publishing file to IPFS
  *
+ * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ *
  * This method is intended to quickly generate the appDataHex independent
  * of IPFS upload/pinning
  *
@@ -19,6 +21,8 @@ export async function appDataToCid(appData: AnyAppDataDocVersion): Promise<IpfsH
 /**
  * Calculates appDataHex without publishing file to IPFS
  *
+ * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ *
  * This method is intended to quickly generate the appDataHex independent
  * of IPFS upload/pinning
  *
@@ -26,6 +30,12 @@ export async function appDataToCid(appData: AnyAppDataDocVersion): Promise<IpfsH
  */
 export async function appDataToCid(fullAppData: string): Promise<IpfsHashInfo | void>
 
+/**
+ * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ *
+ * @param appDataAux
+ * @returns
+ */
 export async function appDataToCid(appDataAux: AnyAppDataDocVersion | string): Promise<IpfsHashInfo> {
   return _appDataToCidAux(appDataAux, _appDataToCid)
 }
@@ -54,6 +64,12 @@ export async function appDataToCidLegacy(appData: AnyAppDataDocVersion): Promise
  */
 export async function appDataToCidLegacy(fullAppData: string): Promise<IpfsHashInfo | void>
 
+/**
+ * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ *
+ * @param appDataAux
+ * @returns
+ */
 export async function appDataToCidLegacy(appDataAux: AnyAppDataDocVersion | string): Promise<IpfsHashInfo | void> {
   // For the legacy-mode we use plain JSON.stringify to mantain backwards compatibility, however this is not a good idea to do since JSON.stringify. Better specify the doc as a fullAppData string or use stringifyDeterministic
   const fullAppData = JSON.stringify(appDataAux)

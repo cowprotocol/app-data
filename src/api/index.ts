@@ -15,16 +15,17 @@ export class MetadataApi {
   generateAppDataDoc = generateAppDataDoc
   validateAppDataDoc = validateAppDataDoc
 
-  // appData / CID conversion
+  // ---- Deprecated methods ----
+
+  // appData / CID conversion (deprecated)
   appDataToCid = appDataToCid // (appData | fullAppData) --> cid
   appDataHexToCid = appDataHexToCid // appDataHex --> cid
   cidToAppDataHex = cidToAppDataHex // cid --> appDataHex
 
-  // Fetch appData document from IPFS
+  // Fetch appData document from IPFS (deprecated)
   fetchDocFromCid = fetchDocFromCid // cid --> document
   fetchDocFromAppDataHex = fetchDocFromAppDataHex // appDataHex --> appData
 
-  // ---- Deprecated methods ----
   // Upload to IPFS (deprecated)
   uploadMetadataDocToIpfsLegacy = uploadMetadataDocToIpfsLegacy //  appData --> cid + publish IPFS
   appDataToCidLegacy = appDataToCidLegacy // (appData | fullAppData) --> cid
