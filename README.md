@@ -23,7 +23,7 @@ const appCode = 'YOUR_APP_CODE'
 const environment = 'prod'
 const referrer = { address: `REFERRER_ADDRESS` }
 
-const quote = { slippageBips: '0.5' } // Slippage percent, it's 0 to 100
+const quote = { slippageBips: 1 } // Slippage percent, it's 0 to 100
 const orderClass = { orderClass: 'market' } // "market" | "limit" | "liquidity"
 
 const appDataDoc = await metadataApi.generateAppDataDoc({
