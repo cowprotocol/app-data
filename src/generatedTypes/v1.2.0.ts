@@ -47,9 +47,9 @@ export type UTMKeywordTerm = string;
  */
 export type SlippageBips = number;
 /**
- * Whether the given slippageBips used is originated from a Smart quote suggestion
+ * Whether the given slippageBips used is originated from a Smart slippage suggestion
  */
-export type SmartQuote = boolean;
+export type SmartSlippage = boolean;
 /**
  * Indicator of the order class.
  */
@@ -134,7 +134,7 @@ export interface UTMCodes {
 }
 export interface Quote {
   slippageBips: SlippageBips;
-  smartQuote?: SmartQuote;
+  smartSlippage?: SmartSlippage;
 }
 export interface OrderClass {
   orderClass: OrderClass1;

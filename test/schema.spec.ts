@@ -964,7 +964,7 @@ describe('Schema v1.2.0', () => {
   test('With quote metadata v1.1.0', () => {
     const validQuote = {
       slippageBips: 5,
-      smartQuote: true,
+      smartSlippage: true,
     }
 
     const validDocument = {
@@ -977,7 +977,7 @@ describe('Schema v1.2.0', () => {
     expect(validator(validDocument)).toBe(true)
   })
 
-  test('With valid metadata (without smartQuote)', () => {
+  test('With valid metadata (without smartSlippage)', () => {
     const quote = {
       slippageBips: 5,
     }
@@ -995,7 +995,7 @@ describe('Schema v1.2.0', () => {
   test('With invalid quote metadata (invalid slippageBips)', () => {
     const invalidQuote = {
       slippageBips: 'invalid',
-      smartQuote: true,
+      smartSlippage: true,
     }
 
     const invalidDocument = {

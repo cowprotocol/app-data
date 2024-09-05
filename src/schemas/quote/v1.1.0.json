@@ -13,9 +13,9 @@
       "description": "Slippage tolerance that was applied to the order to get the limit price. Expressed in Basis Points (BPS). One basis point is equivalent to 0.01% (1/100th of a percent)",
       "$ref": "../definitions.json#/definitions/bps"
     },
-    "smartQuote": {
-      "title": "Smart Quote",
-      "description": "Whether the given slippageBips used is originated from a Smart quote suggestion",
+    "smartSlippage": {
+      "title": "Smart Slippage",
+      "description": "Whether the given slippageBips used is originated from a Smart slippage suggestion",
       "type": "boolean",
       "default": false
     }
