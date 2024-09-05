@@ -23,7 +23,7 @@ const appCode = 'YOUR_APP_CODE'
 const environment = 'prod'
 const referrer = { address: `REFERRER_ADDRESS` }
 
-const quote = { slippageBips: '0.5' } // Slippage percent, it's 0 to 100
+const quote = { slippageBips: 1 } // Slippage percent, it's 0 to 100
 const orderClass = { orderClass: 'market' } // "market" | "limit" | "liquidity"
 
 const appDataDoc = await metadataApi.generateAppDataDoc({
@@ -35,27 +35,6 @@ const appDataDoc = await metadataApi.generateAppDataDoc({
     orderClass,
   },
 })
-
-const { cid, appDataHex, appDataContent } = await metadataApi.appDataToCid(appDataDoc)
-
-// 💡🐮 You should use appDataHex as the appData value in the CoW Order. "cid" Identifies the metadata associated to the CoW order in IPFS
-
-// You can derive the CID from the appDataHex of any order
-const actualCid = await metadataApi.appDataHexToCid(appDataHex)
-console.log(cid === actualCid) // Should be true
-
-// You can derive the appDataHex from the CID of any order
-const actualAppDatahex = await metadataApi.appDataHexToCid(cid)
-console.log(appDataHex === actualAppDatahex) // Should be true
-
-// You can retrieve the JSON document from the CID
-// 🔔 NOTE: for this to work, someone needs to upload the document to IPFS (the CoW API does it, but anyone could upload it too)
-const actualAppDoc = await fetchDocFromCid(cid)
-expect(actualAppDoc).toBeEqual(appDataDoc)
-
-// You can also retrieve the JSON from the appDataHex
-const actualAppDoc2 = await fetchDocFromAppDataHex(appDataHex)
-expect(actualAppDoc2).toBeEqual(appDataDoc)
 ```
 
 ### Schemas
@@ -145,7 +124,7 @@ Fork the repo so you can create a new PR. Then:
 
 - We create one directory per schema, so we can keep track of all versions. Create the directory and initial schema definition: `<meta-data-name>/v0.1.0.json`
 - Add it to the main schema you just created in step 1: `"$ref": "<meta-data-name>/v0.1.0.json#"`.
-- Example: https://github.com/cowprotocol/app-data/pull/44/files#diff-7f7a61b478245dfda004f64bd68ac55ef68cbeb5d6d90d77e1cdbd2b7e1212b8R56
+- Example: <https://github.com/cowprotocol/app-data/pull/44/files#diff-7f7a61b478245dfda004f64bd68ac55ef68cbeb5d6d90d77e1cdbd2b7e1212b8R56>
 
 3. If you are modifying an existing meta-data
 
@@ -156,7 +135,7 @@ Fork the repo so you can create a new PR. Then:
 4. Modify the `compile.ts` script
 
 - Add the exported constant with the latest version in, and the new metadata:
-  - For example: https://github.com/cowprotocol/app-data/pull/44/commits/aeef8a58e7bbd2a53664ce396011cb157a18406d
+  - For example: <https://github.com/cowprotocol/app-data/pull/44/commits/aeef8a58e7bbd2a53664ce396011cb157a18406d>
 
 4. Generate the typescript types
 
@@ -164,7 +143,7 @@ Fork the repo so you can create a new PR. Then:
 
 5. Make a test focusing on the new or modified meta-data:
 
-- https://github.com/cowprotocol/app-data/pull/44/files#diff-e755a2ecce42f09829d5c7dc1de8853d1d00ef56eaadc2709601c87b9be8ddfbR556
-- Don't forget to use the right version of the schema in your test: https://github.com/cowprotocol/app-data/pull/44/files#diff-e755a2ecce42f09829d5c7dc1de8853d1d00ef56eaadc2709601c87b9be8ddfbR11
+- <https://github.com/cowprotocol/app-data/pull/44/files#diff-e755a2ecce42f09829d5c7dc1de8853d1d00ef56eaadc2709601c87b9be8ddfbR556>
+- Don't forget to use the right version of the schema in your test: <https://github.com/cowprotocol/app-data/pull/44/files#diff-e755a2ecce42f09829d5c7dc1de8853d1d00ef56eaadc2709601c87b9be8ddfbR11>
 
 6. Create the PR and document it together with the motivation for the changes

@@ -20,15 +20,13 @@ const DEFAULT_APP_DATA_DOC = {
  *   "environment": "local",
  *   "metadata": {
  *     "quote": {
- *       "slippageBips": "50",
- *       "version": "0.2.0"
+ *       "slippageBips": 50
  *     },
  *     "orderClass": {
- *       "orderClass": "market",
- *       "version": "0.1.0"
+ *       "orderClass": "market"
  *     }
  *   },
- *   "version": "0.5.0"
+ *   "version": "1.2.0"
  * }
  */
 export async function generateAppDataDoc(params?: AppDataParams): Promise<LatestAppDataDocVersion> {
