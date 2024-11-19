@@ -1,4 +1,4 @@
-import { AnyAppDataDocVersion } from 'generatedTypes'
+import { AnyAppDataDocVersion } from '../generatedTypes'
 import { MetaDataError } from '../consts'
 import { importSchema } from '../importSchema'
 

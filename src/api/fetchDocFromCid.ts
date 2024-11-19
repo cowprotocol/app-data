@@ -1,4 +1,4 @@
-import { AnyAppDataDocVersion } from 'generatedTypes'
+import { AnyAppDataDocVersion } from '../generatedTypes'
 import { DEFAULT_IPFS_READ_URI } from '../consts'
 
 /**
