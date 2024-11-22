@@ -1,6 +1,6 @@
-import { AnyAppDataDocVersion } from 'generatedTypes'
+import { AnyAppDataDocVersion } from '../generatedTypes'
 
-import { Ipfs } from 'types'
+import { Ipfs } from '../types'
 import { DEFAULT_IPFS_WRITE_URI, MetaDataError } from '../consts'
 import { extractDigest } from '../utils/ipfs'
 import { stringifyDeterministic } from '../utils/stringify'

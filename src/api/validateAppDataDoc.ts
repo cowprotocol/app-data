@@ -1,6 +1,6 @@
 import type { default as AjvType, ValidateFunction } from 'ajv'
 import { AnyValidateFunction } from 'ajv/dist/core'
-import { ValidationResult } from 'types'
+import { ValidationResult } from '../types'
 
 import { AnyAppDataDocVersion } from '../generatedTypes'
 import { importSchema } from '../importSchema'
