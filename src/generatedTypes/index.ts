@@ -16,7 +16,7 @@ import * as v1_1_0 from './v1.1.0'
 import * as v1_2_0 from './v1.2.0'
 import * as v1_3_0 from './v1.3.0'
 
-export * as latest from './v1.3.0'
+export * from './latest'
 
 export const LATEST_APP_DATA_VERSION = '1.3.0'
 export const LATEST_QUOTE_METADATA_VERSION = '1.1.0'

@@ -18,7 +18,15 @@ async function compile(): Promise<void> {
   const typesIndexPath = path.join(TYPES_DEST_PATH, 'index.ts')
   console.info(`Creating ${typesIndexPath} file`)
   const typesIndexFile = await fs.promises.open(typesIndexPath, 'w')
-  await typesIndexFile.write(`// generated file, do not edit manually\n\n`)
+
+  // Generates out file for types/latest.ts
+  const latestIndexPath = path.join(TYPES_DEST_PATH, 'latest.ts')
+  const latestIndexFile = await fs.promises.open(latestIndexPath, 'w')
+
+  const generatedFiles = [typesIndexFile, latestIndexFile]
+  await generatedFiles.forEach(async (file) => {
+    file.write(`// generated file, do not edit manually\n\n`)
+  })
 
   // Lists all schemas
   const schemas = await fs.promises.readdir(SCHEMAS_SRC_PATH, { withFileTypes: true })
@@ -68,7 +76,7 @@ async function compile(): Promise<void> {
     const latestReplacedOrderVersion = await getLatestMetadataDocVersion('replacedOrder')
 
     const additionalTypesExport = `
-export * as latest from './${latest}'
+export * from './latest'
 
 export const LATEST_APP_DATA_VERSION = '${extractSemver(latest)}'
 export const LATEST_QUOTE_METADATA_VERSION = '${extractSemver(latestQuoteVersion)}'
@@ -87,10 +95,17 @@ export type AnyAppDataDocVersion = ${allVersions}
 export {${versions.map((version) => `\n  ${versionNameToExport(version)}`)}
 }
 `
+    // Writes exports to types/index.ts
     await typesIndexFile.write(additionalTypesExport)
+
+    // Writes exports to types/latest.ts
+    await latestIndexFile.write(`export * as latest from './${latest}'\n`)
   }
 
-  await typesIndexFile.close()
+  // Closes all files
+  for (const file of generatedFiles) {
+    await file.close()
+  }
 }
 
 compile().then(() => console.log('Done'))
@@ -104,7 +119,16 @@ function extractSemver(name: string): string {
 }
 
 async function getLatestMetadataDocVersion(
-  metadataDocName: 'quote' | 'referrer' | 'orderClass' | 'utm' | 'hooks' | 'signer' | 'widget' | 'partnerFee' | 'replacedOrder'
+  metadataDocName:
+    | 'quote'
+    | 'referrer'
+    | 'orderClass'
+    | 'utm'
+    | 'hooks'
+    | 'signer'
+    | 'widget'
+    | 'partnerFee'
+    | 'replacedOrder'
 ): Promise<string> {
   const metadataPath = path.join(SCHEMAS_SRC_PATH, metadataDocName)
   const versions = await fs.promises.readdir(metadataPath)
