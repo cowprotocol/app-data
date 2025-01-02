@@ -75,9 +75,9 @@ async function compile(): Promise<void> {
     const latestPartnerFeeVersion = await getLatestMetadataDocVersion('partnerFee')
     const latestReplacedOrderVersion = await getLatestMetadataDocVersion('replacedOrder')
 
-    const exportLatest = `export * as latest from './${latest}'\n`
     const additionalTypesExport = `
-${exportLatest}
+export * from './latest'
+
 export const LATEST_APP_DATA_VERSION = '${extractSemver(latest)}'
 export const LATEST_QUOTE_METADATA_VERSION = '${extractSemver(latestQuoteVersion)}'
 export const LATEST_REFERRER_METADATA_VERSION = '${extractSemver(latestReferrerVersion)}'
@@ -99,7 +99,7 @@ export {${versions.map((version) => `\n  ${versionNameToExport(version)}`)}
     await typesIndexFile.write(additionalTypesExport)
 
     // Writes exports to types/latest.ts
-    await latestIndexFile.write(exportLatest)
+    await latestIndexFile.write(`export * as latest from './${latest}'\n`)
   }
 
   // Closes all files
@@ -119,7 +119,16 @@ function extractSemver(name: string): string {
 }
 
 async function getLatestMetadataDocVersion(
-  metadataDocName: 'quote' | 'referrer' | 'orderClass' | 'utm' | 'hooks' | 'signer' | 'widget' | 'partnerFee' | 'replacedOrder'
+  metadataDocName:
+    | 'quote'
+    | 'referrer'
+    | 'orderClass'
+    | 'utm'
+    | 'hooks'
+    | 'signer'
+    | 'widget'
+    | 'partnerFee'
+    | 'replacedOrder'
 ): Promise<string> {
   const metadataPath = path.join(SCHEMAS_SRC_PATH, metadataDocName)
   const versions = await fs.promises.readdir(metadataPath)
