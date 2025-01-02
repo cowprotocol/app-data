@@ -18,7 +18,15 @@ async function compile(): Promise<void> {
   const typesIndexPath = path.join(TYPES_DEST_PATH, 'index.ts')
   console.info(`Creating ${typesIndexPath} file`)
   const typesIndexFile = await fs.promises.open(typesIndexPath, 'w')
-  await typesIndexFile.write(`// generated file, do not edit manually\n\n`)
+
+  // Generates out file for types/latest.ts
+  const latestIndexPath = path.join(TYPES_DEST_PATH, 'latest.ts')
+  const latestIndexFile = await fs.promises.open(latestIndexPath, 'w')
+
+  const generatedFiles = [typesIndexFile, latestIndexFile]
+  await generatedFiles.forEach(async (file) => {
+    file.write(`// generated file, do not edit manually\n\n`)
+  })
 
   // Lists all schemas
   const schemas = await fs.promises.readdir(SCHEMAS_SRC_PATH, { withFileTypes: true })
@@ -67,9 +75,9 @@ async function compile(): Promise<void> {
     const latestPartnerFeeVersion = await getLatestMetadataDocVersion('partnerFee')
     const latestReplacedOrderVersion = await getLatestMetadataDocVersion('replacedOrder')
 
+    const exportLatest = `export * as latest from './${latest}'\n`
     const additionalTypesExport = `
-export * as latest from './${latest}'
-
+${exportLatest}
 export const LATEST_APP_DATA_VERSION = '${extractSemver(latest)}'
 export const LATEST_QUOTE_METADATA_VERSION = '${extractSemver(latestQuoteVersion)}'
 export const LATEST_REFERRER_METADATA_VERSION = '${extractSemver(latestReferrerVersion)}'
@@ -87,10 +95,17 @@ export type AnyAppDataDocVersion = ${allVersions}
 export {${versions.map((version) => `\n  ${versionNameToExport(version)}`)}
 }
 `
+    // Writes exports to types/index.ts
     await typesIndexFile.write(additionalTypesExport)
+
+    // Writes exports to types/latest.ts
+    await latestIndexFile.write(exportLatest)
   }
 
-  await typesIndexFile.close()
+  // Closes all files
+  for (const file of generatedFiles) {
+    await file.close()
+  }
 }
 
 compile().then(() => console.log('Done'))
