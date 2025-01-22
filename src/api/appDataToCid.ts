@@ -1,3 +1,4 @@
+import { keccak256, toBytes } from 'viem'
 import { MetaDataError } from '../consts'
 import { AnyAppDataDocVersion } from '../generatedTypes'
 import { IpfsHashInfo } from '../types'
@@ -114,10 +115,7 @@ export async function _appDataToCidAux(
  * @returns the IPFS CID v0 of the content
  */
 async function _appDataToCid(fullAppDataJson: string): Promise<string> {
-  const module = await import('ethers/lib/utils')
-  const { keccak256, toUtf8Bytes } = module.default || module
-
-  const appDataHex = await keccak256(toUtf8Bytes(fullAppDataJson))
+  const appDataHex = keccak256(toBytes(fullAppDataJson))
   return appDataHexToCid(appDataHex)
 }
 
