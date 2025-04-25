@@ -1,3 +1,5 @@
+import { isHex } from 'viem'
+import { toBytes } from 'viem'
 import { MetaDataError } from '../consts'
 
 /**
@@ -80,9 +82,10 @@ async function _toCidBytes({
   hashingLength,
   multihashHex,
 }: ToCidParmams): Promise<Uint8Array> {
-  const module = await import('ethers/lib/utils')
-  const { arrayify } = module.default || module
-  const hashBytes = arrayify(multihashHex)
+  if (!isHex(multihashHex)) {
+    throw new MetaDataError('Invalid hash format')
+  }
+  const hashBytes = toBytes(multihashHex)
 
   // Concat prefix and multihash
   const cidPrefix = Uint8Array.from([version, multicodec, hashingAlgorithm, hashingLength])
