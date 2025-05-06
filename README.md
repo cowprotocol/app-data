@@ -37,7 +37,7 @@ const appDataDoc = await metadataApi.generateAppDataDoc({
 })
 
 // Get appData info
-const { appDataContent, appDataHex, cid } = await metadataApi.getAppDataHashInfo(appDataDoc)
+const { appDataContent, appDataHex, cid } = await metadataApi.getAppDataInfo(appDataDoc)
 
 // The app-data hex string (app-data part of the order struct)
 console.log(appDataHex)
