@@ -14,7 +14,9 @@ export async function appDataHexToCid(appDataHex: string): Promise<string> {
 }
 
 /**
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ * Convert an app-data hex string to a CID using the legacy method (IPFS CID has different hashing algorithm, this hashing algorithm is not used anymore by CoW Protocol)
+ *
+ * @deprecated Please use appDataHexToCid instead
  *
  * @param appDataHex
  * @returns

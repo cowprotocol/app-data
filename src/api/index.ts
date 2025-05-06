@@ -20,10 +20,12 @@ export class MetadataApi {
   appDataHexToCid = appDataHexToCid // appDataHex --> cid
   cidToAppDataHex = cidToAppDataHex // cid --> appDataHex
 
+  // Fetch from IPFS
+  fetchDocFromAppDataHex = fetchDocFromAppDataHex // appDataHex --> appData
+
   legacy = {
     // Fetch appData document from IPFS (deprecated)
     fetchDocFromCid: fetchDocFromCid, // cid --> document
-    fetchDocFromAppDataHex: fetchDocFromAppDataHex, // appDataHex --> appData
 
     // Upload to IPFS (deprecated)
     uploadMetadataDocToIpfsLegacy: uploadMetadataDocToIpfsLegacy, //  appData --> cid + publish IPFS

@@ -4,10 +4,11 @@ import { appDataHexToCid, appDataHexToCidLegacy } from './appDataHexToCid'
 import { fetchDocFromCid } from './fetchDocFromCid'
 
 /**
+ * Fetches the document from IPFS using the appData hex (app-data part of the order struct).
  *
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ * This method will convert the app-data hex into a CID and fetch the content from IPFS.
  *
- * @param appDataHex Derives the CID from the appData hex, and fetches and parses the document from IPFS
+ * @param appDataHex App-data hex part of the order struct
  * @param ipfsUri URL of the IPFS gateway to use for the fetch
  *
  * @returns a parsed AppData document

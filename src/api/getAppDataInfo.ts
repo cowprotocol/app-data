@@ -39,12 +39,10 @@ export async function getAppDataInfo(appDataAux: AnyAppDataDocVersion | string):
 }
 
 /**
- * Calculates appDataHex without publishing file to IPFS
+ * Gets the appDataInfo using the legacy method (IPFS CID has different hashing algorithm, this hashing algorithm is not used anymore by CoW Protocol)
  *
- * This method is intended to quickly generate the appDataHex independent
- * of IPFS upload/pinning
  *
- * @deprecated Old way of deriving th hash
+ * @deprecated Please use getAppDataInfo instead
  *
  * @param appData JSON document which will be stringified in a deterministic way to calculate the IPFS hash
  */
@@ -56,14 +54,16 @@ export async function getAppDataInfoLegacy(appData: AnyAppDataDocVersion): Promi
  * This method is intended to quickly generate the appDataHex independent
  * of IPFS upload/pinning
  *
- * @deprecated Old way of deriving th hash
+ * @deprecated Please use getAppDataInfo instead
  *
  * @param fullAppData JSON string with the full appData document
  */
 export async function getAppDataInfoLegacy(fullAppData: string): Promise<AppDataInfo | undefined>
 
 /**
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ * Gets the appDataInfo using the legacy method (IPFS CID has different hashing algorithm, this hashing algorithm is not used anymore by CoW Protocol)
+ *
+ * @deprecated @deprecated Please use getAppDataInfo instead
  *
  * @param appDataAux
  * @returns
