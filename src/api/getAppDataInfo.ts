@@ -26,7 +26,7 @@ export async function getAppDataInfo(appData: AnyAppDataDocVersion): Promise<App
  *
  * @param fullAppData JSON string with the full appData document
  */
-export async function getAppDataInfo(fullAppData: string): Promise<AppDataInfo | void>
+export async function getAppDataInfo(fullAppData: string): Promise<AppDataInfo | undefined>
 
 /**
  * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
@@ -48,7 +48,7 @@ export async function getAppDataInfo(appDataAux: AnyAppDataDocVersion | string):
  *
  * @param appData JSON document which will be stringified in a deterministic way to calculate the IPFS hash
  */
-export async function getAppDataInfoLegacy(appData: AnyAppDataDocVersion): Promise<AppDataInfo | void>
+export async function getAppDataInfoLegacy(appData: AnyAppDataDocVersion): Promise<AppDataInfo | undefined>
 
 /**
  * Calculates appDataHex without publishing file to IPFS
@@ -60,7 +60,7 @@ export async function getAppDataInfoLegacy(appData: AnyAppDataDocVersion): Promi
  *
  * @param fullAppData JSON string with the full appData document
  */
-export async function getAppDataInfoLegacy(fullAppData: string): Promise<AppDataInfo | void>
+export async function getAppDataInfoLegacy(fullAppData: string): Promise<AppDataInfo | undefined>
 
 /**
  * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
@@ -68,7 +68,9 @@ export async function getAppDataInfoLegacy(fullAppData: string): Promise<AppData
  * @param appDataAux
  * @returns
  */
-export async function getAppDataInfoLegacy(appDataAux: AnyAppDataDocVersion | string): Promise<AppDataInfo | void> {
+export async function getAppDataInfoLegacy(
+  appDataAux: AnyAppDataDocVersion | string
+): Promise<AppDataInfo | undefined> {
   // For the legacy-mode we use plain JSON.stringify to mantain backwards compatibility, however this is not a good idea to do since JSON.stringify. Better specify the doc as a fullAppData string or use stringifyDeterministic
   const fullAppData = JSON.stringify(appDataAux)
   return _appDataToCidAux(fullAppData, _appDataToCidLegacy)
