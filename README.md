@@ -37,10 +37,9 @@ const appDataDoc = await metadataApi.generateAppDataDoc({
 })
 
 // Get appData info
-const appDataHashInfo = await metadataApi.getAppDataHashInfo(appDataDoc)
-const { cid, appDataHex, appDataContent } = appDataHashInfo
+const { appDataContent, appDataHex, cid } = await metadataApi.getAppDataHashInfo(appDataDoc)
 
-// The app-data hex string 
+// The app-data hex string (app-data part of the order struct)
 console.log(appDataHex)
 
 // Full appData content. It will be a the exact string that if hashed using keccak-256 you would get the returned appDataHex  (app-data hex part of the order struct).
