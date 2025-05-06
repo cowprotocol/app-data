@@ -42,8 +42,6 @@ export async function _pinJsonInPinataIpfs(
   file: unknown,
   { writeUri = DEFAULT_IPFS_WRITE_URI, pinataApiKey = '', pinataApiSecret = '' }: Ipfs
 ): Promise<PinataPinResponse> {
-  const { default: fetch } = await import('cross-fetch')
-
   if (!pinataApiKey || !pinataApiSecret) {
     throw new MetaDataError('You need to pass IPFS api credentials.')
   }
