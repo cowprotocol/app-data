@@ -1,10 +1,7 @@
 import { MetaDataError } from '../consts'
 
 /**
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
- *
- * @param appDataHex
- * @returns
+ *  Convert an app-data hex string to a CID
  */
 export async function appDataHexToCid(appDataHex: string): Promise<string> {
   const cid = await _appDataHexToCid(appDataHex)
