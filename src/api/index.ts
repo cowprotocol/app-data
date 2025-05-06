@@ -28,9 +28,9 @@ export class MetadataApi {
     fetchDocFromCid: fetchDocFromCid, // cid --> document
 
     // Upload to IPFS (deprecated)
-    uploadMetadataDocToIpfsLegacy: uploadMetadataDocToIpfsLegacy, //  appData --> cid + publish IPFS
-    appDataToCidLegacy: getAppDataInfoLegacy, // (appData | fullAppData) --> cid
-    appDataHexToCidLegacy: appDataHexToCidLegacy, // appDataHex --> cid
-    fetchDocFromAppDataHexLegacy: fetchDocFromAppDataHexLegacy, // appDataHex --> appData
+    uploadMetadataDocToIpfs: uploadMetadataDocToIpfsLegacy, //  appData --> cid + publish IPFS
+    appDataToCid: getAppDataInfoLegacy, // (appData | fullAppData) --> cid
+    appDataHexToCid: appDataHexToCidLegacy, // appDataHex --> cid
+    fetchDocFromAppDataHex: fetchDocFromAppDataHexLegacy, // appDataHex --> appData
   }
 }
