@@ -16,9 +16,9 @@ export type AppDataInfo = {
   /**
    * Full appData content.
    *
-   * It will be a the exact string that if hashed using keccak-256 you would get the returned appDataHex (app-data hex part of the order struct).
+   * It will be the exact string that if hashed using keccak-256 you would get the returned appDataHex (app-data hex part of the order struct).
    *
-   * Its a JSON that can be parsed to create the document following the schemas defined in https://github.com/cowprotocol/app-data
+   * It's a JSON that can be parsed to create the document following the schemas defined in https://github.com/cowprotocol/app-data
    * It contains all the meta-data related to an order.
    */
   appDataContent: string

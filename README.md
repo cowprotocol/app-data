@@ -42,7 +42,7 @@ const { appDataContent, appDataHex, cid } = await metadataApi.getAppDataInfo(app
 // The app-data hex string (app-data part of the order struct)
 console.log(appDataHex)
 
-// Full appData content. It will be a the exact string that if hashed using keccak-256 you would get the returned appDataHex  (app-data hex part of the order struct).
+// Full appData content. It will be the exact string that if hashed using keccak-256 you would get the returned appDataHex  (app-data hex part of the order struct).
 console.log(appDataContent)
 
 // IPFS's content identifier. Normally you don't need to use this.

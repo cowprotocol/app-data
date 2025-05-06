@@ -2,6 +2,9 @@ import { MetaDataError } from '../consts'
 
 /**
  *  Convert an app-data hex string to a CID
+ *
+ * @param appDataHex - The app-data hex string (app-data part of the order struct)
+ * @returns The IPFS CID v1 of the content
  */
 export async function appDataHexToCid(appDataHex: string): Promise<string> {
   const cid = await _appDataHexToCid(appDataHex)

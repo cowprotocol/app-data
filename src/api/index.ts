@@ -16,7 +16,7 @@ export class MetadataApi {
   validateAppDataDoc = validateAppDataDoc
 
   // appData / CID conversion
-  getAppDataInfo = getAppDataInfo // (appData | fullAppData) --> cid
+  getAppDataInfo = getAppDataInfo // (appData | fullAppData) -->  { cid, appDataHex, appDataContent }
   appDataHexToCid = appDataHexToCid // appDataHex --> cid
   cidToAppDataHex = cidToAppDataHex // cid --> appDataHex
 

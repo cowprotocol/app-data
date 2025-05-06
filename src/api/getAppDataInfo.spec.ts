@@ -31,7 +31,7 @@ describe('getAppDataInfo', () => {
     expect(result).toEqual({ cid: CID, appDataHex: APP_DATA_HEX, appDataContent: APP_DATA_STRING })
   })
 
-  test('Happy path with appData doc ', async () => {
+  test('Happy path with appData doc', async () => {
     // when
     const result = await getAppDataInfo(APP_DATA_DOC)
 
