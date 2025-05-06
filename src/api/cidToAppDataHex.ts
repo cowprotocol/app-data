@@ -1,10 +1,10 @@
 import { extractDigest } from '../utils/ipfs'
 
 /**
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ * Convert a CID to an app-data hex string
  *
- * @param cid
- * @returns
+ * @param cid - The IPFS CID to extract the app-data hex from.
+ * @returns The app-data hex string (app-data part of the order struct)
  */
 export async function cidToAppDataHex(cid: string): Promise<string> {
   return extractDigest(cid)

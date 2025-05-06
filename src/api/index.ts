@@ -1,5 +1,5 @@
 import { appDataHexToCid, appDataHexToCidLegacy } from './appDataHexToCid'
-import { appDataToCid, appDataToCidLegacy } from './appDataToCid'
+import { getAppDataInfo, getAppDataInfoLegacy } from './getAppDataInfo'
 import { cidToAppDataHex } from './cidToAppDataHex'
 import { fetchDocFromAppDataHex, fetchDocFromAppDataHexLegacy } from './fetchDocFromAppData'
 import { fetchDocFromCid } from './fetchDocFromCid'
@@ -15,20 +15,22 @@ export class MetadataApi {
   generateAppDataDoc = generateAppDataDoc
   validateAppDataDoc = validateAppDataDoc
 
-  // ---- Deprecated methods ----
-
-  // appData / CID conversion (deprecated)
-  appDataToCid = appDataToCid // (appData | fullAppData) --> cid
+  // appData / CID conversion
+  getAppDataInfo = getAppDataInfo // (appData | fullAppData) -->  { cid, appDataHex, appDataContent }
   appDataHexToCid = appDataHexToCid // appDataHex --> cid
   cidToAppDataHex = cidToAppDataHex // cid --> appDataHex
 
-  // Fetch appData document from IPFS (deprecated)
-  fetchDocFromCid = fetchDocFromCid // cid --> document
+  // Fetch from IPFS
   fetchDocFromAppDataHex = fetchDocFromAppDataHex // appDataHex --> appData
 
-  // Upload to IPFS (deprecated)
-  uploadMetadataDocToIpfsLegacy = uploadMetadataDocToIpfsLegacy //  appData --> cid + publish IPFS
-  appDataToCidLegacy = appDataToCidLegacy // (appData | fullAppData) --> cid
-  appDataHexToCidLegacy = appDataHexToCidLegacy // appDataHex --> cid
-  fetchDocFromAppDataHexLegacy = fetchDocFromAppDataHexLegacy // appDataHex --> appData
+  legacy = {
+    // Fetch appData document from IPFS (deprecated)
+    fetchDocFromCid: fetchDocFromCid, // cid --> document
+
+    // Upload to IPFS (deprecated)
+    uploadMetadataDocToIpfs: uploadMetadataDocToIpfsLegacy, //  appData --> cid + publish IPFS
+    appDataToCid: getAppDataInfoLegacy, // (appData | fullAppData) --> cid
+    appDataHexToCid: appDataHexToCidLegacy, // appDataHex --> cid
+    fetchDocFromAppDataHex: fetchDocFromAppDataHexLegacy, // appDataHex --> appData
+  }
 }

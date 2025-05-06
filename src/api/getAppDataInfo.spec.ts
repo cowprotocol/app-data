@@ -10,7 +10,7 @@ import {
   CID_2,
   CID_LEGACY,
 } from '../mocks'
-import { appDataToCid, appDataToCidLegacy } from './appDataToCid'
+import { getAppDataInfo, getAppDataInfoLegacy } from './getAppDataInfo'
 import { stringifyDeterministic } from '..'
 
 beforeEach(() => {
@@ -21,19 +21,19 @@ afterEach(() => {
   jest.restoreAllMocks()
 })
 
-describe('appDataToCid', () => {
+describe('getAppDataInfo', () => {
   test('Happy path with fullAppData string', async () => {
     // when
-    const result = await appDataToCid(APP_DATA_STRING)
+    const result = await getAppDataInfo(APP_DATA_STRING)
 
     // then
     expect(result).not.toBeFalsy()
     expect(result).toEqual({ cid: CID, appDataHex: APP_DATA_HEX, appDataContent: APP_DATA_STRING })
   })
 
-  test('Happy path with appData doc ', async () => {
+  test('Happy path with appData doc', async () => {
     // when
-    const result = await appDataToCid(APP_DATA_DOC)
+    const result = await getAppDataInfo(APP_DATA_DOC)
 
     // then
     expect(result).not.toBeFalsy()
@@ -46,7 +46,7 @@ describe('appDataToCid', () => {
 
   test('Happy path with appData doc 2 ', async () => {
     // when
-    const result = await appDataToCid(APP_DATA_STRING_2)
+    const result = await getAppDataInfo(APP_DATA_STRING_2)
 
     // then
     expect(result).not.toBeFalsy()
@@ -61,17 +61,17 @@ describe('appDataToCid', () => {
     }
 
     // when
-    const promise = appDataToCid(doc)
+    const promise = getAppDataInfo(doc)
 
     // then
     await expect(promise).rejects.toThrow('Invalid appData provided')
   })
 })
 
-describe('appDataToCidLegacy', () => {
+describe('getAppDataInfoLegacy', () => {
   test('Happy path', async () => {
     // when
-    const result = await appDataToCidLegacy(APP_DATA_DOC)
+    const result = await getAppDataInfoLegacy(APP_DATA_DOC)
     // then
     expect(result).not.toBeFalsy()
     expect(result).toEqual({
@@ -88,7 +88,7 @@ describe('appDataToCidLegacy', () => {
       metadata: { quote: { sellAmount: 'fsdfas', buyAmount: '41231', version: '0.1.0' } },
     }
     // when
-    const promise = appDataToCidLegacy(doc)
+    const promise = getAppDataInfoLegacy(doc)
     // then
     await expect(promise).rejects.toThrow('Invalid appData provided')
   })

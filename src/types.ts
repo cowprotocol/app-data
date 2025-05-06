@@ -2,15 +2,24 @@ import { latest } from './generatedTypes'
 
 export type AppDataParams = Partial<Omit<latest.AppDataRootSchema, 'version'>>
 
-export type IpfsHashInfo = {
+export type AppDataInfo = {
   /**
-   * IPFS's content identifier
+   * IPFS's content identifier.
+   *
+   * App-data content can be uploaded to IPFS. If its uploaded, this CID will be the content identifier.
+   * This is a way to be able to connect the appDataHex (app-data hex part of the order struct) to its content using a decentralized system.
+   *
    * See https://docs.ipfs.io/concepts/content-addressing/#identifier-formats
    */
   cid: string
 
   /**
-   * Full appData content. It will be a the exact string that if hashed using keccak-256 you would get the returned appDataHex
+   * Full appData content.
+   *
+   * It will be the exact string that if hashed using keccak-256 you would get the returned appDataHex (app-data hex part of the order struct).
+   *
+   * It's a JSON that can be parsed to create the document following the schemas defined in https://github.com/cowprotocol/app-data
+   * It contains all the meta-data related to an order.
    */
   appDataContent: string
 

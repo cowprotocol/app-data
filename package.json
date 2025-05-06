@@ -1,12 +1,16 @@
 {
   "name": "@cowprotocol/app-data",
-  "version": "2.5.1",
+  "version": "3.0.0-rc.1",
   "description": "CowProtocol AppData schema definitions",
   "type": "module",
   "source": "src/index.ts",
   "exports": {
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.modern.mjs"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.module.mjs",
+      "default": "./dist/index.modern.mjs"
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",

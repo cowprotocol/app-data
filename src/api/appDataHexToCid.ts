@@ -1,10 +1,10 @@
 import { MetaDataError } from '../consts'
 
 /**
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ *  Convert an app-data hex string to a CID
  *
- * @param appDataHex
- * @returns
+ * @param appDataHex - The app-data hex string (app-data part of the order struct)
+ * @returns The IPFS CID v1 of the content
  */
 export async function appDataHexToCid(appDataHex: string): Promise<string> {
   const cid = await _appDataHexToCid(appDataHex)
@@ -14,7 +14,9 @@ export async function appDataHexToCid(appDataHex: string): Promise<string> {
 }
 
 /**
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ * Convert an app-data hex string to a CID using the legacy method (IPFS CID has different hashing algorithm, this hashing algorithm is not used anymore by CoW Protocol)
+ *
+ * @deprecated Please use appDataHexToCid instead
  *
  * @param appDataHex
  * @returns

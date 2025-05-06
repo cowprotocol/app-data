@@ -35,6 +35,20 @@ const appDataDoc = await metadataApi.generateAppDataDoc({
     orderClass,
   },
 })
+
+// Get appData info
+const { appDataContent, appDataHex, cid } = await metadataApi.getAppDataInfo(appDataDoc)
+
+// The app-data hex string (app-data part of the order struct)
+console.log(appDataHex)
+
+// Full appData content. It will be the exact string that if hashed using keccak-256 you would get the returned appDataHex  (app-data hex part of the order struct).
+console.log(appDataContent)
+
+// IPFS's content identifier. Normally you don't need to use this.
+// The app-data content can be uploaded to IPFS. If its uploaded, this CID will be the content identifier.
+// This is a way to be able to connect the appDataHex (app-data hex part of the order struct) to its content using a decentralized system.
+console.log(cid)
 ```
 
 ### Schemas
