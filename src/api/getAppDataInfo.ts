@@ -7,32 +7,29 @@ import { appDataHexToCid } from './appDataHexToCid'
 import { validateAppDataDoc } from './validateAppDataDoc'
 
 /**
- * Calculates appDataHex without publishing file to IPFS
+ * Calculate the app-data information (cid, appDataHex, appDataContent).
  *
- * This method is intended to quickly generate the appDataHex independent
- * of IPFS upload/pinning
- *
- * @param appData JSON document which will be stringified in a deterministic way to calculate the IPFS hash
+ * - appDataContent is the exact string with the pre-image that gets hashed using keccak to get the appDataHex
+ * - appDataHex is the hex used for the bytes32 struct field appData in the CoW order
+ * - cid is the IPFS identifier of the appDataHex. If the document is in IPFS it can be found using this identifier.
  */
 export async function getAppDataInfo(appData: AnyAppDataDocVersion): Promise<AppDataInfo>
 
 /**
- * Calculates appDataHex without publishing file to IPFS
+ * Calculate the app-data information (cid, appDataHex, appDataContent).
  *
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
- *
- * This method is intended to quickly generate the appDataHex independent
- * of IPFS upload/pinning
- *
- * @param fullAppData JSON string with the full appData document
+ * - appDataContent is the exact string with the pre-image that gets hashed using keccak to get the appDataHex
+ * - appDataHex is the hex used for the bytes32 struct field appData in the CoW order
+ * - cid is the IPFS identifier of the appDataHex. If the document is in IPFS it can be found using this identifier.
  */
 export async function getAppDataInfo(fullAppData: string): Promise<AppDataInfo | undefined>
 
 /**
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ * Calculate the app-data information (cid, appDataHex, appDataContent).
  *
- * @param appDataAux
- * @returns
+ * - appDataContent is the exact string with the pre-image that gets hashed using keccak to get the appDataHex
+ * - appDataHex is the hex used for the bytes32 struct field appData in the CoW order
+ * - cid is the IPFS identifier of the appDataHex. If the document is in IPFS it can be found using this identifier.
  */
 export async function getAppDataInfo(appDataAux: AnyAppDataDocVersion | string): Promise<AppDataInfo> {
   return _appDataToCidAux(appDataAux, _appDataToCid)

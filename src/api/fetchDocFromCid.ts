@@ -2,7 +2,7 @@ import { AnyAppDataDocVersion } from '../generatedTypes'
 import { DEFAULT_IPFS_READ_URI } from '../consts'
 
 /**
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ * Fetches the document from IPFS using the CID
  *
  * @param cid
  * @param ipfsUri
