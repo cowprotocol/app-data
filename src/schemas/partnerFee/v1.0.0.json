@@ -1,0 +1,80 @@
+{
+  "$id": "#partnerFee/v1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Partner fee",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "oneOf": [
+      {
+        "required": [
+          "volumeBps",
+          "recipient"
+        ],
+        "properties": {
+          "volumeBps": {
+            "title": "Volume Basis Point (BPS)",
+            "description": "The fee in basis points (BPS) to be paid to the partner based on volume. One basis point is equivalent to 0.01% (1/100th of a percent)",
+            "$ref": "../definitions.json#/definitions/bps"
+          },
+          "recipient": {
+            "title": "Partner account",
+            "description": "The Ethereum address of the partner to receive the fee.",
+            "$ref": "../definitions.json#/definitions/ethereumAddress"
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "required": [
+          "surplusBps",
+          "maxVolumeBps",
+          "recipient"
+        ],
+        "properties": {
+          "surplusBps": {
+            "title": "Surplus Basis Point (BPS)",
+            "description": "The fee in basis points (BPS) to be paid to the partner based on surplus. One basis point is equivalent to 0.01% (1/100th of a percent)",
+            "$ref": "../definitions.json#/definitions/bps"
+          },
+          "maxVolumeBps": {
+            "title": "Max Volume Basis Point (BPS)",
+            "description": "The maximum volume in basis points (BPS) to be paid to the partner. One basis point is equivalent to 0.01% (1/100th of a percent)",
+            "$ref": "../definitions.json#/definitions/bps"
+          },
+          "recipient": {
+            "title": "Partner account",
+            "description": "The Ethereum address of the partner to receive the fee.",
+            "$ref": "../definitions.json#/definitions/ethereumAddress"
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "required": [
+          "priceImprovementBps",
+          "maxVolumeBps",
+          "recipient"
+        ],
+        "properties": {
+          "priceImprovementBps": {
+            "title": "Price Improvement Basis Point (BPS)",
+            "description": "The fee in basis points (BPS) to be paid to the partner based on price improvement. One basis point is equivalent to 0.01% (1/100th of a percent)",
+            "$ref": "../definitions.json#/definitions/bps"
+          },
+          "maxVolumeBps": {
+            "title": "Max Volume Basis Point (BPS)",
+            "description": "The maximum volume in basis points (BPS) to be paid to the partner. One basis point is equivalent to 0.01% (1/100th of a percent)",
+            "$ref": "../definitions.json#/definitions/bps"
+          },
+          "recipient": {
+            "title": "Partner account",
+            "description": "The Ethereum address of the partner to receive the fee.",
+            "$ref": "../definitions.json#/definitions/ethereumAddress"
+          }
+        },
+        "additionalProperties": false
+      }
+    ]
+  }
+}
