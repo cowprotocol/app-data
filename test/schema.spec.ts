@@ -12,6 +12,7 @@ import schemaV0_9_0 from '../schemas/v0.9.0.json'
 import schemaV1_0_0 from '../schemas/v1.0.0.json'
 import schemaV1_1_0 from '../schemas/v1.1.0.json'
 import schemaV1_2_0 from '../schemas/v1.2.0.json'
+import schemaV1_4_0 from '../schemas/v1.4.0.json'
 
 const ADDRESS = '0xb6BAd41ae76A11D10f7b0E664C5007b908bC77C9'
 const REFERRER_V0_1_0 = { address: ADDRESS, version: '0.1.0' }
@@ -1017,6 +1018,117 @@ describe('Schema v1.2.0', () => {
 
     expect(_buildAssertInvalidFn(validator, invalidDocument, errors)).toBeTruthy()
   })
+})
+
+describe('Schema v1.4.0: Upgrade partnerFee metadata to 1.0.0', () => {
+  const ajv = new Ajv()
+  const validator = ajv.compile(schemaV1_4_0)
+
+  const BASE_DOCUMENT = {
+    version: '1.4.0',
+    metadata: {},
+  }
+
+  test('Minimal valid schema', _buildAssertValidFn(validator, BASE_DOCUMENT))
+
+  test(
+    'Valid volume partner fee',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { partnerFee: [{ volumeBps: 100, recipient: ADDRESS }] },
+    })
+  )
+
+  test(
+    'Valid surplus fee',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { partnerFee: [{ maxVolumeBps: 100, surplusBps: 100, recipient: ADDRESS }] },
+    })
+  )
+
+  test(
+    'Valid price improvement fee',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { partnerFee: [{ maxVolumeBps: 100, priceImprovementBps: 100, recipient: ADDRESS }] },
+    })
+  )
+
+  test(
+    'Valid multiple partner fees',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        partnerFee: [
+          { volumeBps: 100, recipient: ADDRESS },
+          { maxVolumeBps: 100, priceImprovementBps: 100, recipient: ADDRESS },
+          { maxVolumeBps: 100, priceImprovementBps: 100, recipient: ADDRESS },
+        ],
+      },
+    })
+  )
+
+  test(
+    'Invalid partner fee. Pure BPS no longer allowed',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { partnerFee: [{ bps: 50, recipient: ADDRESS }] },
+      },
+      [
+        {
+          instancePath: '/metadata/partnerFee/0',
+          keyword: 'required',
+          message: "must have required property 'volumeBps'",
+          params: { missingProperty: 'volumeBps' },
+          schemaPath: '#/properties/metadata/properties/partnerFee/items/oneOf/0/required',
+        },
+        {
+          instancePath: '/metadata/partnerFee/0',
+          keyword: 'required',
+          message: "must have required property 'surplusBps'",
+          params: { missingProperty: 'surplusBps' },
+          schemaPath: '#/properties/metadata/properties/partnerFee/items/oneOf/1/required',
+        },
+        {
+          instancePath: '/metadata/partnerFee/0',
+          keyword: 'required',
+          message: "must have required property 'priceImprovementBps'",
+          params: { missingProperty: 'priceImprovementBps' },
+          schemaPath: '#/properties/metadata/properties/partnerFee/items/oneOf/2/required',
+        },
+        {
+          instancePath: '/metadata/partnerFee/0',
+          keyword: 'oneOf',
+          message: 'must match exactly one schema in oneOf',
+          params: { passingSchemas: null },
+          schemaPath: '#/properties/metadata/properties/partnerFee/items/oneOf',
+        },
+      ]
+    )
+  )
+
+  test(
+    'Invalid partner fee. Must be an array',
+    _buildAssertInvalidFn(
+      validator,
+      {
+        ...BASE_DOCUMENT,
+        metadata: { partnerFee: { volumeBps: 50, recipient: ADDRESS } },
+      },
+      [
+        {
+          instancePath: '/metadata/partnerFee',
+          keyword: 'type',
+          message: 'must be array',
+          params: { type: 'array' },
+          schemaPath: '#/properties/metadata/properties/partnerFee/type',
+        },
+      ]
+    )
+  )
 })
 
 function _buildAssertValidFn(validator: ValidateFunction, doc: any) {
