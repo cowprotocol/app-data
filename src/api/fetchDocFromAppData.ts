@@ -23,7 +23,7 @@ export async function fetchDocFromAppDataHex(
 /**
  * Fetches the document from IPFS using the appData hex
  *
- * @deprecated AppData is not longer stored on IPFS nor it's derived from IPFS content hashes
+ * @deprecated Uses the legacy method of deriving the CID from the appData hex
  *
  * @param appDataHex
  * @param ipfsUri
