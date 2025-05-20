@@ -1062,7 +1062,7 @@ describe('Schema v1.4.0: Upgrade partnerFee metadata to 1.0.0', () => {
       metadata: {
         partnerFee: [
           { volumeBps: 100, recipient: ADDRESS },
-          { maxVolumeBps: 100, priceImprovementBps: 100, recipient: ADDRESS },
+          { maxVolumeBps: 100, surplusBps: 100, recipient: ADDRESS },
           { maxVolumeBps: 100, priceImprovementBps: 100, recipient: ADDRESS },
         ],
       },
