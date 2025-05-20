@@ -1032,7 +1032,14 @@ describe('Schema v1.4.0: Upgrade partnerFee metadata to 1.0.0', () => {
   test('Minimal valid schema', _buildAssertValidFn(validator, BASE_DOCUMENT))
 
   test(
-    'Valid volume partner fee',
+    'Valid volume partner fee obj',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { partnerFee: { volumeBps: 100, recipient: ADDRESS } },
+    })
+  )
+  test(
+    'Valid volume partner fee array',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: { partnerFee: [{ volumeBps: 100, recipient: ADDRESS }] },
@@ -1040,7 +1047,15 @@ describe('Schema v1.4.0: Upgrade partnerFee metadata to 1.0.0', () => {
   )
 
   test(
-    'Valid surplus fee',
+    'Valid surplus fee obj',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { partnerFee: { maxVolumeBps: 100, surplusBps: 100, recipient: ADDRESS } },
+    })
+  )
+
+  test(
+    'Valid surplus fee array',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: { partnerFee: [{ maxVolumeBps: 100, surplusBps: 100, recipient: ADDRESS }] },
@@ -1048,7 +1063,15 @@ describe('Schema v1.4.0: Upgrade partnerFee metadata to 1.0.0', () => {
   )
 
   test(
-    'Valid price improvement fee',
+    'Valid price improvement fee obj',
+    _buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: { partnerFee: { maxVolumeBps: 100, priceImprovementBps: 100, recipient: ADDRESS } },
+    })
+  )
+
+  test(
+    'Valid price improvement fee array',
     _buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: { partnerFee: [{ maxVolumeBps: 100, priceImprovementBps: 100, recipient: ADDRESS }] },
@@ -1075,56 +1098,62 @@ describe('Schema v1.4.0: Upgrade partnerFee metadata to 1.0.0', () => {
       validator,
       {
         ...BASE_DOCUMENT,
-        metadata: { partnerFee: [{ bps: 50, recipient: ADDRESS }] },
-      },
-      [
-        {
-          instancePath: '/metadata/partnerFee/0',
-          keyword: 'required',
-          message: "must have required property 'volumeBps'",
-          params: { missingProperty: 'volumeBps' },
-          schemaPath: '#/properties/metadata/properties/partnerFee/items/oneOf/0/required',
-        },
-        {
-          instancePath: '/metadata/partnerFee/0',
-          keyword: 'required',
-          message: "must have required property 'surplusBps'",
-          params: { missingProperty: 'surplusBps' },
-          schemaPath: '#/properties/metadata/properties/partnerFee/items/oneOf/1/required',
-        },
-        {
-          instancePath: '/metadata/partnerFee/0',
-          keyword: 'required',
-          message: "must have required property 'priceImprovementBps'",
-          params: { missingProperty: 'priceImprovementBps' },
-          schemaPath: '#/properties/metadata/properties/partnerFee/items/oneOf/2/required',
-        },
-        {
-          instancePath: '/metadata/partnerFee/0',
-          keyword: 'oneOf',
-          message: 'must match exactly one schema in oneOf',
-          params: { passingSchemas: null },
-          schemaPath: '#/properties/metadata/properties/partnerFee/items/oneOf',
-        },
-      ]
-    )
-  )
-
-  test(
-    'Invalid partner fee. Must be an array',
-    _buildAssertInvalidFn(
-      validator,
-      {
-        ...BASE_DOCUMENT,
-        metadata: { partnerFee: { volumeBps: 50, recipient: ADDRESS } },
+        metadata: { partnerFee: { bps: 50, recipient: ADDRESS } },
       },
       [
         {
           instancePath: '/metadata/partnerFee',
+          schemaPath: '#/properties/metadata/properties/partnerFee/oneOf/0/type',
           keyword: 'type',
+          params: {
+            type: 'array',
+          },
           message: 'must be array',
-          params: { type: 'array' },
-          schemaPath: '#/properties/metadata/properties/partnerFee/type',
+        },
+        {
+          instancePath: '/metadata/partnerFee',
+          schemaPath: '#/oneOf/0/required',
+          keyword: 'required',
+          params: {
+            missingProperty: 'volumeBps',
+          },
+          message: "must have required property 'volumeBps'",
+        },
+        {
+          instancePath: '/metadata/partnerFee',
+          schemaPath: '#/oneOf/1/required',
+          keyword: 'required',
+          params: {
+            missingProperty: 'surplusBps',
+          },
+          message: "must have required property 'surplusBps'",
+        },
+        {
+          instancePath: '/metadata/partnerFee',
+          schemaPath: '#/oneOf/2/required',
+          keyword: 'required',
+          params: {
+            missingProperty: 'priceImprovementBps',
+          },
+          message: "must have required property 'priceImprovementBps'",
+        },
+        {
+          instancePath: '/metadata/partnerFee',
+          schemaPath: '#/oneOf',
+          keyword: 'oneOf',
+          params: {
+            passingSchemas: null,
+          },
+          message: 'must match exactly one schema in oneOf',
+        },
+        {
+          instancePath: '/metadata/partnerFee',
+          schemaPath: '#/properties/metadata/properties/partnerFee/oneOf',
+          keyword: 'oneOf',
+          params: {
+            passingSchemas: null,
+          },
+          message: 'must match exactly one schema in oneOf',
         },
       ]
     )

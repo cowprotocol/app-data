@@ -90,6 +90,39 @@ export type AppCode1 = string;
  * Environment from which the order came from.
  */
 export type Environment1 = string;
+export type PartnerFee =
+  | (
+      | {
+          volumeBps: VolumeBasisPointBPS;
+          recipient: PartnerAccount;
+        }
+      | {
+          surplusBps: SurplusBasisPointBPS;
+          maxVolumeBps: MaxVolumeBasisPointBPS;
+          recipient: PartnerAccount1;
+        }
+      | {
+          priceImprovementBps: PriceImprovementBasisPointBPS;
+          maxVolumeBps: MaxVolumeBasisPointBPS1;
+          recipient: PartnerAccount2;
+        }
+    )[]
+  | (
+      | {
+          volumeBps: VolumeBasisPointBPS;
+          recipient: PartnerAccount;
+        }
+      | {
+          surplusBps: SurplusBasisPointBPS;
+          maxVolumeBps: MaxVolumeBasisPointBPS;
+          recipient: PartnerAccount1;
+        }
+      | {
+          priceImprovementBps: PriceImprovementBasisPointBPS;
+          maxVolumeBps: MaxVolumeBasisPointBPS1;
+          recipient: PartnerAccount2;
+        }
+    );
 /**
  * The fee in basis points (BPS) to be paid to the partner based on volume. One basis point is equivalent to 0.01% (1/100th of a percent)
  */
@@ -122,22 +155,6 @@ export type MaxVolumeBasisPointBPS1 = number;
  * The Ethereum address of the partner to receive the fee.
  */
 export type PartnerAccount2 = string;
-export type PartnerFee = (
-  | {
-      volumeBps: VolumeBasisPointBPS;
-      recipient: PartnerAccount;
-    }
-  | {
-      surplusBps: SurplusBasisPointBPS;
-      maxVolumeBps: MaxVolumeBasisPointBPS;
-      recipient: PartnerAccount1;
-    }
-  | {
-      priceImprovementBps: PriceImprovementBasisPointBPS;
-      maxVolumeBps: MaxVolumeBasisPointBPS1;
-      recipient: PartnerAccount2;
-    }
-)[];
 /**
  * The replaced order UID.
  */
