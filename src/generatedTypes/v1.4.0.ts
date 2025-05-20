@@ -99,12 +99,12 @@ export type PartnerFee =
       | {
           surplusBps: SurplusBasisPointBPS;
           maxVolumeBps: MaxVolumeBasisPointBPS;
-          recipient: PartnerAccount1;
+          recipient: PartnerAccount;
         }
       | {
           priceImprovementBps: PriceImprovementBasisPointBPS;
-          maxVolumeBps: MaxVolumeBasisPointBPS1;
-          recipient: PartnerAccount2;
+          maxVolumeBps: MaxVolumeBasisPointBPS;
+          recipient: PartnerAccount;
         }
     )[]
   | (
@@ -115,16 +115,16 @@ export type PartnerFee =
       | {
           surplusBps: SurplusBasisPointBPS;
           maxVolumeBps: MaxVolumeBasisPointBPS;
-          recipient: PartnerAccount1;
+          recipient: PartnerAccount;
         }
       | {
           priceImprovementBps: PriceImprovementBasisPointBPS;
-          maxVolumeBps: MaxVolumeBasisPointBPS1;
-          recipient: PartnerAccount2;
+          maxVolumeBps: MaxVolumeBasisPointBPS;
+          recipient: PartnerAccount;
         }
     );
 /**
- * The fee in basis points (BPS) to be paid to the partner based on volume. One basis point is equivalent to 0.01% (1/100th of a percent)
+ * The fee in basis points (BPS) to be paid to the partner based on volume. Capped at protocol level to 100 BPS (1%)
  */
 export type VolumeBasisPointBPS = number;
 /**
@@ -132,29 +132,17 @@ export type VolumeBasisPointBPS = number;
  */
 export type PartnerAccount = string;
 /**
- * The fee in basis points (BPS) to be paid to the partner based on surplus. One basis point is equivalent to 0.01% (1/100th of a percent)
+ * The fee in basis points (BPS) to be paid to the partner based on surplus
  */
 export type SurplusBasisPointBPS = number;
 /**
- * The maximum volume in basis points (BPS) to be paid to the partner. One basis point is equivalent to 0.01% (1/100th of a percent)
+ * The maximum volume in basis points (BPS) to be paid to the partner. Capped at protocol level to 100 BPS (1%). You can chose to go lower but not higher
  */
 export type MaxVolumeBasisPointBPS = number;
 /**
- * The Ethereum address of the partner to receive the fee.
- */
-export type PartnerAccount1 = string;
-/**
- * The fee in basis points (BPS) to be paid to the partner based on price improvement. One basis point is equivalent to 0.01% (1/100th of a percent)
+ * The fee in basis points (BPS) to be paid to the partner based on price improvement
  */
 export type PriceImprovementBasisPointBPS = number;
-/**
- * The maximum volume in basis points (BPS) to be paid to the partner. One basis point is equivalent to 0.01% (1/100th of a percent)
- */
-export type MaxVolumeBasisPointBPS1 = number;
-/**
- * The Ethereum address of the partner to receive the fee.
- */
-export type PartnerAccount2 = string;
 /**
  * The replaced order UID.
  */
