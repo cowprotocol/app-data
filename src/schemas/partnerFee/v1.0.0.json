@@ -26,7 +26,9 @@
             "volumeBps": {
               "title": "Volume Basis Point (BPS)",
               "description": "The fee in basis points (BPS) to be paid to the partner based on volume. Capped at protocol level to 100 BPS (1%)",
-              "$ref": "../definitions.json#/definitions/bps"
+              "$ref": "../definitions.json#/definitions/bps",
+              "maximum": 100,
+              "minimum": 1
             },
             "recipient": {
               "$ref": "#/definitions/recipient"
@@ -44,7 +46,9 @@
             "surplusBps": {
               "title": "Surplus Basis Point (BPS)",
               "description": "The fee in basis points (BPS) to be paid to the partner based on surplus",
-              "$ref": "../definitions.json#/definitions/bps"
+              "$ref": "../definitions.json#/definitions/bps",
+              "maximum": 9999,
+              "minimum": 1
             },
             "maxVolumeBps": {
               "$ref": "#/definitions/maxVolumeBps"
@@ -65,7 +69,9 @@
             "priceImprovementBps": {
               "title": "Price Improvement Basis Point (BPS)",
               "description": "The fee in basis points (BPS) to be paid to the partner based on price improvement",
-              "$ref": "../definitions.json#/definitions/bps"
+              "$ref": "../definitions.json#/definitions/bps",
+              "maximum": 9999,
+              "minimum": 1
             },
             "maxVolumeBps": {
               "$ref": "#/definitions/maxVolumeBps"
@@ -82,6 +88,8 @@
       "title": "Max Volume Basis Point (BPS)",
       "description": "The maximum volume in basis points (BPS) to be paid to the partner. Capped at protocol level to 100 BPS (1%). You can chose to go lower but not higher",
       "$ref": "../definitions.json#/definitions/bps",
+      "maximum": 100,
+      "minimum": 1,
       "default": 100
     },
     "recipient": {
