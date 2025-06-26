@@ -150,11 +150,11 @@ export type ReplacedOrderUID = string;
 /**
  * Id of a blockchain where funds will be received
  */
-export type BridgingDestinationChainId = number;
+export type BridgingDestinationChainId = string;
 /**
- * Address of a token that will be received at destination chain
+ * Address of a token that will be received at destination chain. The chain might be EMV or non-EVM
  */
-export type BridgingDestinationToken = string;
+export type BridgingDestinationTokenAddress = string;
 
 /**
  * Metadata JSON document for adding information to orders.
@@ -220,6 +220,5 @@ export interface ReplacedOrder {
 }
 export interface Bridging {
   destinationChainId: BridgingDestinationChainId;
-  destinationTokenAddress: BridgingDestinationToken;
-  [k: string]: unknown;
+  destinationTokenAddress: BridgingDestinationTokenAddress;
 }

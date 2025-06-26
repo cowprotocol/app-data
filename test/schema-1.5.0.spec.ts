@@ -15,42 +15,55 @@ describe('Schema v1.5.0: Add bridging metadata 1.0.0', () => {
   test('Minimal valid schema', buildAssertValidFn(validator, BASE_DOCUMENT))
 
   test(
-    'Valid destination token address and chainId',
+    'Valid destination token address and chainId (EVM)',
     buildAssertValidFn(validator, {
       ...BASE_DOCUMENT,
       metadata: {
         bridging: {
           destinationTokenAddress: '0x00E989b87700514118Fa55326CD1cCE82faebEF6',
-          destinationChainId: 42161
+          destinationChainId: '42161'
         }
       },
     })
   )
 
   test(
-    'Invalid destination token address (must match the ethereum address regex)',
+    'Valid destination token address and chainId (non-EVM)',
+    buildAssertValidFn(validator, {
+      ...BASE_DOCUMENT,
+      metadata: {
+        bridging: {
+          destinationTokenAddress: 'A.b19436aae4d94622.FiatToken',
+          destinationChainId: 'hedera-hashgraph'
+        }
+      },
+    })
+  )
+
+  test(
+    'Invalid destination token address (should not contain %)',
     buildAssertInvalidFn(
       validator,
       {
         ...BASE_DOCUMENT,
-        metadata: {bridging: {destinationTokenAddress: '0x1', destinationChainId: 42161}},
+        metadata: {bridging: {destinationTokenAddress: '0x1%', destinationChainId: '42161'}},
       },
       [
         {
-          'instancePath': '/metadata/bridging/destinationTokenAddress',
-          'keyword': 'pattern',
-          'message': 'must match pattern "^0x[a-fA-F0-9]{40}$"',
-          'params': {
-            'pattern': '^0x[a-fA-F0-9]{40}$'
+          "instancePath": "/metadata/bridging/destinationTokenAddress",
+          "keyword": "pattern",
+          "message": "must match pattern \"^[a-zA-Z0-9\\-.]{3,64}$\"",
+          "params": {
+            "pattern": "^[a-zA-Z0-9\\-.]{3,64}$"
           },
-          'schemaPath': '#/properties/metadata/properties/partnerFee/definitions/recipient/pattern'
+          "schemaPath": "#/properties/metadata/properties/bridging/properties/destinationTokenAddress/pattern"
         }
       ]
     )
   )
 
   test(
-    'Invalid destination chainId (must be an integer)',
+    'Invalid destination chainId (should not contain spaces)',
     buildAssertInvalidFn(
       validator,
       {
@@ -58,19 +71,19 @@ describe('Schema v1.5.0: Add bridging metadata 1.0.0', () => {
         metadata: {
           bridging: {
             destinationTokenAddress: '0x00E989b87700514118Fa55326CD1cCE82faebEF6',
-            destinationChainId: 'a2'
+            destinationChainId: 'a 2'
           }
         },
       },
       [
         {
-          'instancePath': '/metadata/bridging/destinationChainId',
-          'keyword': 'type',
-          'message': 'must be integer',
-          'params': {
-            'type': 'integer'
+          "instancePath": "/metadata/bridging/destinationChainId",
+          "keyword": "pattern",
+          "message": "must match pattern \"^[a-zA-Z0-9\\-_]{1,32}$\"",
+          "params": {
+            "pattern": "^[a-zA-Z0-9\\-_]{1,32}$"
           },
-          'schemaPath': '#/properties/metadata/properties/bridging/properties/destinationChainId/type'
+          "schemaPath": "#/properties/metadata/properties/bridging/properties/destinationChainId/pattern"
         }
       ]
     )

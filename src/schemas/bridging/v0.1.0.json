@@ -7,6 +7,7 @@
   ],
   "title": "Bridging",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "destinationChainId": {
       "$ref": "../definitions.json#/definitions/chainId",
@@ -14,9 +15,16 @@
       "description": "Id of a blockchain where funds will be received"
     },
     "destinationTokenAddress": {
-      "$ref": "../definitions.json#/definitions/ethereumAddress",
-      "title": "Bridging destination token",
-      "description": "Address of a token that will be received at destination chain"
+      "title": "Bridging destination token address",
+      "description": "Address of a token that will be received at destination chain. The chain might be EMV or non-EVM",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9\\-.]{3,64}$",
+      "examples": [
+        "0x00E989b87700514118Fa55326CD1cCE82faebEF6",
+        "A.b19436aae4d94622.FiatToken",
+        "0.0.456858",
+        "1337"
+      ]
     }
   }
 }
