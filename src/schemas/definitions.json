@@ -25,6 +25,13 @@
       "examples": ["90741097240912730913", "0", "75891372"],
       "type": "string"
     },
+    "bigPositiveNumber": {
+      "$id": "#/definitions/bigPositiveNumber",
+      "pattern": "^[1-9]\\d*$",
+      "title": "BigPositiveNumber",
+      "examples": ["90741097240912730913", "75891372", "1"],
+      "type": "string"
+    },
     "bps": {
       "$id": "#/definitions/bps",
       "title": "Basis Point (BPS)",
