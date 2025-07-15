@@ -16,9 +16,9 @@
     },
     "destinationTokenAddress": {
       "title": "Bridging destination token address",
-      "description": "Address of a token that will be received at destination chain. The chain might be EMV or non-EVM",
+      "description": "Address of a token that will be received at destination chain. The chain might be EVM or non-EVM. Some chains might even not have a token address. E.g.: Bitcoin",
       "type": "string",
-      "pattern": "^[a-zA-Z0-9\\-.]{3,64}$",
+      "pattern": "^[a-zA-Z0-9\\-.]{1,64}$",
       "examples": [
         "0x00E989b87700514118Fa55326CD1cCE82faebEF6",
         "A.b19436aae4d94622.FiatToken",

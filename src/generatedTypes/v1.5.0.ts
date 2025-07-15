@@ -152,7 +152,7 @@ export type ReplacedOrderUID = string;
  */
 export type BridgingDestinationChainId = string;
 /**
- * Address of a token that will be received at destination chain. The chain might be EMV or non-EVM
+ * Address of a token that will be received at destination chain. The chain might be EVM or non-EVM. Some chains might even not have a token address. E.g.: Bitcoin
  */
 export type BridgingDestinationTokenAddress = string;
 
