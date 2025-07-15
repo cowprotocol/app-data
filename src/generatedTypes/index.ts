@@ -17,10 +17,11 @@ import * as v1_2_0 from './v1.2.0'
 import * as v1_3_0 from './v1.3.0'
 import * as v1_4_0 from './v1.4.0'
 import * as v1_5_0 from './v1.5.0'
+import * as v1_6_0 from './v1.6.0'
 
 export * from './latest'
 
-export const LATEST_APP_DATA_VERSION = '1.5.0'
+export const LATEST_APP_DATA_VERSION = '1.6.0'
 export const LATEST_QUOTE_METADATA_VERSION = '1.1.0'
 export const LATEST_REFERRER_METADATA_VERSION = '0.2.0'
 export const LATEST_ORDER_CLASS_METADATA_VERSION = '0.3.0'
@@ -31,8 +32,9 @@ export const LATEST_WIDGET_METADATA_VERSION = '0.1.0'
 export const LATEST_PARTNER_FEE_METADATA_VERSION = '1.0.0'
 export const LATEST_REPLACED_ORDER_METADATA_VERSION = '0.1.0'
 
-export type LatestAppDataDocVersion = v1_5_0.AppDataRootSchema
+export type LatestAppDataDocVersion = v1_6_0.AppDataRootSchema
 export type AnyAppDataDocVersion = 
+  | v1_6_0.AppDataRootSchema
   | v1_5_0.AppDataRootSchema
   | v1_4_0.AppDataRootSchema
   | v1_3_0.AppDataRootSchema
@@ -52,6 +54,7 @@ export type AnyAppDataDocVersion =
   | v0_1_0.AppDataRootSchema
 
 export {
+  v1_6_0,
   v1_5_0,
   v1_4_0,
   v1_3_0,
