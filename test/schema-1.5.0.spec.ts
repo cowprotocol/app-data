@@ -52,9 +52,9 @@ describe('Schema v1.5.0: Add bridging metadata 1.0.0', () => {
         {
           "instancePath": "/metadata/bridging/destinationTokenAddress",
           "keyword": "pattern",
-          "message": "must match pattern \"^[a-zA-Z0-9\\-.]{3,64}$\"",
+          "message": "must match pattern \"^[a-zA-Z0-9\\-.]{1,64}$\"",
           "params": {
-            "pattern": "^[a-zA-Z0-9\\-.]{3,64}$"
+            "pattern": "^[a-zA-Z0-9\\-.]{1,64}$"
           },
           "schemaPath": "#/properties/metadata/properties/bridging/properties/destinationTokenAddress/pattern"
         }
