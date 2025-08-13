@@ -59,7 +59,7 @@ describe('getAppDataInfo', () => {
     }
 
     // when & then
-    await assert.rejects(getAppDataInfo(doc), 'Invalid appData provided')
+    await assert.rejects(getAppDataInfo(doc), /Invalid appData provided/)
   })
 })
 
@@ -84,6 +84,6 @@ describe('getAppDataInfoLegacy', () => {
     }
 
     // when & then
-    await assert.rejects(getAppDataInfoLegacy(doc), 'Invalid appData provided')
+    await assert.rejects(getAppDataInfoLegacy(doc), /Invalid appData provided/)
   })
 })
