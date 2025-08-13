@@ -82,9 +82,9 @@ async function _toCidBytes({
   hashingLength,
   multihashHex,
 }: ToCidParmams): Promise<Uint8Array> {
-  const module = await import('ethers/lib/utils')
-  const { arrayify } = module.default || module
-  const hashBytes = arrayify(multihashHex)
+  const module = await import('ethers')
+  const { toBeArray } = module.default || module
+  const hashBytes = toBeArray(multihashHex)
 
   // Concat prefix and multihash
   const cidPrefix = Uint8Array.from([version, multicodec, hashingAlgorithm, hashingLength])

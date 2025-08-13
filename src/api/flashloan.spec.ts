@@ -1,3 +1,6 @@
+import { describe, test } from 'node:test'
+import assert from 'node:assert'
+
 import { APP_DATA_DOC_WITH_FLASHLOAN } from '../mocks'
 import { generateAppDataDoc } from './generateAppDataDoc'
 import { validateAppDataDoc } from './validateAppDataDoc'
@@ -20,8 +23,8 @@ describe('Flashloan metadata', () => {
     })
 
     // then
-    expect(appDataDoc.metadata.flashloan).toEqual(flashloanMetadata)
-    expect(appDataDoc.version).toBe('1.6.0')
+    assert.strictEqual(appDataDoc.metadata.flashloan, flashloanMetadata)
+    assert.strictEqual(appDataDoc.version, '1.6.0')
   })
 
   test('Validates valid flashloan metadata', async () => {
@@ -29,8 +32,8 @@ describe('Flashloan metadata', () => {
     const validation = await validateAppDataDoc(APP_DATA_DOC_WITH_FLASHLOAN)
 
     // then
-    expect(validation.success).toBeTruthy()
-    expect(validation.errors).toBeUndefined()
+    assert(validation.success)
+    assert(!validation.errors)
   })
 
   test('Fails validation with invalid lender address', async () => {
@@ -49,8 +52,8 @@ describe('Flashloan metadata', () => {
     const validation = await validateAppDataDoc(invalidDoc)
 
     // then
-    expect(validation.success).toBeFalsy()
-    expect(validation.errors).toContain('data/metadata/flashloan/lender must match pattern "^0x[a-fA-F0-9]{40}$"')
+    assert(!validation.success)
+    assert.strictEqual(validation.errors, 'data/metadata/flashloan/lender must match pattern "^0x[a-fA-F0-9]{40}$"')
   })
 
   test('Fails validation with invalid amount', async () => {
@@ -69,8 +72,8 @@ describe('Flashloan metadata', () => {
     const validation = await validateAppDataDoc(invalidDoc)
 
     // then
-    expect(validation.success).toBeFalsy()
-    expect(validation.errors).toContain('data/metadata/flashloan/amount must match pattern "^[1-9]\\d*$"')
+    assert(!validation.success)
+    assert.strictEqual(validation.errors, 'data/metadata/flashloan/amount must match pattern "^[1-9]\\d*$"')
   })
 
   test('Fails validation with zero amount', async () => {
@@ -89,8 +92,8 @@ describe('Flashloan metadata', () => {
     const validation = await validateAppDataDoc(invalidDoc)
 
     // then
-    expect(validation.success).toBeFalsy()
-    expect(validation.errors).toContain('data/metadata/flashloan/amount must match pattern "^[1-9]\\d*$"')
+    assert(!validation.success)
+    assert.strictEqual(validation.errors, 'data/metadata/flashloan/amount must match pattern "^[1-9]\\d*$"')
   })
 
   test('Fails validation with missing required fields', async () => {
@@ -110,8 +113,8 @@ describe('Flashloan metadata', () => {
     const validation = await validateAppDataDoc(invalidDoc)
 
     // then
-    expect(validation.success).toBeFalsy()
-    expect(validation.errors).toContain("data/metadata/flashloan must have required property 'borrower'")
+    assert(!validation.success)
+    assert.strictEqual(validation.errors, "data/metadata/flashloan must have required property 'borrower'")
   })
 
   test('Creates appDataDoc with flashloan and other metadata', async () => {
@@ -133,7 +136,7 @@ describe('Flashloan metadata', () => {
     const appDataDoc = await generateAppDataDoc({ metadata })
 
     // then
-    expect(appDataDoc.metadata).toEqual(metadata)
-    expect(appDataDoc.version).toBe('1.6.0')
+    assert.strictEqual(appDataDoc.metadata, metadata)
+    assert.strictEqual(appDataDoc.version, '1.6.0')
   })
 })

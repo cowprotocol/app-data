@@ -111,10 +111,10 @@ export async function _appDataToCidAux(
  * @returns the IPFS CID v0 of the content
  */
 async function _appDataToCid(fullAppDataJson: string): Promise<string> {
-  const module = await import('ethers/lib/utils')
+  const module = await import('ethers')
   const { keccak256, toUtf8Bytes } = module.default || module
 
-  const appDataHex = await keccak256(toUtf8Bytes(fullAppDataJson))
+  const appDataHex = keccak256(toUtf8Bytes(fullAppDataJson))
   return appDataHexToCid(appDataHex)
 }
 

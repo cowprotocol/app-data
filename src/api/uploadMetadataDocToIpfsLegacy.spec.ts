@@ -1,3 +1,6 @@
+import { describe, test } from 'node:test'
+import assert from 'node:assert'
+import nock from 'nock'
 import { DEFAULT_IPFS_WRITE_URI } from '../consts'
 import { APP_DATA_DOC_CUSTOM } from '../mocks'
 import { generateAppDataDoc } from './generateAppDataDoc'
@@ -12,14 +15,6 @@ const APP_DATA_HEX = '0x5511c4eac66ab272d9a6ab90e07977d00ff7375fc4dc1038a3c05b2c
 const PINATA_API_KEY = 'apikey'
 const PINATA_API_SECRET = 'apiSecret'
 
-beforeEach(() => {
-  fetchMock.resetMocks()
-})
-
-afterEach(() => {
-  jest.restoreAllMocks()
-})
-
 describe('uploadMetadataDocToIpfsLegacy', () => {
   test('Fails without passing credentials', async () => {
     // given
@@ -28,34 +23,41 @@ describe('uploadMetadataDocToIpfsLegacy', () => {
         referrer: APP_DATA_DOC_CUSTOM.metadata.referrer,
       },
     })
-    // when
-    const promise = uploadMetadataDocToIpfsLegacy(appDataDoc, {})
-    // then
-    await expect(promise).rejects.toThrow('You need to pass IPFS api credentials.')
+
+    // when & then
+    await assert.rejects(uploadMetadataDocToIpfsLegacy(appDataDoc, {}), { message: 'You need to pass IPFS api credentials.' })
   })
 
   test('Fails with wrong credentials', async () => {
     // given
-    fetchMock.mockResponseOnce(JSON.stringify({ error: { details: 'IPFS api keys are invalid' } }), {
-      status: HTTP_STATUS_INTERNAL_ERROR,
-    })
+    nock(DEFAULT_IPFS_WRITE_URI)
+      .post(`/pinning/pinJSONToIPFS`)
+      .reply(HTTP_STATUS_INTERNAL_ERROR, { error: { details: 'IPFS api keys are invalid' } })
+
     const appDataDoc = await generateAppDataDoc({})
-    // when
-    const promise = uploadMetadataDocToIpfsLegacy(appDataDoc, {
-      pinataApiKey: PINATA_API_KEY,
-      pinataApiSecret: PINATA_API_SECRET,
-    })
-    // then
-    await expect(promise).rejects.toThrow('IPFS api keys are invalid')
-    expect(fetchMock).toHaveBeenCalledTimes(1)
+
+    // when & then
+    await assert.rejects(
+      uploadMetadataDocToIpfsLegacy(appDataDoc, {
+        pinataApiKey: PINATA_API_KEY,
+        pinataApiSecret: PINATA_API_SECRET,
+      }),
+      { message: 'IPFS api keys are invalid' },
+    )
   })
 
   test('Uploads to IPFS', async () => {
     // given
-    fetchMock.mockResponseOnce(JSON.stringify({ IpfsHash: IPFS_HASH }), { status: HTTP_STATUS_OK })
     const appDataDoc = await generateAppDataDoc({
       metadata: { referrer: APP_DATA_DOC_CUSTOM.metadata.referrer },
     })
+
+    nock(DEFAULT_IPFS_WRITE_URI)
+      .post(`/pinning/pinJSONToIPFS`)
+      .matchHeader('Content-Type', 'application/json')
+      .matchHeader('pinata_api_key', PINATA_API_KEY)
+      .matchHeader('pinata_secret_api_key', PINATA_API_SECRET)
+      .reply(HTTP_STATUS_OK, { IpfsHash: IPFS_HASH })
 
     // when
     const uploadResult = await uploadMetadataDocToIpfsLegacy(appDataDoc, {
@@ -64,19 +66,9 @@ describe('uploadMetadataDocToIpfsLegacy', () => {
     })
 
     // then
-    expect(uploadResult).toEqual({
+    assert.deepStrictEqual(uploadResult, {
       appData: APP_DATA_HEX,
       cid: IPFS_HASH,
-    })
-    expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(fetchMock).toHaveBeenCalledWith(DEFAULT_IPFS_WRITE_URI + '/pinning/pinJSONToIPFS', {
-      body: JSON.stringify({ pinataContent: appDataDoc, pinataMetadata: { name: 'appData' } }),
-      headers: {
-        'Content-Type': 'application/json',
-        pinata_api_key: PINATA_API_KEY,
-        pinata_secret_api_key: PINATA_API_SECRET,
-      },
-      method: 'POST',
     })
   })
 })

@@ -1,5 +1,4 @@
 import type { CID, MultibaseDecoder } from 'multiformats/cid'
-import { Buffer } from 'buffer'
 
 // CID uses multibase to self-describe the encoding used (See https://github.com/multiformats/multibase)
 //   - Most reference implementations (multiformats/cid or Pinata, etc) use base58btc encoding

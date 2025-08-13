@@ -1,7 +1,8 @@
-import * as fs from 'fs'
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
 import $RefParser from 'json-schema-ref-parser'
 import { compileFromFile } from 'json-schema-to-typescript'
-import * as path from 'path'
 import semverSort from 'semver-sort'
 
 const SCHEMAS_SRC_PATH = path.join('src', 'schemas')
@@ -11,17 +12,17 @@ const TYPES_DEST_PATH = path.join('src', 'generatedTypes')
 async function compile(): Promise<void> {
   // Creates destinations dirs
   console.info(`Creating '${TYPES_DEST_PATH}' and '${SCHEMAS_DEST_PATH}' dirs`)
-  await fs.promises.mkdir(TYPES_DEST_PATH, { recursive: true })
-  await fs.promises.mkdir(SCHEMAS_DEST_PATH)
+  await fs.mkdir(TYPES_DEST_PATH, { recursive: true })
+  await fs.mkdir(SCHEMAS_DEST_PATH)
 
   // Generates out file for types/index.ts
   const typesIndexPath = path.join(TYPES_DEST_PATH, 'index.ts')
   console.info(`Creating ${typesIndexPath} file`)
-  const typesIndexFile = await fs.promises.open(typesIndexPath, 'w')
+  const typesIndexFile = await fs.open(typesIndexPath, 'w')
 
   // Generates out file for types/latest.ts
   const latestIndexPath = path.join(TYPES_DEST_PATH, 'latest.ts')
-  const latestIndexFile = await fs.promises.open(latestIndexPath, 'w')
+  const latestIndexFile = await fs.open(latestIndexPath, 'w')
 
   const generatedFiles = [typesIndexFile, latestIndexFile]
   await generatedFiles.forEach(async (file) => {
@@ -29,7 +30,7 @@ async function compile(): Promise<void> {
   })
 
   // Lists all schemas
-  const schemas = await fs.promises.readdir(SCHEMAS_SRC_PATH, { withFileTypes: true })
+  const schemas = await fs.readdir(SCHEMAS_SRC_PATH, { withFileTypes: true })
   const versions: string[] = []
 
   for (const schemaFileName of schemas) {
@@ -46,12 +47,12 @@ async function compile(): Promise<void> {
     // Compiles schema files de-referencing `$ref`s
     console.info(`Compiling bundled schema file for ${schemaPath}`)
     const newSchemaFile = await $RefParser.bundle(schemaPath)
-    await fs.promises.writeFile(path.join(SCHEMAS_DEST_PATH, `${version}.json`), JSON.stringify(newSchemaFile))
+    await fs.writeFile(path.join(SCHEMAS_DEST_PATH, `${version}.json`), JSON.stringify(newSchemaFile))
 
     // Compiles schema onto ts type declarations
     console.info(`Compiling ts typings for ${schemaPath}`)
     const tsFile = await compileFromFile(schemaPath, { cwd: SCHEMAS_SRC_PATH })
-    await fs.promises.writeFile(path.join(TYPES_DEST_PATH, `${version}.ts`), tsFile)
+    await fs.writeFile(path.join(TYPES_DEST_PATH, `${version}.ts`), tsFile)
 
     // Add export on types/index.ts for this version
     console.info(`Adding ts export for ${version}`)
@@ -131,6 +132,6 @@ async function getLatestMetadataDocVersion(
     | 'replacedOrder'
 ): Promise<string> {
   const metadataPath = path.join(SCHEMAS_SRC_PATH, metadataDocName)
-  const versions = await fs.promises.readdir(metadataPath)
+  const versions = await fs.readdir(metadataPath)
   return semverSort.desc(versions)[0]
 }
